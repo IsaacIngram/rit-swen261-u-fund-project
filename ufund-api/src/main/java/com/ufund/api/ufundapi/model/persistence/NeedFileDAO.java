@@ -98,4 +98,14 @@ public class NeedFileDAO implements NeedDAO {
         return true;
     }
 
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Need[] getNeeds() {
+        synchronized (needs) {
+            return getNeedsArray();
+        }
+    }
+
 }
