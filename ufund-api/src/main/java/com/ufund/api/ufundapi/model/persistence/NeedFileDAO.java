@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Component
-public class NeedFileDAO {
+public class NeedFileDAO implements NeedDAO {
 
     Map<Integer, Need> needs; // Local cache of needs, so we don't need to read/write file constantly
     private ObjectMapper objectMapper; // Conversion between Need and JSON text for writing to file
