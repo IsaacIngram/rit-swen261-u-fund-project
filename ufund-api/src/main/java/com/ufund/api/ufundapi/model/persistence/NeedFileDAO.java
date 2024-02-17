@@ -21,7 +21,7 @@ public class NeedFileDAO implements NeedDAO {
 
     private String filePath; // File path to read/write data to
 
-    public NeedFileDAO(@Value("data/needs.json") String filePath, ObjectMapper objectMapper) throws IOException {
+    public NeedFileDAO(@Value("${needs.file}") String filePath, ObjectMapper objectMapper) throws IOException {
         this.filePath = filePath;
         this.objectMapper = objectMapper;
         load();
