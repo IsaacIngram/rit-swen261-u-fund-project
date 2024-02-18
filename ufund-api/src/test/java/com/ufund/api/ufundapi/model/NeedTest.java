@@ -11,16 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Tag("Model-tier")
 public class NeedTest {
 
+    /**
+     * Test instantiating a new Need and getting its attributes to ensure that
+     * the data is correctly stored.
+     */
     @Test
     public void testGetAttributes() {
-
-        // Setup expected data
+        // Setup
         int expected_id = 3;
         String expected_name = "Water";
         float expected_price = 3.21f;
         int expected_quantity = 5;
 
-        // Invoke creation and storage
+        // Invoke
         Need need = new Need(
                 expected_id,
                 expected_name,
