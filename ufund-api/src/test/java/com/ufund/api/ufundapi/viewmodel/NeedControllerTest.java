@@ -54,20 +54,7 @@ public class NeedControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        Need[] response_body = response.getBody();
-        if(response_body == null) {
-            fail("Received null response body");
-        } else {
-            // Iterate through all responses
-            for (int i = 0; i < needs.length; i++) {
-                // Check that this response is in bounds of expected
-                if (i < response.getBody().length) {
-                    assertEquals(needs[i], response.getBody()[i]);
-                } else {
-                    fail("Response content is larger than expected output");
-                }
-            }
-        }
+        assertEquals(needs, response.getBody());
     }
 
 }
