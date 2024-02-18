@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -37,6 +39,22 @@ public class NeedFileDAOTest {
         when(mockObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(testNeeds);
         needFileDao = new NeedFileDAO("anything.txt", mockObjectMapper);
+    }
+
+    /**
+     * Test getting multiple Needs
+     */
+    @Test
+    public void testGetNeeds() {
+        // Invoke
+        Need[] needs = needFileDao.getNeeds();
+
+        // Analyze
+        assertEquals(needs.length, testNeeds.length);
+        for(int i = 0; i < testNeeds.length; i++) {
+            assertEquals(needs[i], testNeeds[i]);
+        }
+
     }
 
 }
