@@ -1,5 +1,9 @@
 package com.ufund.api.ufundapi.model.persistence;
 
+import com.ufund.api.ufundapi.model.Need;
+
+import java.io.IOException;
+
 public interface NeedDAO {
     /**
      * Retrieves a {@linkplain Need need} with the given id
