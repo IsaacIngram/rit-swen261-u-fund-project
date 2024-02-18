@@ -5,6 +5,7 @@ import com.ufund.api.ufundapi.model.persistence.NeedDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.when;
  * Test the Need Controller class
  */
 @Tag("Controller-tier")
+@SpringBootTest
 public class NeedControllerTest {
 
     private NeedController needController;
