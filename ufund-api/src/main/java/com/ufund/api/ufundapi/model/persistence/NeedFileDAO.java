@@ -33,20 +33,6 @@ public class NeedFileDAO implements NeedDAO {
      * @return Boolean: True if the file was read successfully
      * @throws IOException When the file cannot be accessed or read
      */
-    private boolean load() throws IOException {
-        needs = new TreeMap<>();
-        nextId = 0;
-
-        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
-
-        for (Need need: needArray) {
-            needs.put(need.getId(), need);
-            if(need.getId() > nextId)
-                nextId = need.getId();
-        }
-        ++nextId;
-        return true;
-    }
 
     /**
      * Generate the next ID for a new {Need}
@@ -98,4 +84,31 @@ public class NeedFileDAO implements NeedDAO {
         return true;
     }
 
+    private boolean load() throws IOException {
+        needs = new TreeMap<>();
+        nextId = 0;
+
+        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
+
+        for (Need need: needArray) {
+            needs.put(need.getId(), need);
+            if(need.getId() > nextId)
+                nextId = need.getId();
+        }
+        ++nextId;
+        return true;
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Need getNeed(int id) {
+        synchronized(needs) {
+            if (needs.containsKey(id))
+                return needs.get(id);
+            else
+                return null;
+        }
+    }
 }
