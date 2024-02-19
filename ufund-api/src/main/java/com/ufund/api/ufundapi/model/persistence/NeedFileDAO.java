@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.ufund.api.ufundapi.model.Need;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,7 @@ public class NeedFileDAO implements NeedDAO {
         // Attempt to read file
         try {
             needArray = objectMapper.readValue(new File(filePath), Need[].class);
-        } catch(EOFException e) {
+        } catch(EOFException | MismatchedInputException e) {
             // Handle case where file is empty
             needArray = new Need[0];
         }
