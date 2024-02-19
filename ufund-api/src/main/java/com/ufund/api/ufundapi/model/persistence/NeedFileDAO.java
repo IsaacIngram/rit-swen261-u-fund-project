@@ -5,6 +5,7 @@ import com.ufund.api.ufundapi.model.Need;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,20 +38,18 @@ public class NeedFileDAO implements NeedDAO {
         needs = new TreeMap<>();
         nextId = 0;
 
-        File file = new File(filePath);
+        try {
 
-        if(file.length() == 0) {
-            return true;
+            Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
+            for (Need need: needArray) {
+                needs.put(need.getId(), need);
+                if(need.getId() > nextId)
+                    nextId = need.getId();
+            }
+            ++nextId;
+        } catch(EOFException e) {
+            Need[] needArray = new Need[0];
         }
-
-        Need[] needArray = objectMapper.readValue(file, Need[].class);
-
-        for (Need need: needArray) {
-            needs.put(need.getId(), need);
-            if(need.getId() > nextId)
-                nextId = need.getId();
-        }
-        ++nextId;
         return true;
     }
 
