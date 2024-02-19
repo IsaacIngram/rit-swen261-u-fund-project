@@ -26,27 +26,7 @@ public class NeedFileDAO implements NeedDAO {
         this.objectMapper = objectMapper;
         load();
     }
-
-    /**
-     * Loads Needs from the JSON file into the map and sets
-     * the nextID to one more than the greatest ID found in the JSON file
-     * @return Boolean: True if the file was read successfully
-     * @throws IOException When the file cannot be accessed or read
-     */
-    private boolean load() throws IOException {
-        needs = new TreeMap<>();
-        nextId = 0;
-
-        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
-
-        for (Need need: needArray) {
-            needs.put(need.getId(), need);
-            if(need.getId() > nextId)
-                nextId = need.getId();
-        }
-        ++nextId;
-        return true;
-    }
+    
 
     /**
      * Generate the next ID for a new {Need}
@@ -98,4 +78,35 @@ public class NeedFileDAO implements NeedDAO {
         return true;
     }
 
+    /**
+     * Loads Needs from the JSON file into the map and sets
+     * the nextID to one more than the greatest ID found in the JSON file
+     * @return Boolean: True if the file was read successfully
+     * @throws IOException When the file cannot be accessed or read
+     */
+    private boolean load() throws IOException {
+        needs = new TreeMap<>();
+        nextId = 0;
+
+        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
+
+        for (Need need: needArray) {
+            needs.put(need.getId(), need);
+            if(need.getId() > nextId)
+                nextId = need.getId();
+        }
+        ++nextId;
+        return true;
+    }
+
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Need[] findNeeds(String containsText) {
+        synchronized(needs) {
+            return getNeedsArray(containsText);
+        }
+    }
 }
