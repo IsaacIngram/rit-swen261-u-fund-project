@@ -45,7 +45,7 @@ public class NeedFileDAOTest {
     }
 
     @Test
-    public void testDeleteNeed(){
+    public void testCreateNeed(){
         try {
             Need need = needFileDao.createNeed(testNeeds[0]);
             assertEquals(testNeeds[0], need);
