@@ -37,7 +37,13 @@ public class NeedFileDAO implements NeedDAO {
         needs = new TreeMap<>();
         nextId = 0;
 
-        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
+        File file = new File(filePath);
+
+        if(file.length() == 0) {
+            return true;
+        }
+
+        Need[] needArray = objectMapper.readValue(file, Need[].class);
 
         for (Need need: needArray) {
             needs.put(need.getId(), need);
