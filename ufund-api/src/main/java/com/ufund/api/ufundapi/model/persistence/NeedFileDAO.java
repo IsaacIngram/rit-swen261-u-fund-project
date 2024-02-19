@@ -98,4 +98,18 @@ public class NeedFileDAO implements NeedDAO {
         return true;
     }
 
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public boolean deleteNeed(int id) throws IOException {
+        synchronized(needs) {
+            if (needs.containsKey(id)) {
+                needs.remove(id);
+                return save();
+            }
+            else
+                return false;
+        }
+    }
 }
