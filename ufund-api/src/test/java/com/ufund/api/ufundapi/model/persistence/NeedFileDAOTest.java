@@ -23,8 +23,11 @@ import static org.mockito.Mockito.when;
 public class NeedFileDAOTest {
 
     NeedFileDAO needFileDao;
+    NeedFileDAO emptyNeedFileDao;
     Need[] testNeeds;
+    Need[] emptyNeeds;
     ObjectMapper mockObjectMapper;
+    ObjectMapper mockEmptyObjectMapper;
 
     /**
      * Before each test, create and inject a mock ObjectMapper to isolate the
@@ -43,6 +46,41 @@ public class NeedFileDAOTest {
         when(mockObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(testNeeds);
         needFileDao = new NeedFileDAO("anything.txt", mockObjectMapper);
+
+        // Create an empty mock DAO and mock datafile
+        emptyNeeds = new Need[0];
+        mockEmptyObjectMapper = mock(ObjectMapper.class);
+        when(mockEmptyObjectMapper.readValue(new File("anything.txt"), Need[].class))
+                .thenReturn(emptyNeeds);
+        emptyNeedFileDao = new NeedFileDAO("anything.txt", mockEmptyObjectMapper);
+    }
+
+    /**
+     * Test getting multiple Needds
+     */
+    @Test
+    public void testGetNeeds() throws IOException {
+        // Invoke
+        Need[] needs = needFileDao.getNeeds();
+
+        // Analyze
+        assertEquals(testNeeds.length, needs.length);
+        for(int i = 0; i < testNeeds.length; i++) {
+            assertEquals(needs[i], testNeeds[i]);
+        }
+
+    }
+
+    /**
+     * Test getting multiple Needs when the needs file is empty
+     */
+    @Test
+    public void testGetNeedsWhenEmpty() throws IOException {
+        // Invoke
+        Need[] needs = emptyNeedFileDao.getNeeds();
+
+        // Analyze
+        assertEquals(0, emptyNeeds.length);
     }
 
     /**
