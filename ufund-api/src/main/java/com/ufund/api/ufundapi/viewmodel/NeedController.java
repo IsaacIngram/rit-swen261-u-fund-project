@@ -45,7 +45,7 @@ public class NeedController {
         try {
             boolean result = needDao.deleteNeed(id);
             if(result) {
-                // Hero was deleted
+                // Need was deleted
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 // ID did not exist
