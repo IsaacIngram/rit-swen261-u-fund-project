@@ -68,6 +68,33 @@ public class NeedTest {
     }
 
     /**
+     * Test setting the type of Need
+     */
+    @Test
+    public void testSetType() {
+        // Setup
+        int id = 3;
+        String name = "Water";
+        String old_type = "BEVERAGE";
+        String new_type = "GROCERY";
+        float price = 3.21f;
+        int quantity = 5;
+
+        // Invoke
+        Need need = new Need(
+                id,
+                name,
+                old_type,
+                price,
+                quantity
+        );
+        need.setType(new_type);
+
+        // Analyze
+        assertEquals(new_type, need.getType());
+    }
+
+    /**
      * Test setting the price of a Need
      */
     @Test
