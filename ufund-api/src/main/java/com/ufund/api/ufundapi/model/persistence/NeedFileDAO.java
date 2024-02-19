@@ -98,4 +98,17 @@ public class NeedFileDAO implements NeedDAO {
         return true;
     }
 
+    @Override
+    public Need updateNeed(Need need) throws IOException {
+        synchronized (needs) {
+            if(needs.containsKey(need.getId()) == false) {
+                // Need does not exist; cannot be updated
+                return null;
+            }
+            needs.put(need.getId(), need);
+            save();
+            return need;
+        }
+    }
+
 }
