@@ -94,4 +94,13 @@ public class Need {
         return String.format(STRING_FORMAT, id, name, price, quantity);
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Need){
+            Need object = (Need)o;
+            return this.id == object.getId() && this.name.equals(object.getName()) && this.price == object.getPrice() ;
+        }
+        return false;
+    }
+
 }
