@@ -52,7 +52,7 @@ public class NeedFileDAO implements NeedDAO {
      * Generate the next ID for a new {Need}
      * @return Integer next id
      */
-    private synchronized static int getNextId() {
+    private synchronized static int nextId() {
         int id = nextId;
         ++nextId;
         return id;
@@ -96,6 +96,21 @@ public class NeedFileDAO implements NeedDAO {
         Need[] needArray = getNeedsArray();
         objectMapper.writeValue(new File(filePath), needArray);
         return true;
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Need createNeed(Need need) throws IOException {
+        synchronized(needs) {
+            // We create a new need object because the id field is immutable
+            // and we need to assign the next unique id
+            Need newNeed = new Need(nextId(),need.getName(),need.getPrice(), need.getQuantity());
+            needs.put(newNeed.getId(),newNeed);
+            save(); // may throw an IOException
+            return newNeed;
+        }
     }
 
 }
