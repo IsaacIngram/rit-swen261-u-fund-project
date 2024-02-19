@@ -57,4 +57,21 @@ public class NeedControllerTest {
         assertEquals(needs, response.getBody());
     }
 
+    /**
+     * Test get needs if the DAO throws an IOException
+     * @throws IOException
+     */
+    @Test
+    public void testGetNeedsInternalError() throws IOException {
+        // Setup
+        // Tell the mockDAO to throw an IOException when getting needs
+        when(mockNeedDao.getNeeds()).thenThrow(new IOException());
+
+        // Invoke
+        ResponseEntity<Need[]> response = needController.getNeeds();
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
 }
