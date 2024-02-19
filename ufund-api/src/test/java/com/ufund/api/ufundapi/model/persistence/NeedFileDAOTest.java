@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -43,4 +45,33 @@ public class NeedFileDAOTest {
         needFileDao = new NeedFileDAO("anything.txt", mockObjectMapper);
     }
 
+    /**
+     * Test updating a need
+     */
+    @Test
+    public void testUpdateNeed() throws IOException {
+        // Setup
+        Need need = new Need(72, "Ice", 3.78f, 2);
+
+        // Invoke
+        Need result = needFileDao.updateNeed(need);
+
+        // Analyze
+        assertEquals(need, result);
+    }
+
+    /**
+     * Test updating a need that does not exist
+     */
+    @Test
+    public void testUpdateNeedNotFound() throws IOException {
+        // Setup
+        Need need = new Need(1, "Air", 0.00f, 1000);
+
+        // Invoke
+        Need result = needFileDao.updateNeed(need);
+
+        // Analyze
+        assertNull(result);
+    }
 }
