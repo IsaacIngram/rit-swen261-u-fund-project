@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,7 +38,7 @@ public class NeedControllerTest {
     * @throws IOException
     */
     @Test
-    public void testDeleteNeedOk() throws IOException{
+    public void testCreateNeedOk() throws IOException{
         Need okNeed = new Need(1, "Food", 13.0f, 10);
 
         //Creates the response that will be handled through the controler that matches the need in the controler.
@@ -65,7 +64,7 @@ public class NeedControllerTest {
     * @throws IOException
     */
     @Test
-    public void testDeleteNeedServerError() throws IOException{
+    public void testCreateNeedServerError() throws IOException{
         Need serverError = new Need(3, "New_Need", 2.78f, 13);
         
         when(mockNeedDao.createNeed(serverError)).thenThrow(new IOException());
