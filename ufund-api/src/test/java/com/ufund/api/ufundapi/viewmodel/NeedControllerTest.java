@@ -56,7 +56,7 @@ public class NeedControllerTest {
      * @throws IOException
      */
     @Test
-    public void testGetNeedNotFound() throws IOException{
+    public void testDeleteNeedNotFound() throws IOException{
         Need notFoundNeed = new Need(2, "Stuff", 1.5f, 100);
 
         ResponseEntity<Need> respone = needController.deleteNeed(1);
@@ -69,8 +69,8 @@ public class NeedControllerTest {
     * @throws IOException
     */
     @Test
-    public void testGetNeedServerError() throws IOException{
-        Need serverError = new Need(3, "Mihou", 2.78f, 13);
+    public void testDeleteNeedServerError() throws IOException{
+        Need serverError = new Need(3, "New_Need", 2.78f, 13);
         
         when(mockNeedDao.deleteNeed(3)).thenThrow(new IOException());
 
