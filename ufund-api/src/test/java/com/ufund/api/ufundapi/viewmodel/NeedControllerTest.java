@@ -42,9 +42,9 @@ public class NeedControllerTest {
     public void testGetNeeds() throws IOException {
         // Setup
         Need[] needs = new Need[3];
-        needs[0] = new Need(72, "Water", 1.00f, 72);
-        needs[1] = new Need(73, "Food", 12.34f, 3);
-        needs[2] = new Need(74, "Shelter", 1234.56f, 1);
+        needs[0] = new Need(72, "Water", "BEVERAGE", 1.00f, 72);
+        needs[1] = new Need(73, "Food", "FOOD", 12.34f, 3);
+        needs[2] = new Need(74, "Shelter", "HOME", 1234.56f, 1);
         // Tell the mockDAO to return the needs we created above
         when(mockNeedDao.getNeeds()).thenReturn(needs);
 
@@ -80,7 +80,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeedInternalError() throws IOException {
         // Setup
-        Need need = new Need(1, "Water", 1.23f, 10);
+        Need need = new Need(1, "Water", "BEVERAGE", 1.23f, 10);
         when(mockNeedDao.updateNeed(need)).thenThrow(new IOException());
 
         // Invoke
@@ -96,7 +96,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeed() throws IOException {
         // Setup
-        Need need = new Need(1, "Water", 1.23f, 10);
+        Need need = new Need(1, "Water", "BEVERAGE", 1.23f, 10);
         when(mockNeedDao.updateNeed(need)).thenReturn(need);
 
         // Invoke
@@ -113,7 +113,7 @@ public class NeedControllerTest {
     @Test
     public void testUpdateNeedNotFound() throws IOException {
         // Setup
-        Need need = new Need(1, "Water", 1.23f, 10);
+        Need need = new Need(1, "Water", "BEVERAGE", 1.23f, 10);
         when(mockNeedDao.updateNeed(need)).thenReturn(null);
 
         // Invoke
