@@ -37,9 +37,9 @@ public class NeedFileDAOTest {
     public void setupNeedFileDao() throws IOException {
         // Random data that makes up the mock datafile
         testNeeds = new Need[3];
-        testNeeds[0] = new Need(72, "Water", 1.00f, 72);
-        testNeeds[1] = new Need(73, "Food", 12.34f, 3);
-        testNeeds[2] = new Need(74, "Shelter", 1234.56f, 1);
+        testNeeds[0] = new Need(72, "Water", "BEVERAGE", 1.00f, 72);
+        testNeeds[1] = new Need(73, "Food", "FOOD", 12.34f, 3);
+        testNeeds[2] = new Need(74, "Shelter", "HOME", 1234.56f, 1);
 
         // Create a mock ObjectMapper that reads from the mock data above
         mockObjectMapper = mock(ObjectMapper.class);
@@ -89,7 +89,7 @@ public class NeedFileDAOTest {
     @Test
     public void testUpdateNeed() throws IOException {
         // Setup
-        Need need = new Need(72, "Ice", 3.78f, 2);
+        Need need = new Need(72, "Ice", "H2O", 3.78f, 2);
 
         // Invoke
         Need result = needFileDao.updateNeed(need);
@@ -104,7 +104,7 @@ public class NeedFileDAOTest {
     @Test
     public void testUpdateNeedNotFound() throws IOException {
         // Setup
-        Need need = new Need(1, "Air", 0.00f, 1000);
+        Need need = new Need(1, "Air", "H2O", 0.00f, 1000);
 
         // Invoke
         Need result = needFileDao.updateNeed(need);
