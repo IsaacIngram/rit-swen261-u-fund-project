@@ -37,19 +37,26 @@ public class NeedFileDAO implements NeedDAO {
     private boolean load() throws IOException {
         needs = new TreeMap<>();
         nextId = 0;
-
+        Need[] needArray;
+        // Attempt to read file
         try {
-
-            Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
-            for (Need need: needArray) {
-                needs.put(need.getId(), need);
-                if(need.getId() > nextId)
-                    nextId = need.getId();
-            }
-            ++nextId;
+            needArray = objectMapper.readValue(new File(filePath), Need[].class);
         } catch(EOFException e) {
-            Need[] needArray = new Need[0];
+            // Handle case where file is empty
+            needArray = new Need[0];
         }
+        // Check if the JSON we read in actually contains data before trying
+        // to run a for loop on it
+        if(needArray.length == 0) {
+            return true;
+        }
+
+        for (Need need: needArray) {
+            needs.put(need.getId(), need);
+            if(need.getId() > nextId)
+                nextId = need.getId();
+        }
+        ++nextId;
         return true;
     }
 
