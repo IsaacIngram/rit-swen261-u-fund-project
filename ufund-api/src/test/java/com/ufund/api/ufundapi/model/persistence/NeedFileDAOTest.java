@@ -46,14 +46,9 @@ public class NeedFileDAOTest {
 
     @Test
     public void testDeleteNeed(){
-        Need[] testNeedsDeleted = new Need[3];
-        testNeedsDeleted[0] = new Need(72, "Water", 1.00f, 72);
-        testNeedsDeleted[1] = new Need(73, "Food", 12.34f, 3);
         try {
-            needFileDao.deleteNeed(74);
-            for(int i = 0; i < 3; i++){
-                assertEquals(testNeedsDeleted[i], testNeeds[i]);
-            }
+            assertEquals(true, needFileDao.deleteNeed(74) );
+            assertEquals(false, needFileDao.deleteNeed(74) );
         } catch (Exception e) {
             assertEquals(0, 1);
         }
