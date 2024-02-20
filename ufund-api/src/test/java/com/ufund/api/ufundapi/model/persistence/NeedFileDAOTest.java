@@ -55,14 +55,36 @@ public class NeedFileDAOTest {
         emptyNeedFileDao = new NeedFileDAO("anything.txt", mockEmptyObjectMapper);
     }
 
+    /**
+     * Test searching needs
+     */
     @Test
     public void testSearchNeeds(){
-        Need[] arr = needFileDao.findNeeds("Water");
-        assertEquals(arr, testNeeds[0]);
-        arr = needFileDao.findNeeds(null);
-        assertEquals(arr, testNeeds);
-        arr = needFileDao.findNeeds("Food");
-        assertEquals(arr, testNeeds[0]);
+        // Setup
+        String search_string = "e";
+
+        // Invoke
+        Need[] result = needFileDao.findNeeds(search_string);
+
+        // Analyze
+        assertEquals(2, result.length);
+        assertEquals(testNeeds[0], result[0]);
+        assertEquals(testNeeds[2], result[1]);
+    }
+
+    /**
+     * Test searching needs when the search query matches no Need
+     */
+    @Test
+    public void testSearchNeedsNoneExist() throws IOException {
+        // Setup
+        String search_string = "specific string";
+
+        // Invoke
+        Need[] result = needFileDao.findNeeds(search_string);
+
+        // Analyze
+        assertEquals(0, result.length);
     }
 
     /**
