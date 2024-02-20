@@ -41,6 +41,7 @@ public class NeedControllerTest {
     public void testCreateNeedOk() throws IOException{
         Need okNeed = new Need(1, "Food", 13.0f, 10);
 
+        when(mockNeedDao.createNeed(okNeed)).thenReturn(okNeed);
         //Creates the response that will be handled through the controler that matches the need in the controler.
         //Doesn't look at the fileDAO that matches the ID, instead matches the id of the need that was created in the test file.
         ResponseEntity<Need> response = needController.createNeed(okNeed);
@@ -59,6 +60,24 @@ public class NeedControllerTest {
         ResponseEntity<Need> respone = needController.createNeed(null);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, respone.getStatusCode());
     }
+
+    /**
+    * 
+    * @throws IOException
+    */
+    @Test
+    public void testCreateExistingNeed() throws IOException{
+        Need need = new Need(1, "Food", 13.0f, 10);
+
+        when(mockNeedDao.createNeed(need)).thenReturn(null);
+        //Creates the response that will be handled through the controler that matches the need in the controler.
+        //Doesn't look at the fileDAO that matches the ID, instead matches the id of the need that was created in the test file.
+        ResponseEntity<Need> response = needController.createNeed(need);
+        //checks if the response got the need that was grabbed from the controler need created
+        assertEquals(null, response.getBody());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
+
     /**
     * 
     * @throws IOException
