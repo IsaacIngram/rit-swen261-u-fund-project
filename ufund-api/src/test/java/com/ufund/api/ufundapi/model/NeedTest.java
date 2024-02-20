@@ -20,6 +20,7 @@ public class NeedTest {
         // Setup
         int expected_id = 3;
         String expected_name = "Water";
+        String expected_type = "BEVERAGE";
         float expected_price = 3.21f;
         int expected_quantity = 5;
 
@@ -27,6 +28,7 @@ public class NeedTest {
         Need need = new Need(
                 expected_id,
                 expected_name,
+                expected_type,
                 expected_price,
                 expected_quantity
         );
@@ -47,6 +49,7 @@ public class NeedTest {
         int id = 3;
         String old_name = "Water";
         String new_name = "Ice";
+        String type = "H2O";
         float price = 3.21f;
         int quantity = 5;
 
@@ -54,6 +57,7 @@ public class NeedTest {
         Need need = new Need(
                 id,
                 old_name,
+                type,
                 price,
                 quantity
         );
@@ -64,6 +68,33 @@ public class NeedTest {
     }
 
     /**
+     * Test setting the type of Need
+     */
+    @Test
+    public void testSetType() {
+        // Setup
+        int id = 3;
+        String name = "Water";
+        String old_type = "BEVERAGE";
+        String new_type = "GROCERY";
+        float price = 3.21f;
+        int quantity = 5;
+
+        // Invoke
+        Need need = new Need(
+                id,
+                name,
+                old_type,
+                price,
+                quantity
+        );
+        need.setType(new_type);
+
+        // Analyze
+        assertEquals(new_type, need.getType());
+    }
+
+    /**
      * Test setting the price of a Need
      */
     @Test
@@ -71,12 +102,14 @@ public class NeedTest {
         // Setup
         int id = 3;
         String name = "Water";
+        String type = "BEVERAGE";
         float old_price = 3.21f;
         float new_price = 6.78f;
         int quantity = 5;
         Need need = new Need(
                 id,
                 name,
+                type,
                 old_price,
                 quantity
         );
@@ -96,12 +129,14 @@ public class NeedTest {
         // Setup
         int id = 3;
         String name = "Water";
+        String type = "BEVERAGE";
         float price = 3.21f;
         int old_quantity = 5;
         int new_quantity = 8;
         Need need = new Need(
                 id,
                 name,
+                type,
                 price,
                 old_quantity
         );
@@ -121,12 +156,14 @@ public class NeedTest {
         // Setup
         int id = 3;
         String name = "Water";
+        String type = "BEVERAGE";
         float price = 3.21f;
         int quantity = 5;
         String expected_string = String.format(Need.STRING_FORMAT, id, name, price, quantity);
         Need need = new Need(
                 id,
                 name,
+                type,
                 price,
                 quantity
         );

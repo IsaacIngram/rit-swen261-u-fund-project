@@ -1,10 +1,12 @@
 package com.ufund.api.ufundapi.model.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.ufund.api.ufundapi.model.Need;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +28,38 @@ public class NeedFileDAO implements NeedDAO {
         this.objectMapper = objectMapper;
         load();
     }
-    
+
+    /**
+     * Loads Needs from the JSON file into the map and sets
+     * the nextID to one more than the greatest ID found in the JSON file
+     * @return Boolean: True if the file was read successfully
+     * @throws IOException When the file cannot be accessed or read
+     */
+    private boolean load() throws IOException {
+        needs = new TreeMap<>();
+        nextId = 0;
+        Need[] needArray;
+        // Attempt to read file
+        try {
+            needArray = objectMapper.readValue(new File(filePath), Need[].class);
+        } catch(EOFException | MismatchedInputException e) {
+            // Handle case where file is empty
+            needArray = new Need[0];
+        }
+        // Check if the JSON we read in actually contains data before trying
+        // to run a for loop on it
+        if(needArray.length == 0) {
+            return true;
+        }
+
+        for (Need need: needArray) {
+            needs.put(need.getId(), need);
+            if(need.getId() > nextId)
+                nextId = need.getId();
+        }
+        ++nextId;
+        return true;
+    }
 
     /**
      * Generate the next ID for a new {Need}
@@ -79,34 +112,46 @@ public class NeedFileDAO implements NeedDAO {
     }
 
     /**
-     * Loads Needs from the JSON file into the map and sets
-     * the nextID to one more than the greatest ID found in the JSON file
-     * @return Boolean: True if the file was read successfully
-     * @throws IOException When the file cannot be accessed or read
+     ** {@inheritDoc}
      */
-    private boolean load() throws IOException {
-        needs = new TreeMap<>();
-        nextId = 0;
-
-        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
-
-        for (Need need: needArray) {
-            needs.put(need.getId(), need);
-            if(need.getId() > nextId)
-                nextId = need.getId();
+    @Override
+    public Need[] getNeeds() {
+        synchronized (needs) {
+            return getNeedsArray();
         }
-        ++nextId;
-        return true;
     }
-
 
     /**
      ** {@inheritDoc}
      */
     @Override
     public Need[] findNeeds(String containsText) {
-        synchronized(needs) {
+        synchronized (needs) {
             return getNeedsArray(containsText);
+        }
+    }
+
+    public Need getNeed(int id) {
+        synchronized(needs) {
+            if (needs.containsKey(id))
+                return needs.get(id);
+            else
+                return null;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    public Need updateNeed(Need need) throws IOException {
+        synchronized (needs) {
+            if(needs.containsKey(need.getId()) == false) {
+                // Need does not exist; cannot be updated
+                return null;
+            }
+            needs.put(need.getId(), need);
+            save();
+            return need;
         }
     }
 }
