@@ -5,14 +5,24 @@ import com.ufund.api.ufundapi.model.persistence.NeedDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Null;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import com.ufund.api.ufundapi.model.Need;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Test the Need Controller class
@@ -32,6 +42,47 @@ public class NeedControllerTest {
     public void setupNeedController() {
         mockNeedDao = mock(NeedDAO.class);
         needController = new NeedController(mockNeedDao);
+    }
+    /**
+    * 
+    * @throws IOException
+    */
+    @Test
+    public void testGetNeedOk() throws IOException{
+        Need okNeed = new Need(1, "Darius", "PERSON", 11.0f, 10);
+        //Returns the need from that was created instead of reading from DAO file
+        when(mockNeedDao.getNeed(1)).thenReturn(okNeed);
+        //Creates the response that will be handled through the controler that matches the need in the controler.
+        //Doesn't look at the fileDAO that matches the ID, instead matches the id of the need that was created in the test file.
+        ResponseEntity<Need> respone = needController.getNeed(1);
+        //checks if the response got the need that was grabbed from the controler need created
+        assertEquals(okNeed, respone.getBody());
+        assertEquals(HttpStatus.OK, respone.getStatusCode());
+    }
+
+    /**
+     * Test get need when the requested need does not exist in the cupboard
+     * @throws IOException
+     */
+    @Test
+    public void testGetNeedNotFound() throws IOException{
+        Need notFoundNeed = new Need(2, "TUTU", "THING", 1.3f, 200);
+        when(mockNeedDao.getNeed(2)).thenReturn(notFoundNeed);
+        ResponseEntity<Need> respone = needController.getNeed(1);
+        assertEquals(null, respone.getBody());
+        assertEquals(HttpStatus.NOT_FOUND, respone.getStatusCode());
+
+    }
+
+    /**
+    * Test get need when the Need DAO throws an IO Exception
+    * @throws IOException
+    */
+    @Test
+    public void testGetNeedServerError() throws IOException{
+        when(mockNeedDao.getNeed(4)).thenThrow(new IOException());
+        ResponseEntity<Need> response = needController.getNeed(4);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     /**

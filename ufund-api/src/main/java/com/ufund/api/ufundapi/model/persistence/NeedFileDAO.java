@@ -125,6 +125,18 @@ public class NeedFileDAO implements NeedDAO {
      ** {@inheritDoc}
      */
     @Override
+    public Need getNeed(int id) {
+        synchronized(needs) {
+            if (needs.containsKey(id))
+                return needs.get(id);
+            else
+                return null;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
     public Need updateNeed(Need need) throws IOException {
         synchronized (needs) {
             if(needs.containsKey(need.getId()) == false) {
@@ -136,5 +148,4 @@ public class NeedFileDAO implements NeedDAO {
             return need;
         }
     }
-
 }

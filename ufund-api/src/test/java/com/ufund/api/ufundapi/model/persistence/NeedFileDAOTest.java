@@ -56,7 +56,36 @@ public class NeedFileDAOTest {
     }
 
     /**
-     * Test getting multiple Needds
+     * Test getting a Need
+     */
+    @Test
+    public void testGetNeed(){
+        for (Need testNeed : testNeeds) {
+            // Invoke
+            Need response = needFileDao.getNeed(testNeed.getId());
+
+            // Analyze
+            assertEquals(testNeed, response);
+        }
+    }
+
+    /**
+     * Test getting a Need that does not exist
+     */
+    @Test
+    public void testGetNeedNotFound() {
+        // Setup
+        int id = 1;
+
+        // Invoke
+        Need response = needFileDao.getNeed(id);
+
+        // Analyze
+        assertNull(response);
+    }
+
+    /**
+     * Test getting multiple Needs
      */
     @Test
     public void testGetNeeds() throws IOException {
@@ -68,7 +97,6 @@ public class NeedFileDAOTest {
         for(int i = 0; i < testNeeds.length; i++) {
             assertEquals(needs[i], testNeeds[i]);
         }
-
     }
 
     /**
