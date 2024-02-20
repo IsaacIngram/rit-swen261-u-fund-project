@@ -48,7 +48,7 @@ public class NeedFileDAOTest {
     public void testCreateNeed(){
         try {
             Need need = needFileDao.createNeed(testNeeds[0]);
-            assertEquals(testNeeds[0], need);
+            assertEquals(new Need(75, "Water", 1.00f, 72), need);
         } catch (Exception e) {
             assertEquals(0, 1);
         }
