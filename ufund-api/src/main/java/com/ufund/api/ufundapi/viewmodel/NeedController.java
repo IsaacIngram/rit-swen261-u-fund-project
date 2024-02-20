@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -31,6 +32,31 @@ public class NeedController {
     public NeedController(NeedDAO needDao) {
         this.needDao = needDao;
     }
+
+    /**
+     * Responds to the GET request for all {@linkplain Need needs} whose name contains
+     * the text in name
+     * @param name The name parameter which contains the text used to find the {@link Need needs}
+     * @return ResponseEntity with array of {@link Need hero} objects (may be empty) and
+     * HTTP status of OK
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * Example: Find all needs that contain the text "ma"
+     * GET http://localhost:8080/needs/?name=ma
+     */
+    @GetMapping("/")
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
+        LOG.info("GET /needs/?name=" + name);
+
+        try {
+            Need[] result = needDao.findNeeds(name);
+            return new ResponseEntity<Need[]>(result, HttpStatus.OK);
+
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Responds to the GET request for a {@linkplain Need need} for the given id
      *

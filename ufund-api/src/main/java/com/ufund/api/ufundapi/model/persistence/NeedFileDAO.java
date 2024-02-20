@@ -125,6 +125,12 @@ public class NeedFileDAO implements NeedDAO {
      ** {@inheritDoc}
      */
     @Override
+    public Need[] findNeeds(String containsText) {
+        synchronized (needs) {
+            return getNeedsArray(containsText);
+        }
+    }
+
     public Need getNeed(int id) {
         synchronized(needs) {
             if (needs.containsKey(id))

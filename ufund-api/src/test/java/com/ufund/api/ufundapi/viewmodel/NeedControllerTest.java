@@ -5,24 +5,17 @@ import com.ufund.api.ufundapi.model.persistence.NeedDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import com.ufund.api.ufundapi.model.Need;
+
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import java.io.IOException;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Test the Need Controller class
@@ -174,4 +167,59 @@ public class NeedControllerTest {
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    @Test
+    public void testSearchNeed() throws IOException {
+        // Setup
+        String search_string = "e";
+        Need[] needs = {
+                new Need(1, "Water", "BEVERAGE", 3.21f, 10),
+                new Need(3, "Shelter", "HOUSE", 1234.56f, 1)
+        };
+        when(mockNeedDao.findNeeds(search_string)).thenReturn(needs);
+
+        // Invoke
+        ResponseEntity<Need[]> response = needController.searchNeeds(search_string);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(needs[0], response.getBody()[0]);
+        assertEquals(needs[1], response.getBody()[1]);
+    }
+
+    /**
+     * Test searching for a need when the search result will contain no needs
+     */
+    @Test
+    public void testSearchNeedNoResults() throws IOException {
+        // Setup
+        Need[] needs = {};
+        String search_string = "specific string";
+        when(mockNeedDao.findNeeds(search_string)).thenReturn(needs);
+
+        // Invoke
+        ResponseEntity<Need[]> response = needController.searchNeeds(search_string);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(0, response.getBody().length);
+    }
+
+    /**
+     * Test searching for a need when there is an internal error with the need DAO
+     */
+    @Test
+    public void testSearchNeedsInternalError() throws IOException {
+        // Setup
+        String search_string = "specific string";
+        when(mockNeedDao.findNeeds(search_string)).thenThrow(new IOException());
+
+        // Invoke
+        ResponseEntity<Need[]> response = needController.searchNeeds(search_string);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertNull(response.getBody());
+    }
 }
