@@ -43,11 +43,12 @@ public class NeedControllerTest {
     public void testDeleteNeedOk() throws IOException{
         Need okNeed = new Need(1, "Food", 13.0f, 10);
 
+        when(mockNeedDao.deleteNeed(1)).thenReturn(true);
         //Creates the response that will be handled through the controler that matches the need in the controler.
         //Doesn't look at the fileDAO that matches the ID, instead matches the id of the need that was created in the test file.
         ResponseEntity<Need> response = needController.deleteNeed(1);
         //checks if the response got the need that was grabbed from the controler need created
-        assertEquals(okNeed, response.getBody());
+        assertEquals(null, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -59,9 +60,10 @@ public class NeedControllerTest {
     public void testDeleteNeedNotFound() throws IOException{
         Need notFoundNeed = new Need(2, "Stuff", 1.5f, 100);
 
-        ResponseEntity<Need> respone = needController.deleteNeed(1);
-        assertNotEquals(notFoundNeed, null);
-        assertEquals(HttpStatus.NOT_FOUND, respone.getStatusCode());
+        when(mockNeedDao.deleteNeed(1)).thenReturn(false);
+        ResponseEntity<Need> response = needController.deleteNeed(1);
+        assertNotEquals(false, response);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 
     }
     /**
@@ -72,10 +74,10 @@ public class NeedControllerTest {
     public void testDeleteNeedServerError() throws IOException{
         Need serverError = new Need(3, "New_Need", 2.78f, 13);
         
-        when(mockNeedDao.deleteNeed(3)).thenThrow(new IOException());
+        when(mockNeedDao.deleteNeed(4)).thenThrow(new IOException());
 
         ResponseEntity<Need> response = needController.deleteNeed(4);
-        assertEquals(serverError, response);
+        assertEquals(null, response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
