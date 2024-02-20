@@ -50,7 +50,7 @@ public class NeedController {
             // says it returns "false" if creating a need wasn't successful, but that
             // obviously isn't true because it returns a Need object...
             if(result == null) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
             } else {
                 return new ResponseEntity<Need>(result, HttpStatus.OK);
             }
