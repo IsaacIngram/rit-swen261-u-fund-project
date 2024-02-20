@@ -89,7 +89,7 @@ public class NeedControllerTest {
         when(mockNeedDao.createNeed(serverError)).thenThrow(new IOException());
 
         ResponseEntity<Need> response = needController.createNeed(serverError);
-        assertEquals(serverError, response);
+        assertEquals(null, response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
