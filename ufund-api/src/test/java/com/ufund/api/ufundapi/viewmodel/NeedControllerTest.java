@@ -59,30 +59,29 @@ public class NeedControllerTest {
         assertEquals(okNeed, respone.getBody());
         assertEquals(HttpStatus.OK, respone.getStatusCode());
     }
+
     /**
-     * 
+     * Test get need when the requested need does not exist in the cupboard
      * @throws IOException
      */
     @Test
     public void testGetNeedNotFound() throws IOException{
         Need notFoundNeed = new Need(2, "TUTU", "THING", 1.3f, 200);
-        when(mockNeedDao.getNeed(1)).thenReturn(notFoundNeed);
+        when(mockNeedDao.getNeed(2)).thenReturn(notFoundNeed);
         ResponseEntity<Need> respone = needController.getNeed(1);
-        assertEquals(notFoundNeed, null);
+        assertEquals(null, respone.getBody());
         assertEquals(HttpStatus.NOT_FOUND, respone.getStatusCode());
 
     }
 
     /**
-    * 
+    * Test get need when the Need DAO throws an IO Exception
     * @throws IOException
     */
     @Test
     public void testGetNeedServerError() throws IOException{
-        Need serverError = new Need(3, "Mihou", "THING", 2.78f, 13);
-        when(mockNeedDao.getNeed(4)).thenReturn(serverError);
+        when(mockNeedDao.getNeed(4)).thenThrow(new IOException());
         ResponseEntity<Need> response = needController.getNeed(4);
-        assertEquals(serverError, response);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
