@@ -54,20 +54,38 @@ public class NeedFileDAOTest {
                 .thenReturn(emptyNeeds);
         emptyNeedFileDao = new NeedFileDAO("anything.txt", mockEmptyObjectMapper);
     }
+
+    /**
+     * Test getting a Need
+     */
     @Test
     public void testGetNeed(){
-        Need need = needFileDao.getNeed(72);
-        assertEquals(need, testNeeds[0]);
-        need = needFileDao.getNeed(73);
-        assertEquals(need, testNeeds[1]);
-        need = needFileDao.getNeed(11);
-        assertEquals(need, testNeeds[1]);
-        need = needFileDao.getNeed(73);
-        assertEquals(need, testNeeds[3]);
+        for (Need testNeed : testNeeds) {
+            // Invoke
+            Need response = needFileDao.getNeed(testNeed.getId());
+
+            // Analyze
+            assertEquals(testNeed, response);
+        }
     }
 
     /**
-     * Test getting multiple Needds
+     * Test getting a Need that does not exist
+     */
+    @Test
+    public void testGetNeedNotFound() {
+        // Setup
+        int id = 1;
+
+        // Invoke
+        Need response = needFileDao.getNeed(id);
+
+        // Analyze
+        assertNull(response);
+    }
+
+    /**
+     * Test getting multiple Needs
      */
     @Test
     public void testGetNeeds() throws IOException {
@@ -79,7 +97,6 @@ public class NeedFileDAOTest {
         for(int i = 0; i < testNeeds.length; i++) {
             assertEquals(needs[i], testNeeds[i]);
         }
-
     }
 
     /**
