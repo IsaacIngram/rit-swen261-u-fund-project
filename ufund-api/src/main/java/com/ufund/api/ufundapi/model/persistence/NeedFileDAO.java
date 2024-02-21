@@ -1,10 +1,12 @@
 package com.ufund.api.ufundapi.model.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.ufund.api.ufundapi.model.Need;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,8 +38,19 @@ public class NeedFileDAO implements NeedDAO {
     private boolean load() throws IOException {
         needs = new TreeMap<>();
         nextId = 0;
-
-        Need[] needArray = objectMapper.readValue(new File(filePath), Need[].class);
+        Need[] needArray;
+        // Attempt to read file
+        try {
+            needArray = objectMapper.readValue(new File(filePath), Need[].class);
+        } catch(EOFException | MismatchedInputException e) {
+            // Handle case where file is empty
+            needArray = new Need[0];
+        }
+        // Check if the JSON we read in actually contains data before trying
+        // to run a for loop on it
+        if(needArray.length == 0) {
+            return true;
+        }
 
         for (Need need: needArray) {
             needs.put(need.getId(), need);
@@ -52,7 +65,7 @@ public class NeedFileDAO implements NeedDAO {
      * Generate the next ID for a new {Need}
      * @return Integer next id
      */
-    private synchronized static int getNextId() {
+    private synchronized static int nextId() {
         int id = nextId;
         ++nextId;
         return id;
@@ -103,13 +116,74 @@ public class NeedFileDAO implements NeedDAO {
      */
     @Override
     public boolean deleteNeed(int id) throws IOException {
-        synchronized(needs) {
+        synchronized (needs) {
             if (needs.containsKey(id)) {
                 needs.remove(id);
                 return save();
-            }
-            else
+            } else
                 return false;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Need createNeed(Need need) throws IOException {
+        synchronized(needs) {
+            // We create a new need object because the id field is immutable
+            // and we need to assign the next unique id
+            if(needs.containsKey(need.getId())){
+                return null;
+            }
+            Need newNeed = new Need(nextId(),need.getName(),need.getType(), need.getPrice(), need.getQuantity());
+            needs.put(newNeed.getId(),newNeed);
+            save(); // may throw an IOException
+            return newNeed;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Need[] getNeeds() {
+        synchronized (needs) {
+            return getNeedsArray();
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    @Override
+    public Need[] findNeeds(String containsText) {
+        synchronized (needs) {
+            return getNeedsArray(containsText);
+        }
+    }
+
+    public Need getNeed(int id) {
+        synchronized(needs) {
+            if (needs.containsKey(id))
+                return needs.get(id);
+            else
+                return null;
+        }
+    }
+
+    /**
+     ** {@inheritDoc}
+     */
+    public Need updateNeed(Need need) throws IOException {
+        synchronized (needs) {
+            if(needs.containsKey(need.getId()) == false) {
+                // Need does not exist; cannot be updated
+                return null;
+            }
+            needs.put(need.getId(), need);
+            save();
+            return need;
         }
     }
 }
