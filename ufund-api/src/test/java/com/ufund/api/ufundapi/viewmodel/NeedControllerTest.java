@@ -13,7 +13,12 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -51,6 +56,66 @@ public class NeedControllerTest {
         //checks if the response got the need that was grabbed from the controler need created
         assertEquals(okNeed, respone.getBody());
         assertEquals(HttpStatus.OK, respone.getStatusCode());
+    }
+
+    /**
+    *
+    * @throws IOException
+    */
+    @Test
+    public void testCreateNeedOk() throws IOException{
+        Need okNeed = new Need(1, "Food", "GROCERY", 13.0f, 10);
+
+        when(mockNeedDao.createNeed(okNeed)).thenReturn(okNeed);
+        //Creates the response that will be handled through the controler that matches the need in the controler.
+        //Doesn't look at the fileDAO that matches the ID, instead matches the id of the need that was created in the test file.
+        ResponseEntity<Need> response = needController.createNeed(okNeed);
+        //checks if the response got the need that was grabbed from the controler need created
+        assertEquals(okNeed, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    /**
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testCreateNeedNull() throws IOException{
+
+        ResponseEntity<Need> respone = needController.createNeed(null);
+        assertEquals(HttpStatus.CONFLICT, respone.getStatusCode());
+    }
+
+    /**
+    * 
+    * @throws IOException
+    */
+    @Test
+    public void testCreateExistingNeed() throws IOException{
+        Need need = new Need(1, "Food", "GROCERY", 13.0f, 10);
+
+        when(mockNeedDao.createNeed(need)).thenReturn(null);
+        //Creates the response that will be handled through the controler that matches the need in the controler.
+        //Doesn't look at the fileDAO that matches the ID, instead matches the id of the need that was created in the test file.
+        ResponseEntity<Need> response = needController.createNeed(need);
+        //checks if the response got the need that was grabbed from the controler need created
+        assertEquals(null, response.getBody());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
+
+    /**
+    * 
+    * @throws IOException
+    */
+    @Test
+    public void testCreateNeedServerError() throws IOException{
+        Need serverError = new Need(3, "New_Need", "NEED", 2.78f, 13);
+        
+        when(mockNeedDao.createNeed(serverError)).thenThrow(new IOException());
+
+        ResponseEntity<Need> response = needController.createNeed(serverError);
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     /**
