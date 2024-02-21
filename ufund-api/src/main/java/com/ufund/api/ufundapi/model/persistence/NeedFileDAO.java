@@ -115,6 +115,20 @@ public class NeedFileDAO implements NeedDAO {
      ** {@inheritDoc}
      */
     @Override
+    public boolean deleteNeed(int id) throws IOException {
+        synchronized (needs) {
+            if (needs.containsKey(id)) {
+                needs.remove(id);
+                return save();
+            } else
+                return false;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Need createNeed(Need need) throws IOException {
         synchronized(needs) {
             // We create a new need object because the id field is immutable

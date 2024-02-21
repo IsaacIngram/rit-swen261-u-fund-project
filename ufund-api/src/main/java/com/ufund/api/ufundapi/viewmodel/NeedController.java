@@ -5,6 +5,7 @@ import com.ufund.api.ufundapi.model.persistence.NeedDAO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,34 @@ public class NeedController {
      */
     public NeedController(NeedDAO needDao) {
         this.needDao = needDao;
+    }
+
+    /**
+     * Deletes a {@linkplain Need} with the given id
+     *
+     * @param id The id of the {@link Need} to deleted
+     *
+     * @return ResponseEntity HTTP status of OK if deleted<br>
+     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Need> deleteNeed(@PathVariable int id) {
+        LOG.info("DELETE /needs/" + id);
+
+        try {
+            boolean result = needDao.deleteNeed(id);
+            if(result) {
+                // Need was deleted
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                // ID did not exist
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch(IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

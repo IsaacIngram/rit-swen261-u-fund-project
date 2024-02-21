@@ -56,6 +56,16 @@ public class NeedFileDAOTest {
     }
 
     @Test
+    public void testDeleteNeed() {
+        try {
+            assertEquals(true, needFileDao.deleteNeed(74));
+            assertEquals(false, needFileDao.deleteNeed(74));
+        } catch (Exception e) {
+            assertEquals(0, 1);
+        }
+    }
+        
+        
     public void testCreateNeed() {
         try {
             Need need = needFileDao.createNeed(new Need(69, "Water", "BEVERAGE", 69.69f, 69));
