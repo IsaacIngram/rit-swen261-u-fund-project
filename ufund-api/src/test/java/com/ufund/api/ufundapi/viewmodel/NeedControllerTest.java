@@ -58,7 +58,7 @@ public class NeedControllerTest {
     public void testCreateNeedNull() throws IOException{
 
         ResponseEntity<Need> respone = needController.createNeed(null);
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, respone.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, respone.getStatusCode());
     }
 
     /**
