@@ -11,10 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-<<<<<<< HEAD
-=======
 import static org.junit.jupiter.api.Assertions.assertNull;
->>>>>>> develop
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -58,12 +55,11 @@ public class NeedFileDAOTest {
         emptyNeedFileDao = new NeedFileDAO("anything.txt", mockEmptyObjectMapper);
     }
 
-<<<<<<< HEAD
     @Test
     public void testCreateNeed() {
         try {
-            Need need = needFileDao.createNeed(new Need(69, "Sixty-Nine", 69.69f, 69));
-            assertEquals(new Need(69, "Sixty-Nine", 69.69f, 69), need);
+            Need need = needFileDao.createNeed(new Need(69, "Water", "BEVERAGE", 69.69f, 69));
+            assertEquals(new Need(69, "Water", "BEVERAGE", 69.69f, 69), need);
         } catch (Exception e) {
             assertEquals(0, 1);
         }
