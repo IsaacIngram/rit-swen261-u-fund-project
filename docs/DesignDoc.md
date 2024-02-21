@@ -9,16 +9,16 @@ geometry: margin=1in
 > and appear in the generated PDF in italics but do so only **after** all team members agree that the requirements for that section and current Sprint have been met. **Do not** delete future Sprint expectations._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Autobots
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Johanna Wichmann
+  * Conner Meagher
+  * Isaac Ingram
+  * Darius Nakis
 
 ## Executive Summary
 
-This is a summary of the project.
+We are making a website with a working frontend and backend for an organization that needs donations and items to help run it. 
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
@@ -34,7 +34,7 @@ This is a summary of the project.
 
 ## Requirements
 
-This section describes the features of the application.
+Login features, statistic features, basket features, cupboard features, need features
 
 > _In this section you do not need to be exhaustive and list every
 > story.  Focus on top-level features from the Vision document and
@@ -54,7 +54,7 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](updated-domain-model.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
