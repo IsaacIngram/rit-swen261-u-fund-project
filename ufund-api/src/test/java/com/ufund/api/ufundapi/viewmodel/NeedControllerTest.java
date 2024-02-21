@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -89,7 +90,7 @@ public class NeedControllerTest {
         when(mockNeedDao.createNeed(serverError)).thenThrow(new IOException());
 
         ResponseEntity<Need> response = needController.createNeed(serverError);
-        assertEquals(null, response.getBody());
+        assertNull(response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
