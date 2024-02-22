@@ -108,7 +108,7 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+Within our viewmodel, we have our REST API and the Service. Our REST API uses spring framework and uses the NeedController as its platform. Service uses UFundAPIApplication as its framework and the WebConfig as its platform. Both of these can use any operating system or hardware to run.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -117,10 +117,11 @@ This section describes the web interface flow; this is how the user views and in
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your ViewModel Tier class diagram 1, etc.](updated-domain-model.png)
 
 ### Model Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+Within our model, we have the Model and the Persistence. Our model contains the main Needs file that defines a need and all of the functions Needs does. Our Persistence uses the NeedDAO and the NeedFileDAO. The NeedDAO is the interface for the NeedFileDAO to use to help implement all of its functions. 
+
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -129,11 +130,12 @@ This section describes the web interface flow; this is how the user views and in
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your Model Tier class diagram 1, etc.](updated-domain-model.png)
 
 ## OO Design Principles
 
-> _**[Sprint 1]** Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
+We used low coupling as a design principle between the NeedDAO and the NeedFileDAO. This allowed us to use an interface, the NeedDAO, to implement the functions in another file, the NeedFileDAO. It helps us to stay organized and know which file is having problems with the separation of the two. We also used single responsibility for our functions. Each function in the API only computes one function at a time. Our creatNeed only creates a need and nothing else. It allows the API to not have to worry about what’s going on around the rest of the program and just what is going on in that single function. 
+
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
@@ -148,8 +150,7 @@ This section describes the web interface flow; this is how the user views and in
 > _**[Sprint 4]** Discuss **future** refactoring and other design improvements your team would explore if the team had additional time._
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+All testing is functional.
 
 ### Acceptance Testing
 > _**[Sprint 2 & 4]** Report on the number of user stories that have passed all their
@@ -168,4 +169,4 @@ This section describes the web interface flow; this is how the user views and in
 > those._
 
 ## Ongoing Rationale
->_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
+2/21/24: Sprint 1 completed
