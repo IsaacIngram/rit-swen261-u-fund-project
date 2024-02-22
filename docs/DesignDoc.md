@@ -150,7 +150,7 @@ We used low coupling as a design principle between the NeedDAO and the NeedFileD
 > _**[Sprint 4]** Discuss **future** refactoring and other design improvements your team would explore if the team had additional time._
 
 ## Testing
-All testing is functional.
+Our testing tests all functions within the API. All testing is functional for both the File DAO and the Controller.
 
 ### Acceptance Testing
 > _**[Sprint 2 & 4]** Report on the number of user stories that have passed all their
