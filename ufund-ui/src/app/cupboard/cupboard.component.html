@@ -1,7 +1,16 @@
 <h2>Cupboard</h2>
 
 <div *ngIf="accessControl.isAdmin()">
-  <h3>Welcome, admin</h3>
+
+  <h2>Hello, Admin</h2>
+  <p>The following needs are in the cupboard:</p>
+
+  <ul class="needs">
+    <li *ngFor="let need of needs">
+      <span>id: {{need.id}}, name: '{{need.name}}', type: '{{need.type}}', quantity: {{need.quantity}}, price: {{need.price}}</span>
+    </li>
+  </ul>
+
 </div>
 
 <div *ngIf="accessControl.isHelper()">
