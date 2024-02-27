@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessControlService } from "../access-control.service";
 
 @Component({
   selector: 'app-cupboard',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './cupboard.component.css'
 })
 export class CupboardComponent {
+
+  constructor(protected accessControl: AccessControlService) { }
 
 }
