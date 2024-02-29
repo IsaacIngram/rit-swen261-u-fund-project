@@ -1,3 +1,6 @@
+## Tests
+### Develop
+[![JUnit Tests with Maven](https://github.com/RIT-SWEN-261-03/team-project-2235-swen-261-03-3c-autobots/actions/workflows/unit_tests.yml/badge.svg?branch=develop)](https://github.com/RIT-SWEN-261-03/team-project-2235-swen-261-03-3c-autobots/actions/workflows/unit_tests.yml)
 # U-Fund:  _____ _replace with your particular fundraising type_ _____
 # Modify this document to expand any and all sections that are applicable for a better understanding from your users/testers/collaborators (remove this comment and other instructions areas for your FINAL release)
 
