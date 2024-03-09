@@ -7,7 +7,25 @@
 
   <ul class="needs">
     <li *ngFor="let need of needs">
-      <span>id: {{need.id}}, name: '{{need.name}}', type: '{{need.type}}', quantity: {{need.quantity}}, price: {{need.price}}</span>
+      <h4>{{need.name | uppercase}} Details</h4>
+      <p>ID: {{need.id}}</p>
+      <div>
+        <label for="need_name">Name: </label>
+        <input id="need_name" [(ngModel)]="need.name" placeholder="Hero name">
+      </div>
+      <div>
+        <label for="need_type">Type: </label>
+        <input id="need_type" [(ngModel)]="need.type" placeholder="Hero name">
+      </div>
+      <div>
+        <label for="need_quantity">Quantity: </label>
+        <input id="need_quantity" [(ngModel)]="need.quantity" placeholder="Hero name">
+      </div>
+      <div>
+        <label for="need_price">Price: </label>
+        <input id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
+      </div>
+      <button type="button" (click)="save()">save</button>
     </li>
   </ul>
 

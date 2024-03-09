@@ -36,4 +36,8 @@ export class CupboardComponent {
     ]
   }
 
+  save(): void {
+
+  }
+
 }
