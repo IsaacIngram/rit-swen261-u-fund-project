@@ -8,6 +8,14 @@ import {Need} from "../Need";
   styleUrl: './cupboard.component.css'
 })
 export class CupboardComponent {
+add(name: string) {
+throw new Error('Method not implemented.');
+name = name.trim();
+if(!name){
+  return;
+  }
+this.needs.
+}
 
 
   needs: Need[] = []
