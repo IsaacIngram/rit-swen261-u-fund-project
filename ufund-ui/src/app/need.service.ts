@@ -17,7 +17,7 @@ export class NeedService {
   };
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) { }
 
   /**
