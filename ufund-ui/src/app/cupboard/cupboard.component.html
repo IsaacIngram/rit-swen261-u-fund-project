@@ -26,6 +26,7 @@
         <input type="number" #priceInput id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
       </div>
       <button type="button" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
+      <button type="button" (click)="removeNeed(need.id)">remove</button>
     </li>
   </ul>
 

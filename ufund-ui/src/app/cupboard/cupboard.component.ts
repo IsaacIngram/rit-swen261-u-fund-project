@@ -51,4 +51,12 @@ export class CupboardComponent {
     this.needService.updateNeed(newNeed).subscribe();
   }
 
+  /**
+   * Remove a need from the server, so it can't be placed in any baskets
+   * @param id need if
+   */
+  removeNeed(id: number) {
+    this.needService.deleteNeed(id).subscribe(_ => this.getNeeds());
+  }
+
 }
