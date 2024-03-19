@@ -13,7 +13,9 @@ export class CupboardComponent {
 
   needs: Need[] = []
 
-  constructor(protected accessControl: AccessControlService, protected needService: NeedService) { }
+  constructor(
+    protected accessControl: AccessControlService,
+    protected needService: NeedService) { }
 
   /**
    * Built into Angular. Called when Angular is done initializing this
