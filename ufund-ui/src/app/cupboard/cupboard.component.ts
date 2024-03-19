@@ -48,9 +48,7 @@ export class CupboardComponent {
       id: oldNeed.id, name: newName, type: newType, quantity: newQuantity, price: newPrice
     };
     // Tell the service to update the need
-    this.needService.updateNeed(newNeed).subscribe(updatedNeed => {
-      console.log("updated need");
-    });
+    this.needService.updateNeed(newNeed).subscribe();
   }
 
 }
