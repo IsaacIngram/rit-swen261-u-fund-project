@@ -34,6 +34,21 @@ export class CupboardComponent {
     this.needService.getNeeds().subscribe(needs => this.needs = needs);
   }
 
+
+  /**
+   * Add a new need to the server
+   * @param name need name
+   * @param type need type
+   * @param price need price
+   * @param quantity need quantity
+   */
+  addNeed(name: string, type: string, price: number, quantity: number) {
+    const newNeed = {
+      id: -1, name: name, type: type, quantity: quantity, price: price
+    };
+    this.needService.addNeed(newNeed).subscribe(_ => this.getNeeds());
+  }
+
   /**
    * Save a needs content from the webpage
    * @param oldNeed Need being saved
