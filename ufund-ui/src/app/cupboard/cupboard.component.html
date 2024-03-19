@@ -1,8 +1,4 @@
-<h2>Cupboard</h2>
-
 <div *ngIf="accessControl.isAdmin()">
-
-  <h2>Hello, Admin</h2>
   <h3>ADD NEED</h3>
   <div>
       <label for="new_need_name">Name: </label>
@@ -24,7 +20,6 @@
   <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newQuantityInput.value, +newPriceInput.value)" >add</button>
 
   <h3>CUPBOARD</h3>
-
   <ul class="needs">
     <li *ngFor="let need of needs">
       <h4>{{need.name | uppercase}} Details</h4>
