@@ -48,8 +48,8 @@
 
 <div *ngIf="accessControl.isHelper()">
   <h3>Welcome, helper</h3>
-  <label for="Search Needs"> Need-Search:</label>
-  <input #searchBox id="search-box" (input)="searchCharacter(searchBox.value)">
+  <label for="search-box"> Need-Search:</label>
+  <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
   <ul >
     <li *ngFor="let need of needs">
       <span>

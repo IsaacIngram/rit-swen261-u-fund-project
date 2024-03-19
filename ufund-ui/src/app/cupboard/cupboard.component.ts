@@ -74,15 +74,16 @@ export class CupboardComponent {
   removeNeed(id: number) {
     this.needService.deleteNeed(id).subscribe(_ => this.getNeeds());
   }
-  needNames: String[];
 
-  searchCharacter(Name: string) {
-    this.getNeeds();
-    this.needNames;
-    for(let i = 0; i < this.getNeeds.length; i++){
-      this.needNames[i] = this.getNeeds.name;
+  searchString(searchString: string) {
+    if(searchString == '') {
+      // Empty search string, show all needs
+      this.getNeeds()
+    } else {
+      // Make REST request to search for needs with this string. When we get a response, update
+      // the needs being displayed
+      this.needService.searchNeeds(searchString).subscribe(needs => this.needs = needs)
     }
-
   }
 
   add(name: string) {
