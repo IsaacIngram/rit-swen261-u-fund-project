@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AccessControlService } from "../access-control.service";
 import {Need} from "../Need";
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-cupboard',
@@ -8,15 +9,6 @@ import {Need} from "../Need";
   styleUrl: './cupboard.component.css'
 })
 export class CupboardComponent {
-search(arg0: string) {
-  
-}
-add(name: string) {
-name = name.trim();
-if(!name){
-  return;
-  }
-}
 
 
   needs: Need[] = []
@@ -44,6 +36,22 @@ if(!name){
       {id: 3, name: "$1000 fund", type: "MONETARY", quantity: 1000, price: 1.00}
     ]
   }
+  needNames: String[];
 
+  searchCharacter(Name: string) {
+    this.getNeeds();
+    this.needNames;
+    for(let i = 0; i < this.getNeeds.length; i++){
+      this.needNames[i] = this.getNeeds.name;
+    }
+    
+  }
+
+  add(name: string) {
+    name = name.trim();
+    if(!name){
+      return;
+      }
+    }
 
 }
