@@ -8,6 +8,8 @@
 
 <div *ngIf="accessControl.isHelper()">
   <h3>Welcome, helper</h3>
+  <label for="Search Needs"> Need-Search:</label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)">
   <ul >
     <li *ngFor="let need of needs">  
       <span>
@@ -15,6 +17,7 @@
         <button type="button" class="add-button" (click)="add(need.name);"> ADD Need</button>
       </span>
     </li>
+    <li><a routerLink="/about">About</a></li>
 
     
   </ul>

@@ -8,13 +8,14 @@ import {Need} from "../Need";
   styleUrl: './cupboard.component.css'
 })
 export class CupboardComponent {
+search(arg0: string) {
+  
+}
 add(name: string) {
-throw new Error('Method not implemented.');
 name = name.trim();
 if(!name){
   return;
   }
-this.needs.
 }
 
 
@@ -43,5 +44,6 @@ this.needs.
       {id: 3, name: "$1000 fund", type: "MONETARY", quantity: 1000, price: 1.00}
     ]
   }
+
 
 }
