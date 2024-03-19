@@ -5,14 +5,45 @@ import { Injectable } from '@angular/core';
 })
 export class AccessControlService {
 
-  constructor() { }
+  constructor() { 
+    this.setUser("");
+  }
+
+  private getUser(): string | null{
+    return localStorage.getItem("user");
+  }
+
+  private setUser(name: string): void {
+    localStorage.setItem("user", name);
+  }
+
+  login(name: string): boolean{
+    if(name == ""){
+      return false;
+    }else{
+      this.setUser(name);
+      /* NEED TO WRITE CODE TO REDIRECT USER TO THE CORRECT PAGE*/
+      return true;
+    }
+  }
+  logout(): void{
+
+  }
 
   isAdmin(): boolean {
-    return true;
+    if(this.getUser() == "admin"){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   isHelper(): boolean {
-    return true;
+    if(this.getUser() != "admin" && this.getUser() != ""){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 }
