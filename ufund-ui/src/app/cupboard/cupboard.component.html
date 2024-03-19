@@ -11,21 +11,21 @@
       <p>ID: {{need.id}}</p>
       <div>
         <label for="need_name">Name: </label>
-        <input id="need_name" [(ngModel)]="need.name" placeholder="Hero name">
+        <input #nameInput id="need_name" [(ngModel)]="need.name" placeholder="Hero name">
       </div>
       <div>
         <label for="need_type">Type: </label>
-        <input id="need_type" [(ngModel)]="need.type" placeholder="Hero name">
+        <input #typeInput id="need_type" [(ngModel)]="need.type" placeholder="Hero name">
       </div>
       <div>
         <label for="need_quantity">Quantity: </label>
-        <input id="need_quantity" [(ngModel)]="need.quantity" placeholder="Hero name">
+        <input type="number" #quantityInput id="need_quantity" [(ngModel)]="need.quantity" placeholder="Hero name">
       </div>
       <div>
         <label for="need_price">Price: </label>
-        <input id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
+        <input type="number" #priceInput id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
       </div>
-      <button type="button" (click)="save()">save</button>
+      <button type="button" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
     </li>
   </ul>
 
