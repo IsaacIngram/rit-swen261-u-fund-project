@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BasketComponent} from "./basket/basket.component";
-
+import {CupboardComponent} from "./cupboard/cupboard.component";
+import {BasketComponent} from "./basket/basket.component";
 
 const routes: Routes = [
-  {path: 'basket', component: BasketComponent},
-  { path: '',  redirectTo: '/about', pathMatch: 'full' }
+  { path: '',  redirectTo: '/about', pathMatch: 'full' },
+  { path: 'cupboard', component: CupboardComponent },
+  { path: 'basket', component: BasketComponent }
 ];
 
 @NgModule({
