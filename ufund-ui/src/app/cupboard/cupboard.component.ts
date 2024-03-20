@@ -52,4 +52,44 @@ export class CupboardComponent {
       }
     }
 
+
+  /**
+   * Add a new need to the server
+   * @param name need name
+   * @param type need type
+   * @param price need price
+   * @param quantity need quantity
+   */
+  addNeed(name: string, type: string, price: number, quantity: number) {
+    const newNeed = {
+      id: -1, name: name, type: type, quantity: quantity, price: price
+    };
+    this.needService.addNeed(newNeed).subscribe(_ => this.getNeeds());
+  }
+
+  /**
+   * Save a needs content from the webpage
+   * @param oldNeed Need being saved
+   * @param newName New name (from input box)
+   * @param newType New type (from input box)
+   * @param newQuantity New quantity (from input box)
+   * @param newPrice New price (from input box)
+   */
+  saveNeed(oldNeed: Need, newName: string, newType: string, newQuantity: number, newPrice: number): void {
+    // Create need with new data and old ID
+    const newNeed: Need = {
+      id: oldNeed.id, name: newName, type: newType, quantity: newQuantity, price: newPrice
+    };
+    // Tell the service to update the need
+    this.needService.updateNeed(newNeed).subscribe();
+  }
+
+  /**
+   * Remove a need from the server, so it can't be placed in any baskets
+   * @param id need if
+   */
+  removeNeed(id: number) {
+    this.needService.deleteNeed(id).subscribe(_ => this.getNeeds());
+  }
+
 }
