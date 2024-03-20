@@ -56,7 +56,7 @@ For sprint 2, our MVP includes a working basket that you can add and remove item
 
 This section describes the application domain.
 
-![Domain Model](Domain%20model.png)
+![Domain Model](Domainmodel.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
@@ -74,7 +74,7 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 **NOTE**: detailed diagrams are required in later sections of this document.
 > _**[Sprint 1]** (Augment this diagram with your **own** rendition and representations of sample system classes, placing them into the appropriate M/V/VM (orange rectangle) tier section. Focus on what is currently required to support **Sprint 1 - Demo requirements**. Make sure to describe your design choices in the corresponding _**Tier Section**_ and also in the _**OO Design Principles**_ section below.)_
 
-![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
+![The Tiers & Layers of the Architecture](updated-domain-model.png)
 
 The web application, is built using the Model–View–ViewModel (MVVM) architecture pattern. 
 
@@ -176,7 +176,7 @@ Our NeedFileDAO is mostly tested except for createNeed which is not tested at al
 
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
-![Replace with your ViewModel Tier class diagram 1, etc.](Code%20coverage.png)
+![Replace with your ViewModel Tier class diagram 1, etc.](Codecoverage.png)
 Our NeedFileDAO is not fully tested but when we add a few more tests it should be at 100% coverage.
 
 ## Ongoing Rationale
