@@ -3,6 +3,7 @@ import { AccessControlService } from "../access-control.service";
 import {Need} from "../Need";
 import {NeedService} from "../need.service";
 import { NgFor } from '@angular/common';
+import {BasketComponent} from "../basket/basket.component";
 
 @Component({
   selector: 'app-cupboard',
@@ -86,11 +87,23 @@ export class CupboardComponent {
     }
   }
 
-  add(name: string) {
-    name = name.trim();
-    if(!name){
-      return;
-      }
+  /**
+   * Add a need to the basket
+   * @param need The need to add
+   * @param quantity The quantity of the need to add
+   */
+  addToBasket(need: Need, quantity: number) {
+
+    // Create a copy of the need. This is what will actually be added to the basket
+    let basketNeed: Need = {
+      id: need.id,
+      name: need.name,
+      type: need.type,
+      quantity: quantity,
+      price: need.price
     }
+    BasketComponent.addToBasket(basketNeed);
+    console.log(`CupboardComponent: added quantity=${quantity} of need.id=${need.id} to basket`)
+  }
 
 }
