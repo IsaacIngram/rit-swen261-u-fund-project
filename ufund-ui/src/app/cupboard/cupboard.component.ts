@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AccessControlService } from "../access-control.service";
 import {Need} from "../Need";
-import { NgFor } from '@angular/common';
 import {NeedService} from "../need.service";
 import { NgFor } from '@angular/common';
 
