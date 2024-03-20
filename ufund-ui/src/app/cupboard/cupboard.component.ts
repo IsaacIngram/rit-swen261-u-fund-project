@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AccessControlService } from "../access-control.service";
 import {Need} from "../Need";
 import {NeedService} from "../need.service";
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-cupboard',
@@ -33,5 +34,22 @@ export class CupboardComponent {
     // Subscribe to the service to get needs
     this.needService.getNeeds().subscribe(needs => this.needs = needs);
   }
+  needNames: String[];
+
+  searchCharacter(Name: string) {
+    this.getNeeds();
+    this.needNames;
+    for(let i = 0; i < this.getNeeds.length; i++){
+      this.needNames[i] = this.getNeeds.name;
+    }
+    
+  }
+
+  add(name: string) {
+    name = name.trim();
+    if(!name){
+      return;
+      }
+    }
 
 }
