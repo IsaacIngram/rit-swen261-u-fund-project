@@ -55,7 +55,11 @@ export class NeedService {
       // If not a search term, return empty hero array
       return of([]);
     }
-    return this.http.get<Need[]>('')
+    const url: string = `${this.needsEndpoint}/?name=${term}`
+    return this.http.get<Need[]>(url).pipe(
+      tap(_ => this.log(`searched needs term=${term}`)),
+      catchError(this.handleError<Need[]>(`searchNeeds term=${term}`))
+    )
   }
 
   /**

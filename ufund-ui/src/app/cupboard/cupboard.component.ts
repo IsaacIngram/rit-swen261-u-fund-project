@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AccessControlService } from "../access-control.service";
 import {Need} from "../Need";
+import { NgFor } from '@angular/common';
 import {NeedService} from "../need.service";
 import { NgFor } from '@angular/common';
 
@@ -74,5 +75,23 @@ export class CupboardComponent {
   removeNeed(id: number) {
     this.needService.deleteNeed(id).subscribe(_ => this.getNeeds());
   }
+
+  searchString(searchString: string) {
+    if(searchString == '') {
+      // Empty search string, show all needs
+      this.getNeeds()
+    } else {
+      // Make REST request to search for needs with this string. When we get a response, update
+      // the needs being displayed
+      this.needService.searchNeeds(searchString).subscribe(needs => this.needs = needs)
+    }
+  }
+
+  add(name: string) {
+    name = name.trim();
+    if(!name){
+      return;
+      }
+    }
 
 }
