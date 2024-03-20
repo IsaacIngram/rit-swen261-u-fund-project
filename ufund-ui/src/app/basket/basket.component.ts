@@ -14,6 +14,10 @@ export class BasketComponent {
     BasketComponent.needs.push(need);
   }
 
+  clearBasket() {
+    BasketComponent.needs = [];
+  }
+
   getBasket(): Need[] {
     return BasketComponent.needs;
   }
