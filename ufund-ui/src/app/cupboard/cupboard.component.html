@@ -1,0 +1,61 @@
+<div *ngIf="accessControl.isAdmin()">
+  <h3>ADD NEED</h3>
+  <div>
+      <label for="new_need_name">Name: </label>
+      <input #newNameInput id="new_need_name" placeholder="name">
+  </div>
+  <div>
+      <label for="new_need_type">Type: </label>
+      <input #newTypeInput id="new_need_type" placeholder="TYPE">
+  </div>
+  <div>
+      <label for="new_need_quantity">Quantity: </label>
+      <input type="number" #newQuantityInput id="new_need_quantity" placeholder="1">
+  </div>
+  <div>
+      <label for="new_need_price">Price: </label>
+      <input type="number" #newPriceInput id="new_need_price" placeholder="1">
+  </div>
+
+  <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newQuantityInput.value, +newPriceInput.value)" >add</button>
+
+  <h3>CUPBOARD</h3>
+  <ul class="needs">
+    <li *ngFor="let need of needs">
+      <h4>{{need.name | uppercase}} Details</h4>
+      <p>ID: {{need.id}}</p>
+      <div>
+        <label for="need_name">Name: </label>
+        <input #nameInput id="need_name" [(ngModel)]="need.name" placeholder="Hero name">
+      </div>
+      <div>
+        <label for="need_type">Type: </label>
+        <input #typeInput id="need_type" [(ngModel)]="need.type" placeholder="Hero name">
+      </div>
+      <div>
+        <label for="need_quantity">Quantity: </label>
+        <input type="number" #quantityInput id="need_quantity" [(ngModel)]="need.quantity" placeholder="Hero name">
+      </div>
+      <div>
+        <label for="need_price">Price: </label>
+        <input type="number" #priceInput id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
+      </div>
+      <button type="button" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
+      <button type="button" (click)="removeNeed(need.id)">remove</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="accessControl.isHelper()">
+  <h3>Welcome, helper</h3>
+  <label for="search-box"> Need-Search:</label>
+  <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
+  <ul >
+    <li *ngFor="let need of needs">
+      <span>
+        id: {{need.id}}, name: {{need.name}}, type: {{need.type}}, quantity: {{need.quantity}}, price: {{need.price}}
+        <button type="button" class="add-button" (click)="add(need.name);"> ADD Need</button>
+      </span>
+    </li>
+  </ul>
+</div>
