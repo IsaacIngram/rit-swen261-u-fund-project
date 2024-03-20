@@ -17,17 +17,16 @@ export class AccessControlService {
     localStorage.setItem("user", name);
   }
 
-  login(name: string): boolean{
-    if(name == ""){
-      return false;
+  login(username: HTMLInputElement, password: HTMLInputElement): number{
+    if(username.value.length > 20 || username.value.length < 1){
+      return 0;
     }else{
-      this.setUser(name);
-      /* NEED TO WRITE CODE TO REDIRECT USER TO THE CORRECT PAGE*/
-      return true;
+      this.setUser(username.value)
+      return 1;
     }
   }
   logout(): void{
-
+    this.setUser("")
   }
 
   isAdmin(): boolean {
