@@ -1,6 +1,7 @@
 import {Need} from '../Need';
 import {Component} from '@angular/core';
 import {NeedService} from "../need.service";
+import {AccessControlService} from "../access-control.service";
 
 @Component({
   selector: 'app-basket',
@@ -12,7 +13,8 @@ export class BasketComponent {
   static needs: Need[] = [];
 
   constructor(
-    protected needService: NeedService
+    protected needService: NeedService,
+    protected accessControlService: AccessControlService
   ) { }
 
   /**
@@ -95,4 +97,6 @@ export class BasketComponent {
       this.needService.updateNeed(need).subscribe();
     }
   }
+
+  protected readonly AccessControlService = AccessControlService;
 }

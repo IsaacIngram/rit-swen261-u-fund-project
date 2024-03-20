@@ -59,3 +59,7 @@
     </li>
   </ul>
 </div>
+<div *ngIf="!accessControl.isHelper() && !accessControl.isAdmin()">
+    <h3>CUPBOARD</h3>
+    <p>Login to see the needs cupboard</p>
+</div>
