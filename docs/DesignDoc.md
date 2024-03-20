@@ -23,6 +23,7 @@ We are making a website with a working frontend and backend for an organization 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
+For sprint 2, we focused on completeing the basket, cupboard, and login system. This gives us the ebasics of the functioning website to be able to differentiate who is loging in to the website and what is being added to and from carts. 
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
@@ -42,6 +43,7 @@ Login features, statistic features, basket features, cupboard features, need fea
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
+For sprint 2, our MVP includes a working basket that you can add and remove items from, a working login to allow admin and helpers to login seperately, and a cupboard that stores needs and allows them to move into and out of cart. 
 
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
@@ -54,11 +56,12 @@ Login features, statistic features, basket features, cupboard features, need fea
 
 This section describes the application domain.
 
-![Domain Model](updated-domain-model.png)
+![Domain Model](Domain%20model.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
 > to each other._
+For sprint 2, we worked on the login, basket, and cupboard part of the domain. The login component is where a user is differentiated as either a helper or an admin. When a helper logs in, they can view needs and add them to their cart and remove them from their cart. Helpers are the ones that are purchasing needs to fund the organization. When an admin logs in, they can edit the needs in the cupboard. The basket component is where a helper can see what they have added to their cart and they can edit it there. A helper can remove items from their cart or increase/decrease the quanitity of the item they have chosen. AN admin cannot see what is in helpers carts. From the basket component there is also the checkout button that removes the items that are checked out from the cupboard count. Finally the cupboard which is where all the needs are displayed. Helpers can view the cupboard and search for needs and add them to the basket. Admins can edit the cupboard and put in more needs or remove needs that are no longer needed. 
 
 
 ## Architecture and Design
@@ -87,7 +90,7 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 This section describes the web interface flow; this is how the user views and interacts with the web application.
 
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
-
+A user will enter the login page which will make them login as either a admin or a helper. From their, they can go to the cupboard to add things to their basket or to their basket to edit the things they have selected to put into their basket. 
 
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
@@ -158,6 +161,12 @@ Our testing tests all functions within the API. All testing is functional for bo
 > criteria tests failing, and the number of user stories that
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
+Our NeedsControllers that includes createNeed, updateNeed, getNeed, deleteNeed, searchNeeds, and getNeeds is fully tested and passed all tests. 
+
+Our Need class is mostly tested but is just missing an equals testing to test two items in different classes. The getID, getName, getType, getPrice, and getQuantity are all fully tested at 100%.
+
+Our NeedFileDAO is mostly tested except for createNeed which is not tested at all with a 0%. 
+
 
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
@@ -167,6 +176,9 @@ Our testing tests all functions within the API. All testing is functional for bo
 
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
+![Replace with your ViewModel Tier class diagram 1, etc.](Code%20coverage.png)
+Our NeedFileDAO is not fully tested but when we add a few more tests it should be at 100% coverage.
 
 ## Ongoing Rationale
 2/21/24: Sprint 1 completed
+3/20/24: Sprint 2 completed
