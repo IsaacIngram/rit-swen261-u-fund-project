@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 /**
  * Unit test suite for the Need class.
@@ -173,6 +174,52 @@ public class NeedTest {
 
         // Analyze
         assertEquals(expected_string, actual_string);
+    }
+
+    /**
+     * Test instantiating a new Need and getting its attributes to ensure that
+     * the data is correctly stored.
+     */
+    @Test
+    public void testEquals() {
+        // Setup
+        int expected_id = 3;
+        String expected_name = "Water";
+        String expected_type = "BEVERAGE";
+        float expected_price = 3.21f;
+        int expected_quantity = 5;
+
+        // Invoke
+        Need need = new Need(
+                expected_id,
+                expected_name,
+                expected_type,
+                expected_price,
+                expected_quantity
+        );
+
+        Need need2 = new Need(
+                expected_id,
+                expected_name,
+                expected_type,
+                expected_price,
+                expected_quantity
+        );
+
+        Need need3 = new Need(
+                expected_id + 1,
+                expected_name,
+                expected_type,
+                expected_price,
+                expected_quantity
+        );
+
+        Integer i = 0;
+
+        // Analyze
+        assertEquals(false , need == need2);
+        assertEquals(false , need == need3);
+        assertEquals(false , need.equals(i));
     }
 
 }

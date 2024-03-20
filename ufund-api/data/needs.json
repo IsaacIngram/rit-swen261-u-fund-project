@@ -1,1 +1,17 @@
-[{"id":1,"name":"hello","type":"GREETING","price":12.34,"quantity":1},{"id":2,"name":"world","type":"PLANET","price":56.78,"quantity":21}]
+[
+  {"id":1,"name":"beans","type":"FOOD","price":3.99,"quantity":50},
+  {"id":2,"name":"pasta","type":"FOOD","price":2.49,"quantity":100},
+  {"id":3,"name":"bottled water","type":"DRINK","price":1.25,"quantity":200},
+  {"id":4,"name":"cleaning supplies","type":"HYGIENE","price":8.75,"quantity":30},
+  {"id":5,"name":"toilet paper","type":"HYGIENE","price":5.99,"quantity":50},
+  {"id":6,"name":"school supplies","type":"EDUCATION","price":12.50,"quantity":20},
+  {"id":7,"name":"first aid kits","type":"MEDICAL","price":20.00,"quantity":15},
+  {"id":8,"name":"winter coats","type":"CLOTHING","price":45.99,"quantity":10},
+  {"id":9,"name":"shoes","type":"CLOTHING","price":30.00,"quantity":25},
+  {"id":10,"name":"blankets","type":"SHELTER","price":15.75,"quantity":40},
+  {"id":11,"name":"flashlights","type":"EMERGENCY","price":7.50,"quantity":50},
+  {"id":12,"name":"bicycles","type":"TRANSPORTATION","price":150.00,"quantity":5},
+  {"id":13,"name":"notebooks","type":"EDUCATION","price":2.99,"quantity":100},
+  {"id":14,"name":"computer tablets","type":"TECHNOLOGY","price":250.00,"quantity":3},
+  {"id":15,"name":"legal consultation","type":"LEGAL","price":150.00,"quantity":5}
+]
