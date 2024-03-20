@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { CupboardComponent } from './cupboard/cupboard.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CupboardComponent
+    CupboardComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
