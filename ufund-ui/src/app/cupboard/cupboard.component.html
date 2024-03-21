@@ -1,23 +1,23 @@
 <div *ngIf="accessControl.isAdmin()">
   <h3>ADD NEED</h3>
   <div>
-      <label for="new_need_name">Name: </label>
-      <input #newNameInput id="new_need_name" placeholder="name">
+    <label for="new_need_name">Name: </label>
+    <input #newNameInput id="new_need_name" placeholder="name">
   </div>
   <div>
-      <label for="new_need_type">Type: </label>
-      <input #newTypeInput id="new_need_type" placeholder="TYPE">
+    <label for="new_need_type">Type: </label>
+    <input #newTypeInput id="new_need_type" placeholder="TYPE">
   </div>
   <div>
-      <label for="new_need_quantity">Quantity: </label>
-      <input type="number" #newQuantityInput id="new_need_quantity" placeholder="1">
+    <label for="new_need_quantity">Quantity: </label>
+    <input type="number" #newQuantityInput id="new_need_quantity" placeholder="1">
   </div>
   <div>
-      <label for="new_need_price">Price: </label>
-      <input type="number" #newPriceInput id="new_need_price" placeholder="1">
+    <label for="new_need_price">Price: </label>
+    <input type="number" #newPriceInput id="new_need_price" placeholder="1">
   </div>
 
-  <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newQuantityInput.value, +newPriceInput.value)" >add</button>
+  <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newPriceInput.value, +newQuantityInput.value)" >add</button>
 
   <h3>CUPBOARD</h3>
   <ul class="needs">
@@ -47,21 +47,21 @@
 </div>
 
 <div *ngIf="accessControl.isHelper()">
-    <h3>CUPBOARD</h3>
-    <label for="search-box"> Search:</label>
-    <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
-    <ul >
-        <li *ngFor="let need of needs">
+  <h3>CUPBOARD</h3>
+  <label for="search-box"> Search:</label>
+  <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
+  <ul >
+    <li *ngFor="let need of needs">
       <span>
         id: {{need.id}}, name: {{need.name}}, type: {{need.type}}, quantity: {{need.quantity}}, price: {{need.price}}
-          <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value);"> ADD to basket</button>
+        <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value);"> ADD to basket</button>
         <label for="add_quantity">add quantity:</label>
         <input type="number" #addQuantityInput id="add_quantity" placeholder="1">
       </span>
-        </li>
-    </ul>
+    </li>
+  </ul>
 </div>
 <div *ngIf="!accessControl.isHelper() && !accessControl.isAdmin()">
-    <h3>CUPBOARD</h3>
-    <p>Login to see the needs cupboard</p>
+  <h3>CUPBOARD</h3>
+  <p>Login to see the needs cupboard</p>
 </div>
