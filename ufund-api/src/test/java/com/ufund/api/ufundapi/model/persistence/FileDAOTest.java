@@ -20,10 +20,10 @@ import static org.mockito.Mockito.when;
  */
 @Tag("Persistence-tier")
 @SpringBootTest
-public class NeedFileDAOTest {
+public class FileDAOTest {
 
-    NeedFileDAO needFileDao;
-    NeedFileDAO emptyNeedFileDao;
+    FileDAO fileDao;
+    FileDAO emptyFileDao;
     Need[] testNeeds;
     Need[] emptyNeeds;
     ObjectMapper mockObjectMapper;
@@ -45,21 +45,21 @@ public class NeedFileDAOTest {
         mockObjectMapper = mock(ObjectMapper.class);
         when(mockObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(testNeeds);
-        needFileDao = new NeedFileDAO("anything.txt", mockObjectMapper);
+        fileDao = new FileDAO("anything.txt", mockObjectMapper);
 
         // Create an empty mock DAO and mock datafile
         emptyNeeds = new Need[0];
         mockEmptyObjectMapper = mock(ObjectMapper.class);
         when(mockEmptyObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(emptyNeeds);
-        emptyNeedFileDao = new NeedFileDAO("anything.txt", mockEmptyObjectMapper);
+        emptyFileDao = new FileDAO("anything.txt", mockEmptyObjectMapper);
     }
 
     @Test
     public void testDeleteNeed() {
         try {
-            assertEquals(true, needFileDao.deleteNeed(74));
-            assertEquals(false, needFileDao.deleteNeed(74));
+            assertEquals(true, fileDao.deleteNeed(74));
+            assertEquals(false, fileDao.deleteNeed(74));
         } catch (Exception e) {
             assertEquals(0, 1);
         }
@@ -68,7 +68,7 @@ public class NeedFileDAOTest {
         
     public void testCreateNeed() {
         try {
-            Need need = needFileDao.createNeed(new Need(69, "Water", "BEVERAGE", 69.69f, 69));
+            Need need = fileDao.createNeed(new Need(69, "Water", "BEVERAGE", 69.69f, 69));
             assertEquals(new Need(69, "Water", "BEVERAGE", 69.69f, 69), need);
         } catch (Exception e) {
             assertEquals(0, 1);
@@ -84,7 +84,7 @@ public class NeedFileDAOTest {
         String search_string = "e";
 
         // Invoke
-        Need[] result = needFileDao.findNeeds(search_string);
+        Need[] result = fileDao.findNeeds(search_string);
 
         // Analyze
         assertEquals(2, result.length);
@@ -101,7 +101,7 @@ public class NeedFileDAOTest {
         String search_string = "specific string";
 
         // Invoke
-        Need[] result = needFileDao.findNeeds(search_string);
+        Need[] result = fileDao.findNeeds(search_string);
 
         // Analyze
         assertEquals(0, result.length);
@@ -114,7 +114,7 @@ public class NeedFileDAOTest {
     public void testGetNeed(){
         for (Need testNeed : testNeeds) {
             // Invoke
-            Need response = needFileDao.getNeed(testNeed.getId());
+            Need response = fileDao.getNeed(testNeed.getId());
 
             // Analyze
             assertEquals(testNeed, response);
@@ -130,7 +130,7 @@ public class NeedFileDAOTest {
         int id = 1;
 
         // Invoke
-        Need response = needFileDao.getNeed(id);
+        Need response = fileDao.getNeed(id);
 
         // Analyze
         assertNull(response);
@@ -142,7 +142,7 @@ public class NeedFileDAOTest {
     @Test
     public void testGetNeeds() throws IOException {
         // Invoke
-        Need[] needs = needFileDao.getNeeds();
+        Need[] needs = fileDao.getNeeds();
 
         // Analyze
         assertEquals(testNeeds.length, needs.length);
@@ -157,7 +157,7 @@ public class NeedFileDAOTest {
     @Test
     public void testGetNeedsWhenEmpty() throws IOException {
         // Invoke
-        Need[] needs = emptyNeedFileDao.getNeeds();
+        Need[] needs = emptyFileDao.getNeeds();
 
         // Analyze
         assertEquals(0, emptyNeeds.length);
@@ -172,7 +172,7 @@ public class NeedFileDAOTest {
         Need need = new Need(72, "Ice", "H2O", 3.78f, 2);
 
         // Invoke
-        Need result = needFileDao.updateNeed(need);
+        Need result = fileDao.updateNeed(need);
 
         // Analyze
         assertEquals(need, result);
@@ -187,7 +187,7 @@ public class NeedFileDAOTest {
         Need need = new Need(1, "Air", "H2O", 0.00f, 1000);
 
         // Invoke
-        Need result = needFileDao.updateNeed(need);
+        Need result = fileDao.updateNeed(need);
 
         // Analyze
         assertNull(result);
