@@ -40,6 +40,14 @@ public class Credential {
     }
 
     /**
+     * Get the password hash from this credential
+     * @return String password hash
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
      * Check if this credential equals another (by username only)
      * @param o the object to compare
      * @return True if the other object is a Credential with the same username,
