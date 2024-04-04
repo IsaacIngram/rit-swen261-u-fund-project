@@ -39,7 +39,6 @@ export class AccessControlService {
   }
 
   isHelper(): boolean {
-    return true;
     if(this.getUser() != "admin" && this.getUser() != ""){
       return true;
     }else{
