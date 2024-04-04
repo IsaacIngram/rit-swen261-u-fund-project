@@ -42,3 +42,7 @@ nav {
   border-radius: 15px;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
