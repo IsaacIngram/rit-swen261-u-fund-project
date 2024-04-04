@@ -54,12 +54,16 @@
   </div>
   <ul class="needs">
     <li *ngFor="let need of needs">
-      <span>
-        id: {{need.id}}, name: {{need.name}}, type: {{need.type}}, quantity: {{need.quantity}}, price: {{need.price}}
-        <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value);"> ADD to basket</button>
-        <label for="add_quantity">add quantity:</label>
-        <input type="number" #addQuantityInput id="add_quantity" placeholder="1">
-      </span>
+      <div class="need">
+        <h2 class="uppercase need_name">{{need.name}}</h2>
+        <p class="need_info">{{need.type}}</p>
+        <p class="need_info">{{need.quantity}} needed</p>
+        <p class="need_info">${{need.price}}</p>
+        <div class="need_input_field">
+          <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value)">Add to Basket</button>
+          <input type="number" #addQuantityInput id="add_quantity" value="1">
+        </div>
+        </div>
     </li>
   </ul>
 </div>

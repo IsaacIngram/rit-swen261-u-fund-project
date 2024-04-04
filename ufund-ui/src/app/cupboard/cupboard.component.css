@@ -7,8 +7,50 @@
 #search-box {
   margin-left: 1vb;
   width: 50vb;
-  background: #65B3E3;
+  background: #93c4f3;
   color: #f6f7f8;
   font-family: sans-serif;
   font-size: 12pt;
+  border: 5px;
+}
+
+.needs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0;
+  justify-content: center;
+}
+
+.need {
+  background: #20A4F3;
+  padding: 1vb;
+  margin: 1vb;
+  border-radius: 15px;
+  width: 240px;
+
+  .need_input_field {
+
+    button {
+      background-color: #2EC4B6;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      margin-right: 1vb;
+    }
+
+    input {
+      width: 5vb;
+      background: #93c4f3;
+      color: #f6f7f8;
+    }
+
+  }
+
+  .need_name {
+    margin: 0.5vb 0 0.5vb;
+  }
+
+  .need_info {
+    margin: 0 0.3vb 0.5vb;
+  }
 }
