@@ -26,7 +26,7 @@
 }
 
 .need {
-  background: #011627;
+  background: #20A4F3;
   padding: 1vb;
   margin: 1vb;
   border-radius: 15px;
@@ -40,6 +40,14 @@
       color: white;
       border-radius: 5px;
       margin-right: 1vb;
+    }
+
+    button:hover {
+      background-color: #33d5c5;
+    }
+
+    button:active {
+      background-color: #ff3366;
     }
 
     input {
