@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './create-account.component.css'
 })
 export class CreateAccountComponent {
-
+  charErrorVisible: boolean = false
 }
