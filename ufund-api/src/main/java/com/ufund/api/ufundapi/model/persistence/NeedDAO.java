@@ -64,6 +64,5 @@ public interface NeedDAO {
      */
     Need[] findNeeds(String containsText) throws IOException; 
 
-    boolean
 
 }
