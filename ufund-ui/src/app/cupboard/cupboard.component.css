@@ -26,7 +26,7 @@
 }
 
 .need {
-  background: #20A4F3;
+  background: #011627;
   padding: 1vb;
   margin: 1vb;
   border-radius: 15px;
@@ -44,7 +44,7 @@
 
     input {
       width: 5vb;
-      background: #93c4f3;
+      background: #03355d;
       color: #f6f7f8;
     }
 
