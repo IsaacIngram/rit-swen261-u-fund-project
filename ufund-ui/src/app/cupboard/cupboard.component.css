@@ -2,16 +2,20 @@
   background: #20A4F3;
   padding: 1vb;
   border-radius: 10px;
+  width: 35vw;
+  display: flex;
 }
 
 #search-box {
   margin-left: 1vb;
-  width: 50vb;
   background: #93c4f3;
   color: #f6f7f8;
   font-family: sans-serif;
   font-size: 12pt;
   border: 5px;
+  flex: 1;
+  width: 100%;
+
 }
 
 .needs {
@@ -52,5 +56,11 @@
 
   .need_info {
     margin: 0 0.3vb 0.5vb;
+  }
+}
+
+@media (max-width: 600px) {
+  .search {
+    width: 95%;
   }
 }
