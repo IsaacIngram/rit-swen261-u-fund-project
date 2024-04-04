@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.viewmodel;
 
 import com.ufund.api.ufundapi.model.Credential;
+import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.model.persistence.AuthenticationDAO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +64,9 @@ public class AuthenticationController {
         }
     }
 
-
+    @PutMapping("")
+    public ResponseEntity<Credential> updateCredential(@RequestBody Credential credential) {
+        return null;
+    }
 
 }
