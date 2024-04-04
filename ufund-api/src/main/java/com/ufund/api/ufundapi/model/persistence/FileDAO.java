@@ -14,18 +14,18 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Component
-public class NeedFileDAO implements NeedDAO {
+public class FileDAO implements NeedDAO {
 
     Map<Integer, Need> needs; // Local cache of needs, so we don't need to read/write file constantly
-    private ObjectMapper objectMapper; // Conversion between Need and JSON text for writing to file
+    private ObjectMapper needObjectMapper; // Conversion between Need and JSON text for writing to file
 
-    private static int nextId;
+    private static int needNextId;
 
-    private String filePath; // File path to read/write data to
+    private String needFilePath; // File path to read/write data to
 
-    public NeedFileDAO(@Value("${needs.file}") String filePath, ObjectMapper objectMapper) throws IOException {
-        this.filePath = filePath;
-        this.objectMapper = objectMapper;
+    public FileDAO(@Value("${needs.file}") String needFilePath, ObjectMapper needObjectMapper) throws IOException {
+        this.needFilePath = needFilePath;
+        this.needObjectMapper = needObjectMapper;
         load();
     }
 
@@ -37,11 +37,11 @@ public class NeedFileDAO implements NeedDAO {
      */
     private boolean load() throws IOException {
         needs = new TreeMap<>();
-        nextId = 0;
+        needNextId = 0;
         Need[] needArray;
         // Attempt to read file
         try {
-            needArray = objectMapper.readValue(new File(filePath), Need[].class);
+            needArray = needObjectMapper.readValue(new File(needFilePath), Need[].class);
         } catch(EOFException | MismatchedInputException e) {
             // Handle case where file is empty
             needArray = new Need[0];
@@ -54,10 +54,10 @@ public class NeedFileDAO implements NeedDAO {
 
         for (Need need: needArray) {
             needs.put(need.getId(), need);
-            if(need.getId() > nextId)
-                nextId = need.getId();
+            if(need.getId() > needNextId)
+                needNextId = need.getId();
         }
-        ++nextId;
+        ++needNextId;
         return true;
     }
 
@@ -66,8 +66,8 @@ public class NeedFileDAO implements NeedDAO {
      * @return Integer next id
      */
     private synchronized static int nextId() {
-        int id = nextId;
-        ++nextId;
+        int id = needNextId;
+        ++needNextId;
         return id;
     }
 
@@ -107,7 +107,7 @@ public class NeedFileDAO implements NeedDAO {
      */
     private boolean save() throws IOException {
         Need[] needArray = getNeedsArray();
-        objectMapper.writeValue(new File(filePath), needArray);
+        needObjectMapper.writeValue(new File(needFilePath), needArray);
         return true;
     }
 
