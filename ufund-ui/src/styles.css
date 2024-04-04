@@ -18,6 +18,8 @@ nav {
   align-items: center;
   background-color: #011627;
   width: 100%;
+  padding: 1vb 0 1vb 0;
+  border-radius: 15px;
   li {
     margin-top: 16px;
     display: inline;
@@ -31,6 +33,7 @@ nav {
     padding: 10px;
     color: white;
     text-decoration: none;
+    font-size: 1.3em;
   }
 
 }
