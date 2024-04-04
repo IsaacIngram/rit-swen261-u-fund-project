@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  background-color: white;
+  color: white;
+  font-family: sans-serif;
+}
+
+main {
+  background-color: #88a0a8;
+  margin: 1vb;
+  padding: 1vb;
+  border-radius: 15px;
+}
+
+nav {
+  position: sticky;
+  align-items: center;
+  background-color: #88a0a8;
+  border-radius: 15px;
+  li {
+    margin-top: 16px;
+    display: inline;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+  }
+
+}
