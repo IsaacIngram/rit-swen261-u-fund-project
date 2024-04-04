@@ -48,9 +48,11 @@
 
 <div *ngIf="accessControl.isHelper()">
   <h3>CUPBOARD</h3>
-  <label for="search-box"> Search:</label>
-  <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
-  <ul >
+  <div class="search">
+    <label for="search-box"> Search:</label>
+    <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
+  </div>
+  <ul class="needs">
     <li *ngFor="let need of needs">
       <span>
         id: {{need.id}}, name: {{need.name}}, type: {{need.type}}, quantity: {{need.quantity}}, price: {{need.price}}

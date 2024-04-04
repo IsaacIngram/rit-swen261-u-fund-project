@@ -1,14 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 html {
-  background-color: white;
-  color: white;
+  background-color: #f6f7f8;
+  color: #f6f7f8;
   font-family: sans-serif;
 }
 
 header {
   h1 {
     text-align: center;
-    color: #88a0a8;
+    color: #20A4F3;
     text-transform: uppercase;
   }
 }
@@ -16,7 +16,7 @@ header {
 nav {
   position: sticky;
   align-items: center;
-  background-color: #88a0a8;
+  background-color: #011627;
   width: 100%;
   li {
     margin-top: 16px;
@@ -35,8 +35,8 @@ nav {
 
 }
 
-.greyBubble {
-  background-color: #88a0a8;
+.bubble {
+  background-color: #011627;
   margin: 1vb;
   padding: 1vb;
   border-radius: 15px;
