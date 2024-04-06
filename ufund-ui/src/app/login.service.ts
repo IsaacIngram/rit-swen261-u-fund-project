@@ -39,13 +39,16 @@ export class LoginService {
     const url = `${this.loginEndpoint}/${username}`;
 
     return this.http.delete<User>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted user username=${username}`)),
+      tap(_ => this.log(`deleted user with username=${username}`)),
       catchError(this.handleError<User>('deleteUser'))
     );
   }
 
-  changePassword(): Observable<User>{
-    
+  changePassword(user: User): Observable<User>{
+    return this.http.put<User>(this.loginEndpoint, user, this.httpOptions).pipe(
+      tap((newUser: User) => this.log(`changed password of user with username=${newUser.username}`)),
+      catchError(this.handleError<any>('changePassword'))
+    );
   }
 
   private log(message: string) {
