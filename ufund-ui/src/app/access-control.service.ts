@@ -20,9 +20,11 @@ export class AccessControlService {
   login(username: HTMLInputElement, password: HTMLInputElement): number{
     if(username.value.length > 20 || username.value.length < 1){
       return 0;
+    }else if(false){
+      return 1;
     }else{
       this.setUser(username.value)
-      return 1;
+      return 2
     }
   }
   

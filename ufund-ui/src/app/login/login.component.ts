@@ -13,6 +13,7 @@ export class LoginComponent {
   private loginService = inject(AccessControlService)
   returncode:number = 0
   charErrorVisible: boolean = false
+  badCredentials: boolean = false
   constructor(private router: Router){
   }
 
@@ -21,6 +22,9 @@ export class LoginComponent {
     if(this.returncode == 0){
       this.charErrorVisible = true
     }else if(this.returncode == 1){
+      password.value = ""
+      this.badCredentials = true
+    }else if(this.returncode == 2){
       username.value = ""
       password.value = ""
       this.router.navigate(['/cupboard'])
