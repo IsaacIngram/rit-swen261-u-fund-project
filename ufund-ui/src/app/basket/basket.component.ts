@@ -11,24 +11,53 @@ import {AccessControlService} from "../access-control.service";
 export class BasketComponent {
 
   static needs: Need[] = [];
+  static currentInstance: BasketComponent;
 
   constructor(
     protected needService: NeedService,
     protected accessControlService: AccessControlService
-  ) { }
+  ) { 
+    BasketComponent.currentInstance = this;
+  }
+
+  ngOnInit(): void {
+    this.loadUserBasket();
+  }
+
+  loadUserBasket(): void {
+    this.needService.getNeeds().subscribe(list => {
+      BasketComponent.needs = list.filter(element => {
+        const currentUserName = localStorage.getItem("user");
+        if(currentUserName != null) {
+          return element.userBaskets.includes(currentUserName)
+        }
+        return false;
+      })
+    })
+  }
 
   /**
    * Adds an item to the basket
    * @param need the item being added to the basket
    */
   static addToBasket(need: Need): void {
-    BasketComponent.needs.push(need);
+    const currentUserName = localStorage.getItem("user");
+    if(currentUserName != null) {
+      if(need) {
+        need.userBaskets.push(currentUserName);
+        BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
+      }
+    }
   }
   /**
    * Creates an empty basket
    */
   clearBasket() {
-    BasketComponent.needs = [];
+    const clonedNeeds: Need[]  = [...BasketComponent.needs];
+
+    clonedNeeds.forEach((need) => {
+      this.removeFromBasket(need);
+    });
   }
   /**
    * Get all needs that are in the basket
@@ -36,24 +65,22 @@ export class BasketComponent {
   getBasket(): Need[] {
     return BasketComponent.needs;
   }
-  /**
-   * Adjusts the quantity of each need in the basket
-   * @param need the need that the quanity is being adjusted of
-   * @param number either 1 or -1 depending on if a need is being increased or decreased
-   */
-  adjustQuantity(need: Need, delta: number): void {
-    need.quantity+=delta;
-    // stops need from going below at least 1 in the basket
-    if(need.quantity < 1) {
-      need.quantity = 1;
-    }
-  }
+
   /**
    * Removes a need from the basket
    *@param need the need that is being removed
    */
   removeFromBasket(need: Need): void {
-    BasketComponent.needs = BasketComponent.needs.filter(n => n !== need);
+    BasketComponent.needs = BasketComponent.needs.filter(element => {
+      if(element === need) {
+        // Remove user name from need's user basket list
+        need.userBaskets.filter(userName => userName !== localStorage.getItem("user"));
+        // Update the need
+        BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
+        return false;
+      }
+      return true;
+    });
   }
 
   /**

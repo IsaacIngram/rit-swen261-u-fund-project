@@ -45,8 +45,8 @@ export class CupboardComponent {
    * @param quantity need quantity
    */
   addNeed(name: string, type: string, price: number, quantity: number) {
-    const newNeed = {
-      id: -1, name: name, type: type, quantity: quantity, price: price
+    const newNeed: Need = {
+      id: -1, name: name, type: type, quantity: quantity, price: price, userBaskets: []
     };
     this.needService.addNeed(newNeed).subscribe(_ => this.getNeeds());
   }
@@ -62,7 +62,7 @@ export class CupboardComponent {
   saveNeed(oldNeed: Need, newName: string, newType: string, newQuantity: number, newPrice: number): void {
     // Create need with new data and old ID
     const newNeed: Need = {
-      id: oldNeed.id, name: newName, type: newType, quantity: newQuantity, price: newPrice
+      id: oldNeed.id, name: newName, type: newType, quantity: newQuantity, price: newPrice, userBaskets: []
     };
     // Tell the service to update the need
     this.needService.updateNeed(newNeed).subscribe();
@@ -95,12 +95,17 @@ export class CupboardComponent {
   addToBasket(need: Need, quantity: number) {
 
     // Create a copy of the need. This is what will actually be added to the basket
+    const currentUserName: string | null = localStorage.getItem("user");
+    if(currentUserName != null) {  // Should always be true
+      need.userBaskets.push(currentUserName);
+    }
     let basketNeed: Need = {
       id: need.id,
       name: need.name,
       type: need.type,
       quantity: quantity,
-      price: need.price
+      price: need.price,
+      userBaskets: need.userBaskets
     }
     BasketComponent.addToBasket(basketNeed);
     console.log(`CupboardComponent: added quantity=${quantity} of need.id=${need.id} to basket`)

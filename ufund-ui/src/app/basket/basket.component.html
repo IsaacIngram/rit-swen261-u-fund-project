@@ -6,11 +6,9 @@
   <ul class="basket">
       <li *ngFor="let need of getBasket()">
         <a routerLink="">
-          {{need.name}} (x{{need.quantity}})
+          {{need.name}}
         </a>
         <button type="button" class="delete" title="remove need" (click)="removeFromBasket(need)">x</button>
-        <button type="button" class="increment" title="increment quantity" (click)="adjustQuantity(need, 1)">+</button>
-        <button type="button" class="decrement" title="decrement quantity" (click)="adjustQuantity(need, -1)">-</button>
       </li>
   </ul>
 </div>
