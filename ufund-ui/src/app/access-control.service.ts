@@ -40,6 +40,9 @@ export class AccessControlService {
       return 0;
     }else{
       this.loginService.getUser(username.value).subscribe(newUser => this.returnedUser = newUser )
+      if(this.returnedUser.username == ""){
+        return 1
+      }
       if(password.value != this.returnedUser.password){
         return 1
       }else{
