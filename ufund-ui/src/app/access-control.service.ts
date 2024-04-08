@@ -43,7 +43,9 @@ export class AccessControlService {
 
   login(username: HTMLInputElement, password: HTMLInputElement): number{
     if(username.value.length > 20 || username.value.length < 1){
-      return 0;
+      return 0
+    }else if(password.value.length > 20 || password.value.length < 1){
+      return 4
     }else{
       this.loginService.getUser(username.value).subscribe(newUser => this.returnedUser = newUser )
       if(this.returnedUser.username == ""){
