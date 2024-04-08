@@ -1,5 +1,5 @@
-<div *ngIf="accessControl.isAdmin()" class="bubble">
-  <h3>ADD NEED</h3>
+<div *ngIf="accessControl.isAdmin()">
+  <h3 class="bubbleBlue">ADD NEED</h3>
   <div>
     <label for="new_need_name">Name: </label>
     <input #newNameInput id="new_need_name" placeholder="name">
@@ -19,29 +19,29 @@
 
   <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newPriceInput.value, +newQuantityInput.value)" >add</button>
 
-  <h3>CUPBOARD</h3>
+  <h3 class="bubbleBlue">CUPBOARD</h3>
   <ul class="needs">
-    <li *ngFor="let need of needs">
-      <h4>{{need.name | uppercase}} Details</h4>
-      <p>ID: {{need.id}}</p>
-      <div>
+    <li *ngFor="let need of needs" class="need">
+      <h3 class="need_name">{{need.name | uppercase}}</h3>
+      <p class="admin_need_input_field">ID: {{need.id}}</p>
+      <div class="admin_need_input_field">
         <label for="need_name">Name: </label>
         <input #nameInput id="need_name" [(ngModel)]="need.name" placeholder="Hero name">
       </div>
-      <div>
+      <div class="admin_need_input_field">
         <label for="need_type">Type: </label>
         <input #typeInput id="need_type" [(ngModel)]="need.type" placeholder="Hero name">
       </div>
-      <div>
+      <div class="admin_need_input_field">
         <label for="need_quantity">Quantity: </label>
         <input type="number" #quantityInput id="need_quantity" [(ngModel)]="need.quantity" placeholder="Hero name">
       </div>
-      <div>
+      <div class="admin_need_input_field">
         <label for="need_price">Price: </label>
         <input type="number" #priceInput id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
       </div>
-      <button type="button" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
-      <button type="button" (click)="removeNeed(need.id)">remove</button>
+      <button type="button" class="saveButton" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
+      <button type="button" class="removeButton" (click)="removeNeed(need.id)">remove</button>
     </li>
   </ul>
 </div>
@@ -59,7 +59,7 @@
         <p class="need_info">{{need.type}}</p>
         <p class="need_info">{{need.quantity}} needed</p>
         <p class="need_info">${{need.price}}</p>
-        <div class="need_input_field">
+        <div class="helper_need_input_field">
           <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value)">Add to Basket</button>
           <input type="number" #addQuantityInput id="add_quantity" value="1">
         </div>

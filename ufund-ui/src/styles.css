@@ -45,6 +45,13 @@ nav {
   border-radius: 15px;
 }
 
+.bubbleBlue  {
+  background-color: #20a4f3;
+  margin: 1vb;
+  padding: 1vb;
+  border-radius: 15px;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
