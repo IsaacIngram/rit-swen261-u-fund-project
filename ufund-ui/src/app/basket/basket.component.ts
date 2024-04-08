@@ -17,10 +17,10 @@ export class BasketComponent {
     protected needService: NeedService,
     protected accessControlService: AccessControlService
   ) { 
-    BasketComponent.currentInstance = this;
   }
 
   ngOnInit(): void {
+    BasketComponent.currentInstance = this;
     this.loadUserBasket();
   }
 
