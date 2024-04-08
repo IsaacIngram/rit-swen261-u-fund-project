@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { AccessControlService } from '../access-control.service';
-import { AppRoutingModule } from '../app-routing.module';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +18,7 @@ export class LoginComponent {
   }
 
   login(username: HTMLInputElement, password: HTMLInputElement): void{
-    this.returncode = this.loginService.login(username, password)
+    this.returncode = this.loginService.login(username.value, password.value)
     if(this.returncode == 0){
       this.charErrorVisible = true
       this.passwordCharErrorVisible = false

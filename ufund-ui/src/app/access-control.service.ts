@@ -22,14 +22,13 @@ export class AccessControlService {
 
   createAccount(username: string, password: string): number{
     this.loginService.getUser(username).subscribe(newUser => this.returnedUser = newUser )
-    console.log(this.returnedUser)
     if(this.returnedUser.username != ""){
       return 0
     }else{
       this.newUser.username = username
       this.newUser.password = password
-      console.log(this.newUser.username + " " + this.newUser.password + " We tried")
       this.loginService.createUser(this.newUser)
+      this.login(username, password)
       return 1
     }
   }
@@ -43,20 +42,20 @@ export class AccessControlService {
     localStorage.setItem("user", name);
   }
 
-  login(username: HTMLInputElement, password: HTMLInputElement): number{
-    if(username.value.length > 20 || username.value.length < 1){
+  login(username: string, password: string): number{
+    if(username.length > 20 || username.length < 1){
       return 0
-    }else if(password.value.length > 20 || password.value.length < 1){
+    }else if(password.length > 20 || password.length < 1){
       return 4
     }else{
-      this.loginService.getUser(username.value).subscribe(newUser => this.returnedUser = newUser )
+      this.loginService.getUser(username).subscribe(newUser => this.returnedUser = newUser )
       if(this.returnedUser.username == ""){
         return 1
       }
-      if(password.value != this.returnedUser.password){
+      if(password != this.returnedUser.password){
         return 1
       }else{
-        this.setUser(username.value)
+        this.setUser(username)
         return 2
       }
     }
