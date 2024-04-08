@@ -44,6 +44,7 @@ export class CreateAccountComponent {
     }
     this.returnVal = this.authService.createAccount(username.value, password.value)
     if(this.returnVal == 1){
+      this.authService.login(username.value, password.value)
       this.router.navigate(['/cupboard'])
     }else{
       this.passwordDontMatch = false

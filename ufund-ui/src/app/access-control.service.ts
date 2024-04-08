@@ -28,7 +28,6 @@ export class AccessControlService {
       this.newUser.username = username
       this.newUser.password = password
       this.loginService.createUser(this.newUser).subscribe()
-      this.login(username, password)
       return 1
     }
   }
