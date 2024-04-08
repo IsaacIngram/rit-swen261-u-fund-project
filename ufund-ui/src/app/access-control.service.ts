@@ -27,6 +27,7 @@ export class AccessControlService {
     }else{
       this.newUser.username = username
       this.newUser.password = password
+      console.log(this.newUser.username + " " + this.newUser.password + " We tried")
       this.loginService.createUser(this.newUser)
       return 1
     }
