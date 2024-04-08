@@ -22,12 +22,12 @@ export class AccessControlService {
 
   createAccount(username: string, password: string): number{
     this.loginService.getUser(username).subscribe(newUser => this.returnedUser = newUser )
-    if(this.returnedUser.username != ""){
+    if(this.returnedUser.username !== ""){
       return 0
     }else{
       this.newUser.username = username
       this.newUser.password = password
-      this.loginService.createUser(this.newUser)
+      this.loginService.createUser(this.newUser).subscribe()
       this.login(username, password)
       return 1
     }

@@ -20,7 +20,7 @@ export class CreateAccountComponent {
 
   }
 
-  createaccount(username: HTMLInputElement, password: HTMLInputElement, checkpassword: HTMLInputElement){
+  createAccount(username: HTMLInputElement, password: HTMLInputElement, checkpassword: HTMLInputElement){
     if(username.value.length > 20 || username.value.length < 1){
       this.passwordDontMatch = false
       this.charErrorVisible = true
