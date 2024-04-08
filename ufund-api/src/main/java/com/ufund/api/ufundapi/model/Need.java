@@ -1,16 +1,20 @@
 package com.ufund.api.ufundapi.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Need {
 
-    static final String STRING_FORMAT = "Need [id=%d, name=%s, price=%f, quantity=%d]";
+    static final String STRING_FORMAT = "Need [id=%d, name=%s, price=%f, quantity=%d, carts={}]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("type") private String type;
     @JsonProperty("price") private float price;
     @JsonProperty("quantity") private int quantity;
+    @JsonProperty("userBaskets") private Map<String, Integer> userBaskets;  // List of user names who's carts this Need is in
 
     /**
      * Create a need with the given properties
@@ -34,6 +38,7 @@ public class Need {
         this.type = type;
         this.price = price;
         this.quantity = quantity;
+        this.userBaskets = new HashMap<>();
     }
 
     /**
@@ -110,14 +115,16 @@ public class Need {
 
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, name, price, quantity);
+        return String.format(STRING_FORMAT, id, name, price, quantity, userBaskets);
     }
 
     @Override
     public boolean equals(Object o){
         if(o instanceof Need){
             Need object = (Need)o;
-            return this.id == object.getId() && this.name.equals(object.getName()) && this.price == object.getPrice() ;
+            return this.id == object.getId() 
+                && this.name.equals(object.getName())
+                && this.price == object.getPrice() ;
         }
         return false;
     }

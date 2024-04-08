@@ -9,13 +9,15 @@ import { CupboardComponent } from './cupboard/cupboard.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { BasketComponent } from './basket/basket.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CupboardComponent,
-    BasketComponent
+    BasketComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,

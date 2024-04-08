@@ -1,0 +1,36 @@
+.basket {
+  font-family: sans-serif;
+}
+
+.need {
+  list-style: none;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.delete {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #ff3366;
+}
+
+.clearButton {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #ff3366;
+}
+
+.checkoutButton {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #2EC4B6;
+}

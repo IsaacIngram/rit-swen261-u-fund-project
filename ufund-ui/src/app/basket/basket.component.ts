@@ -11,24 +11,54 @@ import {AccessControlService} from "../access-control.service";
 export class BasketComponent {
 
   static needs: Need[] = [];
+  static currentInstance: BasketComponent;
 
   constructor(
     protected needService: NeedService,
     protected accessControlService: AccessControlService
-  ) { }
+  ) { 
+    BasketComponent.currentInstance = this;
+  }
+
+  ngOnInit(): void {
+    BasketComponent.currentInstance = this;
+    this.loadUserBasket();
+  }
+
+  loadUserBasket(): void {
+    this.needService.getNeeds().subscribe(list => {
+      BasketComponent.needs = list.filter(element => {
+        const currentUserName = localStorage.getItem("user");
+        if(currentUserName != null) {
+          return currentUserName in element.userBaskets;
+        }
+        return false;
+      })
+    })
+  }
 
   /**
    * Adds an item to the basket
    * @param need the item being added to the basket
    */
-  static addToBasket(need: Need): void {
-    BasketComponent.needs.push(need);
+  static addToBasket(need: Need, quantity: number): void {
+    const currentUserName = localStorage.getItem("user");
+    if(currentUserName != null) {
+      if(need) {
+        need.userBaskets[currentUserName] = quantity;
+        BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
+      }
+    }
   }
   /**
    * Creates an empty basket
    */
   clearBasket() {
-    BasketComponent.needs = [];
+    const clonedNeeds: Need[]  = [...BasketComponent.needs];
+
+    clonedNeeds.forEach((need) => {
+      this.removeFromBasket(need);
+    });
   }
   /**
    * Get all needs that are in the basket
@@ -36,24 +66,35 @@ export class BasketComponent {
   getBasket(): Need[] {
     return BasketComponent.needs;
   }
-  /**
-   * Adjusts the quantity of each need in the basket
-   * @param need the need that the quanity is being adjusted of
-   * @param number either 1 or -1 depending on if a need is being increased or decreased
-   */
-  adjustQuantity(need: Need, delta: number): void {
-    need.quantity+=delta;
-    // stops need from going below at least 1 in the basket
-    if(need.quantity < 1) {
-      need.quantity = 1;
-    }
-  }
+
   /**
    * Removes a need from the basket
    *@param need the need that is being removed
    */
   removeFromBasket(need: Need): void {
-    BasketComponent.needs = BasketComponent.needs.filter(n => n !== need);
+    BasketComponent.needs = BasketComponent.needs.filter(element => {
+      if(element === need) {
+        // Remove user name from need's user basket list
+        const currentUsername = localStorage.getItem("user");
+        if(currentUsername != undefined) {
+          delete need.userBaskets[currentUsername];
+        }
+
+        // Update the need
+        BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
+        return false;
+      }
+      return true;
+    });
+    console.log(BasketComponent.needs);
+  }
+
+  basketTotal(): number {
+    var total: number = 0;
+    BasketComponent.needs.forEach(need => {
+      total += need.price * this.getNeedQuantity(need);
+    });
+    return total;
   }
 
   /**
@@ -69,7 +110,7 @@ export class BasketComponent {
       // once this request is fulfilled. This allows calculating the new quantity and also
       // enables checking if the need still exists
       this.needService.getNeed(need.id).subscribe(
-        cupboard_need => this.checkoutNeed(need, cupboard_need.quantity, need.quantity)
+        cupboard_need => this.checkoutNeed(need, cupboard_need.quantity, this.getNeedQuantity(need))
       );
     }
     this.clearBasket();
@@ -96,6 +137,14 @@ export class BasketComponent {
       need.quantity = totalQuantity - checkoutQuantity;
       this.needService.updateNeed(need).subscribe();
     }
+  }
+
+  getNeedQuantity(need: Need): number {
+    const currentUserName = localStorage.getItem("user");
+    if(currentUserName != null) {
+      return need.userBaskets[currentUserName];
+    }
+    return 0;
   }
 
   protected readonly AccessControlService = AccessControlService;

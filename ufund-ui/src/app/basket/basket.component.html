@@ -1,22 +1,23 @@
+<div class="bubbleBlue">
 <h3>BASKET</h3>
 <div *ngIf="accessControlService.isHelper()">
-  <button type="button" (click)="clearBasket()">Clear Basket</button>
-  <button type="button" (click)="checkoutBasket()">Checkout</button>
+  <button type="button" (click)="clearBasket()" class="clearButton">Clear Basket</button>
+  <button type="button" (click)="checkoutBasket()" class="checkoutButton">Checkout</button>
   <br>
   <ul class="basket">
-      <li *ngFor="let need of getBasket()">
+      <li *ngFor="let need of getBasket()" class="need">
         <a routerLink="">
-          {{need.name}} (x{{need.quantity}})
+          {{need.name}} (Cost: {{need.price}}, Quantity: {{getNeedQuantity(need)}})
         </a>
         <button type="button" class="delete" title="remove need" (click)="removeFromBasket(need)">x</button>
-        <button type="button" class="increment" title="increment quantity" (click)="adjustQuantity(need, 1)">+</button>
-        <button type="button" class="decrement" title="decrement quantity" (click)="adjustQuantity(need, -1)">-</button>
       </li>
   </ul>
+  <h3>Total: ${{basketTotal()}}</h3>
 </div>
 <div *ngIf="accessControlService.isAdmin()">
   <p>Admin user cannot see baskets</p>
 </div>
 <div *ngIf="!accessControlService.isHelper() && !accessControlService.isAdmin()">
   <p>Login to see your basket</p>
+</div>
 </div>
