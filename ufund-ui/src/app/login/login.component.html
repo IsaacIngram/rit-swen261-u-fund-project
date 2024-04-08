@@ -1,17 +1,21 @@
-<h3>LOGIN</h3>
-Username: <input #username type="text" placeholder="Username"><br>
-Password: <input #password type="text" placeholder="Non-Functional"><br>
-<div *ngIf="charErrorVisible"  style="color:red">
-    Username must be between 1 and 20 characters
+<div class="bubbleBlue">
+  <h3>LOGIN</h3>
+  <div class="loginFields">
+    Username: <input #username type="text" placeholder="Username"><br>
+    Password: <input #password type="text" placeholder="Password"><br>
+  </div>
+  <div *ngIf="charErrorVisible"  style="color:red">
+      Username must be between 1 and 20 characters
+  </div>
+  <div *ngIf="badCredentials"  style="color:red">
+      Username or password is incorrect
+  </div>
+
+  <button type="button" class="loginButton" (click) = "login(username, password)">Login</button>
+
+  <h4>Or create an account:</h4>
+  <button type="button" class="createAccountButton" routerLink="/create-account">Create Account</button>
+
+
 </div>
-<div *ngIf="badCredentials"  style="color:red">
-    Username or password is incorrect
-</div>
-
-
-<button type="button" (click) = "login(username, password)">Login</button> <br>
-<a routerLink="/create-account">Create new account</a>
-
-
-
 
