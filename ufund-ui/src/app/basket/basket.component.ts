@@ -78,11 +78,20 @@ export class BasketComponent {
         Object.fromEntries(Object.entries(need.userBaskets).filter(([userName,v]) => userName !== localStorage.getItem("user")));
 
         // Update the need
-        BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
+        BasketComponent.currentInstance.needService.deleteNeed(need.id).subscribe();
         return false;
       }
       return true;
     });
+    console.log(BasketComponent.needs);
+  }
+
+  basketTotal(): number {
+    var total: number = 0;
+    BasketComponent.needs.forEach(need => {
+      total += need.price * this.getNeedQuantity(need);
+    });
+    return total;
   }
 
   /**
@@ -98,7 +107,7 @@ export class BasketComponent {
       // once this request is fulfilled. This allows calculating the new quantity and also
       // enables checking if the need still exists
       this.needService.getNeed(need.id).subscribe(
-        cupboard_need => this.checkoutNeed(need, cupboard_need.quantity, need.quantity)
+        cupboard_need => this.checkoutNeed(need, cupboard_need.quantity, this.getNeedQuantity(need))
       );
     }
     this.clearBasket();
@@ -127,7 +136,7 @@ export class BasketComponent {
     }
   }
 
-   getNeedQuantity(need: Need): number {
+  getNeedQuantity(need: Need): number {
     const currentUserName = localStorage.getItem("user");
     if(currentUserName != null) {
       return need.userBaskets[currentUserName];

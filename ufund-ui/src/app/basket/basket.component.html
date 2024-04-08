@@ -11,6 +11,7 @@
         <button type="button" class="delete" title="remove need" (click)="removeFromBasket(need)">x</button>
       </li>
   </ul>
+  <h3>Total: {{basketTotal()}}</h3>
 </div>
 <div *ngIf="accessControlService.isAdmin()">
   <p>Admin user cannot see baskets</p>
