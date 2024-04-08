@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.ufund.api.ufundapi.model.Credential;
 import com.ufund.api.ufundapi.model.Need;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -127,6 +128,19 @@ public class FileDAO implements NeedDAO, AuthenticationDAO {
         return needArray;
     }
 
+    private Credential[] getCredentialArray() {
+        ArrayList<Credential> credentialArrayList = new ArrayList<>();
+
+        for(Credential credential: credentials.values()) {
+            credentialArrayList.add(credential);
+        }
+
+        Credential[] credentialsArray = new Credential[credentialArrayList.size()];
+        credentialArrayList.toArray(credentialsArray);
+        return credentialsArray;
+    }
+
+
     /**
      * Saves the Needs from the map into the file as JSON objects
      * @return Boolean, true if success
@@ -135,6 +149,10 @@ public class FileDAO implements NeedDAO, AuthenticationDAO {
     private boolean save() throws IOException {
         Need[] needArray = getNeedsArray();
         needObjectMapper.writeValue(new File(needFilePath), needArray);
+
+        Credential[] credentialArray = getCredentialArray();
+        credentialObjectMapper.writeValue(new File(credentialFilePath), credentialArray);
+
         return true;
     }
 
@@ -223,7 +241,9 @@ public class FileDAO implements NeedDAO, AuthenticationDAO {
                 // Username already exists
                 return null;
             }
-            credentials.put(credential.getUsername(), credential);
+            Credential newCredential = new Credential(credential.getUsername(), credential.getPassword());
+            credentials.put(credential.getUsername(), newCredential);
+            System.out.println(credentials);
             save();
             return credential;
         }
