@@ -257,5 +257,31 @@ public class FileDAO implements NeedDAO, AuthenticationDAO {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean deleteCredential(String user) throws IOException {
+        synchronized (credentials) {
+            // Check if this username exists
+            if(credentials.containsKey(user)) {
+                credentials.remove(user);
+                return save();
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public Credential getCredential(String user) throws IOException {
+        synchronized (credentials) {
+            // Check if this username exists
+            if(credentials.containsKey(user)) {
+                return credentials.get(user);
+            } else {
+                return new Credential("", "");
+            }
+        }
+    }
+
 
 }
