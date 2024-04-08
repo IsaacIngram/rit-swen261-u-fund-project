@@ -26,8 +26,10 @@ public class FileDAOTest {
     FileDAO emptyFileDao;
     Need[] testNeeds;
     Need[] emptyNeeds;
-    ObjectMapper mockObjectMapper;
-    ObjectMapper mockEmptyObjectMapper;
+    ObjectMapper mockNeedObjectMapper;
+    ObjectMapper mockEmptyNeedObjectMapper;
+    ObjectMapper mockAuthObjectMapper;
+    ObjectMapper mockEmptyAuthObjectMapper;
 
     /**
      * Before each test, create and inject a mock ObjectMapper to isolate the
@@ -42,17 +44,19 @@ public class FileDAOTest {
         testNeeds[2] = new Need(74, "Shelter", "HOME", 1234.56f, 1);
 
         // Create a mock ObjectMapper that reads from the mock data above
-        mockObjectMapper = mock(ObjectMapper.class);
-        when(mockObjectMapper.readValue(new File("anything.txt"), Need[].class))
+        mockNeedObjectMapper = mock(ObjectMapper.class);
+        mockAuthObjectMapper = mock(ObjectMapper.class);
+        when(mockNeedObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(testNeeds);
-        fileDao = new FileDAO("anything.txt", mockObjectMapper);
+        fileDao = new FileDAO("anything.txt", mockNeedObjectMapper, "anything.txt", mockAuthObjectMapper);
 
         // Create an empty mock DAO and mock datafile
         emptyNeeds = new Need[0];
-        mockEmptyObjectMapper = mock(ObjectMapper.class);
-        when(mockEmptyObjectMapper.readValue(new File("anything.txt"), Need[].class))
+        mockEmptyNeedObjectMapper = mock(ObjectMapper.class);
+        mockEmptyAuthObjectMapper = mock(ObjectMapper.class);
+        when(mockEmptyNeedObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(emptyNeeds);
-        emptyFileDao = new FileDAO("anything.txt", mockEmptyObjectMapper);
+        emptyFileDao = new FileDAO("anything.txt", mockEmptyNeedObjectMapper, "anything.txt", mockEmptyAuthObjectMapper);
     }
 
     @Test

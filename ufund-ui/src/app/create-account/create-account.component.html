@@ -1,0 +1,20 @@
+<h3>CREATE ACCOUNT</h3>
+Username: <input #username type="text" placeholder="Username"><br>
+Password: <input #password type="text" placeholder="Non-Functional"><br>
+Confirm Password: <input #checkpassword type="text" placeholder="Non-Functional"><br>
+
+<div *ngIf="charErrorVisible"  style="color:red">
+    Username must be between 1 and 20 characters
+</div>
+<div *ngIf="nameTaken"  style="color:red">
+    Username is already in use
+</div>
+<div *ngIf="passwordCharError"  style="color:red">
+    Passwords must be between 1 and 20 characters
+</div>
+<div *ngIf="passwordDontMatch"  style="color:red">
+    Passwords do not match
+</div>
+
+<button type="button" (click) = "createaccount(username, password, checkpassword)">Create Account</button> <br>
+<a routerLink="/login">Back to login</a>

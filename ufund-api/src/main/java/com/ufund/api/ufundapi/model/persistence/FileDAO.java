@@ -2,6 +2,7 @@ package com.ufund.api.ufundapi.model.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.ufund.api.ufundapi.model.Credential;
 import com.ufund.api.ufundapi.model.Need;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,18 +15,28 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Component
-public class FileDAO implements NeedDAO {
+public class FileDAO implements NeedDAO, AuthenticationDAO {
 
     Map<Integer, Need> needs; // Local cache of needs, so we don't need to read/write file constantly
+    Map<String, Credential> credentials; // Local cache of credentials so we don't need to read/write file constantly
     private ObjectMapper needObjectMapper; // Conversion between Need and JSON text for writing to file
+    private ObjectMapper credentialObjectMapper; // Conversion between Credential and JSON text for writing to file
 
     private static int needNextId;
 
     private String needFilePath; // File path to read/write data to
+    private String credentialFilePath; // File path to read/write credential data to
 
-    public FileDAO(@Value("${needs.file}") String needFilePath, ObjectMapper needObjectMapper) throws IOException {
+    public FileDAO(
+            @Value("${needs.file}") String needFilePath,
+            ObjectMapper needObjectMapper,
+            @Value("data/credentials.json") String credentialFilePath,
+            ObjectMapper credentialObjectMapper
+    ) throws IOException {
         this.needFilePath = needFilePath;
         this.needObjectMapper = needObjectMapper;
+        this.credentialFilePath = credentialFilePath;
+        this.credentialObjectMapper = credentialObjectMapper;
         load();
     }
 
@@ -36,6 +47,8 @@ public class FileDAO implements NeedDAO {
      * @throws IOException When the file cannot be accessed or read
      */
     private boolean load() throws IOException {
+
+        // LOAD NEEDS
         needs = new TreeMap<>();
         needNextId = 0;
         Need[] needArray;
@@ -48,16 +61,30 @@ public class FileDAO implements NeedDAO {
         }
         // Check if the JSON we read in actually contains data before trying
         // to run a for loop on it
-        if(needArray.length == 0) {
-            return true;
+        if(needArray.length != 0) {
+            for (Need need: needArray) {
+                needs.put(need.getId(), need);
+                if(need.getId() > needNextId)
+                    needNextId = need.getId();
+            }
+            ++needNextId;
         }
 
-        for (Need need: needArray) {
-            needs.put(need.getId(), need);
-            if(need.getId() > needNextId)
-                needNextId = need.getId();
+
+        // LOAD CREDENTIALS
+        credentials = new TreeMap<>();
+        Credential[] credentialArray;
+        try {
+            credentialArray = credentialObjectMapper.readValue(new File(credentialFilePath), Credential[].class);
+        } catch (EOFException | MismatchedInputException e) {
+            credentialArray = new Credential[0];
         }
-        ++needNextId;
+        // Check if the JSON we read in actually contains data before trying
+        // to run a for loop on it
+        for (Credential credential : credentialArray) {
+            credentials.put(credential.getUsername(), credential);
+        }
+
         return true;
     }
 
@@ -65,7 +92,7 @@ public class FileDAO implements NeedDAO {
      * Generate the next ID for a new {Need}
      * @return Integer next id
      */
-    private synchronized static int nextId() {
+    private synchronized static int nextNeedId() {
         int id = needNextId;
         ++needNextId;
         return id;
@@ -136,7 +163,7 @@ public class FileDAO implements NeedDAO {
             if(needs.containsKey(need.getId())){
                 return null;
             }
-            Need newNeed = new Need(nextId(),need.getName(),need.getType(), need.getPrice(), need.getQuantity());
+            Need newNeed = new Need(nextNeedId(),need.getName(),need.getType(), need.getPrice(), need.getQuantity());
             needs.put(newNeed.getId(),newNeed);
             save(); // may throw an IOException
             return newNeed;
@@ -186,4 +213,75 @@ public class FileDAO implements NeedDAO {
             return need;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Credential createCredential(Credential credential) throws IOException {
+        synchronized (credentials) {
+            if (credentials.containsKey(credential.getUsername())) {
+                // Username already exists
+                return null;
+            }
+            credentials.put(credential.getUsername(), credential);
+            save();
+            return credential;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Credential updateCredential(Credential credential) throws IOException {
+        synchronized (credentials) {
+            if(!credentials.containsKey(credential.getUsername())) {
+                // Credential does not exist; cannot be updated
+                return null;
+            }
+            credentials.put(credential.getUsername(), credential);
+            save();
+            return credential;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean compareCredential(Credential credential) throws IOException {
+        synchronized (credentials) {
+            // Check if this username exists
+            if(credentials.containsKey(credential.getUsername())) {
+                return credentials.get(credential.getUsername()).comparePassword(credential.getPassword());
+            }
+            return false;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean deleteCredential(String user) throws IOException {
+        synchronized (credentials) {
+            // Check if this username exists
+            if(credentials.containsKey(user)) {
+                credentials.remove(user);
+                return save();
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public Credential getCredential(String user) throws IOException {
+        synchronized (credentials) {
+            // Check if this username exists
+            if(credentials.containsKey(user)) {
+                return credentials.get(user);
+            } else {
+                return new Credential("", "");
+            }
+        }
+    }
+
+
 }
