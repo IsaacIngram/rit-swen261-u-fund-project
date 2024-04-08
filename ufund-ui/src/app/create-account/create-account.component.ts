@@ -20,16 +20,16 @@ export class CreateAccountComponent {
   }
 
   createaccount(username: HTMLInputElement, password: HTMLInputElement, checkpassword: HTMLInputElement){
+    if(username.value.length > 20 || username.value.length < 1){
+      this.passwordDontMatch = false
+      this.charErrorVisible = true
+      this.nameTaken = false
+    }
     if(password.value != checkpassword.value){
       this.passwordDontMatch = true
       this.charErrorVisible = false
       this.nameTaken = false
       return
-    }
-    if(username.value.length > 20 || username.value.length < 1){
-      this.passwordDontMatch = false
-      this.charErrorVisible = true
-      this.nameTaken = false
     }
     this.returnVal = this.authService.createAccount(username.value, password.value)
     if(this.returnVal == 1){
