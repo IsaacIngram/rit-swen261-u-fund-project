@@ -25,7 +25,7 @@ export class AccessControlService {
       return 1;
     }
   }
-  
+
   logout(): void{
     this.setUser("")
   }

@@ -96,6 +96,7 @@ export class CupboardComponent {
 
     // Create a copy of the need. This is what will actually be added to the basket
     const currentUserName: string | null = localStorage.getItem("user");
+    console.log(need)
     if(currentUserName != null) {  // Should always be true
       need.userBaskets.push(currentUserName);
     }

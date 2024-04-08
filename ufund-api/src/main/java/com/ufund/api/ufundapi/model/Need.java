@@ -13,7 +13,7 @@ public class Need {
     @JsonProperty("type") private String type;
     @JsonProperty("price") private float price;
     @JsonProperty("quantity") private int quantity;
-    @JsonProperty("inUserCarts") private List<String> inUserCarts;  // List of user names who's carts this Need is in
+    @JsonProperty("userBaskets") private List<String> userBaskets;  // List of user names who's carts this Need is in
 
     /**
      * Create a need with the given properties
@@ -113,7 +113,7 @@ public class Need {
 
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, name, price, quantity, inUserCarts);
+        return String.format(STRING_FORMAT, id, name, price, quantity, userBaskets);
     }
 
     @Override
