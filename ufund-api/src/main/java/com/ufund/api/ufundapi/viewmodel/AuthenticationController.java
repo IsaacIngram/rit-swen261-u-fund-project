@@ -28,31 +28,6 @@ public class AuthenticationController {
     }
 
     /**
-     * Login
-     * @param credential credential to use when logging in
-     * @return ResponseEntity with HTTP status of OK if successful, UNAUTHORIZED if not succesful,
-     * or INTERNAL_SERVER_ERROR if an error was encountereds
-     */
-    @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody Credential credential) {
-        LOG.info("LOGIN (POST /auth/login) " + credential.getUsername());
-
-        try {
-            boolean credentialsMatch = authDAO.compareCredential(credential);
-            if(credentialsMatch) {
-                // Credentials accepted
-                return new ResponseEntity<>(HttpStatus.OK);
-            } else {
-                // Credentials not accepted
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * Create a credential
      * @param credential credential to create
      * @return ResponseEntity with HTTP Status of OK if the creating was successful, CONFLIC if there
