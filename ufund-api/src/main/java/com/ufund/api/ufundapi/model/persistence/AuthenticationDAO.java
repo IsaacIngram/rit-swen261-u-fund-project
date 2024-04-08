@@ -30,5 +30,12 @@ public interface AuthenticationDAO {
      */
     boolean compareCredential(Credential credential) throws IOException;
 
+    /**
+     * Delete the given credential if it exists
+     * @param user user to delete
+     * @return True if the deletion was successful, false otherwise
+     * @throws IOException If underlying storage cannot be accessed
+     */
+    boolean deleteCredential(String user) throws IOException;
 
 }
