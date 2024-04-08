@@ -75,10 +75,13 @@ export class BasketComponent {
     BasketComponent.needs = BasketComponent.needs.filter(element => {
       if(element === need) {
         // Remove user name from need's user basket list
-        Object.fromEntries(Object.entries(need.userBaskets).filter(([userName,v]) => userName !== localStorage.getItem("user")));
+        const currentUsername = localStorage.getItem("user");
+        if(currentUsername != undefined) {
+          delete need.userBaskets[currentUsername];
+        }
 
         // Update the need
-        BasketComponent.currentInstance.needService.deleteNeed(need.id).subscribe();
+        BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
         return false;
       }
       return true;
