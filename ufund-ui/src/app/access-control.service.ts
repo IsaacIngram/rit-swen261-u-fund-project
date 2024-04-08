@@ -11,6 +11,10 @@ export class AccessControlService {
     username: "",
     password: ""
   }
+  newUser: User = {
+    username: "",
+    password: "",
+  }
 
   constructor() {
     this.setUser("");
@@ -21,7 +25,9 @@ export class AccessControlService {
     if(this.returnedUser.username == ""){
       return 0
     }else{
-      this.loginService.createUser(this.returnedUser)
+      this.newUser.username = username
+      this.newUser.password = password
+      this.loginService.createUser(this.newUser)
       return 1
     }
   }
