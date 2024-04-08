@@ -9,6 +9,9 @@ Confirm Password: <input #checkpassword type="text" placeholder="Non-Functional"
 <div *ngIf="nameTaken"  style="color:red">
     Username is already in use
 </div>
+<div *ngIf="passwordCharError"  style="color:red">
+    Passwords must be between 1 and 20 characters
+</div>
 <div *ngIf="passwordDontMatch"  style="color:red">
     Passwords do not match
 </div>

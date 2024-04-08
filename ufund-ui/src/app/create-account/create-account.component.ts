@@ -14,6 +14,7 @@ export class CreateAccountComponent {
   charErrorVisible: boolean = false
   nameTaken: boolean = false
   passwordDontMatch: boolean = false
+  passwordCharError: boolean = false
 
   constructor(private router: Router){
 
@@ -24,11 +25,17 @@ export class CreateAccountComponent {
       this.passwordDontMatch = false
       this.charErrorVisible = true
       this.nameTaken = false
+      this.passwordCharError = false
+      return
+    }
+    if(password.value.length > 20 || password.value.length < 1){
+
     }
     if(password.value != checkpassword.value){
       this.passwordDontMatch = true
       this.charErrorVisible = false
       this.nameTaken = false
+      this.passwordCharError = true
       return
     }
     this.returnVal = this.authService.createAccount(username.value, password.value)
@@ -38,6 +45,7 @@ export class CreateAccountComponent {
       this.passwordDontMatch = false
       this.charErrorVisible = false
       this.nameTaken = true
+      this.passwordCharError = false
     }
 
   }
