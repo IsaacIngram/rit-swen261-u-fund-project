@@ -122,10 +122,10 @@ public class AuthenticationController {
 
     @GetMapping("/{user}")
     public ResponseEntity<Credential> getCredential(@PathVariable String user) {
-        LOG.info("GET /user" + user);
+        LOG.info("GET /user/" + user);
         try {
             Credential result = authDAO.getCredential(user);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<Credential>(result, HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
