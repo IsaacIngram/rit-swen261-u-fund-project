@@ -38,4 +38,7 @@ public interface AuthenticationDAO {
      */
     boolean deleteCredential(String user) throws IOException;
 
+
+    Credential getCredential(String user) throws  IOException;
+
 }

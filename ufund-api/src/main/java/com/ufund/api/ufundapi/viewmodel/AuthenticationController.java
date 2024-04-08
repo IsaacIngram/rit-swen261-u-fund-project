@@ -106,7 +106,7 @@ public class AuthenticationController {
      */
     @DeleteMapping("/{user}")
     public ResponseEntity<Credential> deleteCredential(@PathVariable String user) {
-        LOG.info("DELETE");
+        LOG.info("DELETE /user " + user);
         try {
             boolean result = authDAO.deleteCredential(user);
             if(result) {
@@ -114,6 +114,18 @@ public class AuthenticationController {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{user}")
+    public ResponseEntity<Credential> getCredential(@PathVariable String user) {
+        LOG.info("GET /user" + user);
+        try {
+            Credential result = authDAO.getCredential(user);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

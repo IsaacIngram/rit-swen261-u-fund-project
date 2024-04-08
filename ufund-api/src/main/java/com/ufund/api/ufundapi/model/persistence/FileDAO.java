@@ -272,5 +272,16 @@ public class FileDAO implements NeedDAO, AuthenticationDAO {
         }
     }
 
+    public Credential getCredential(String user) throws IOException {
+        synchronized (credentials) {
+            // Check if this username exists
+            if(credentials.containsKey(user)) {
+                return credentials.get(user);
+            } else {
+                return new Credential("", "");
+            }
+        }
+    }
+
 
 }
