@@ -1,0 +1,47 @@
+.basket {
+  font-family: sans-serif;
+}
+
+.need {
+  list-style: none;
+}
+
+.delete {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #011627;
+}
+
+.increment {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #011627;
+}
+
+.decrement {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #011627;
+}
+
+.clearButton {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #ff3366;
+}
+
+.checkoutButton {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #2EC4B6;
+}
