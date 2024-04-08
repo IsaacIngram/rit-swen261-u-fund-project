@@ -8,7 +8,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
 })
 export class LoginService {
   // URL to web API
-  private loginEndpoint = 'http://localhost:8080/login'
+  private loginEndpoint = 'http://localhost:8080/auth'
 
   // Use JSON content type
   httpOptions = {
@@ -54,7 +54,7 @@ export class LoginService {
   private log(message: string) {
     console.log(`LoginService: ${message}`);
   }
-  
+
   private handleError<T>(operation: string = 'operation', result? : T) {
     return (error: any): Observable<T> => {
       // Log error to console
