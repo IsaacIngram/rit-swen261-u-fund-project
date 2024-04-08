@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  background-color: #f6f7f8;
+  color: #f6f7f8;
+  font-family: sans-serif;
+}
+
+header {
+  h1 {
+    text-align: center;
+    color: #20A4F3;
+    text-transform: uppercase;
+  }
+}
+
+nav {
+  position: sticky;
+  align-items: center;
+  background-color: #011627;
+  width: 100%;
+  padding: 1vb 0 1vb 0;
+  border-radius: 15px;
+  li {
+    margin-top: 16px;
+    display: inline;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.3em;
+  }
+
+}
+
+.bubble {
+  background-color: #011627;
+  margin: 1vb;
+  padding: 1vb;
+  border-radius: 15px;
+}
+
+.bubbleBlue  {
+  background-color: #20a4f3;
+  margin: 1vb;
+  padding: 1vb;
+  border-radius: 15px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+

@@ -59,7 +59,7 @@ export class AccessControlService {
       }
     }
   }
-  
+
   logout(): void{
     this.setUser("")
   }

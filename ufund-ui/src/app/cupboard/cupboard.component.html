@@ -1,67 +1,75 @@
 <div *ngIf="accessControl.isAdmin()">
-  <h3>ADD NEED</h3>
-  <div>
-    <label for="new_need_name">Name: </label>
-    <input #newNameInput id="new_need_name" placeholder="name">
-  </div>
-  <div>
-    <label for="new_need_type">Type: </label>
-    <input #newTypeInput id="new_need_type" placeholder="TYPE">
-  </div>
-  <div>
-    <label for="new_need_quantity">Quantity: </label>
-    <input type="number" #newQuantityInput id="new_need_quantity" placeholder="1">
-  </div>
-  <div>
-    <label for="new_need_price">Price: </label>
-    <input type="number" #newPriceInput id="new_need_price" placeholder="1">
+  <h3 class="bubbleBlue">ADD NEED</h3>
+  <div class="add_need">
+    <div class="need_info">
+      <label for="new_need_name">Name: </label>
+      <input #newNameInput id="new_need_name" placeholder="name">
+    </div>
+    <div class="need_info">
+      <label for="new_need_type">Type: </label>
+      <input #newTypeInput id="new_need_type" placeholder="TYPE">
+    </div>
+    <div class="need_info">
+      <label for="new_need_quantity">Quantity: </label>
+      <input type="number" #newQuantityInput id="new_need_quantity" placeholder="1">
+    </div>
+    <div class="need_info">
+      <label for="new_need_price">Price: </label>
+      <input type="number" #newPriceInput id="new_need_price" placeholder="1">
+    </div>
+    <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newPriceInput.value, +newQuantityInput.value)" >add</button>
   </div>
 
-  <button type="button" (click)="addNeed(newNameInput.value, newTypeInput.value, +newPriceInput.value, +newQuantityInput.value)" >add</button>
 
-  <h3>CUPBOARD</h3>
+  <h3 class="bubbleBlue">NEED CUPBOARD</h3>
   <ul class="needs">
-    <li *ngFor="let need of needs">
-      <h4>{{need.name | uppercase}} Details</h4>
-      <p>ID: {{need.id}}</p>
-      <div>
+    <li *ngFor="let need of needs" class="need">
+      <h3 class="need_name">{{need.name | uppercase}}</h3>
+      <p class="admin_need_input_field">ID: {{need.id}}</p>
+      <div class="admin_need_input_field">
         <label for="need_name">Name: </label>
         <input #nameInput id="need_name" [(ngModel)]="need.name" placeholder="Hero name">
       </div>
-      <div>
+      <div class="admin_need_input_field">
         <label for="need_type">Type: </label>
         <input #typeInput id="need_type" [(ngModel)]="need.type" placeholder="Hero name">
       </div>
-      <div>
+      <div class="admin_need_input_field">
         <label for="need_quantity">Quantity: </label>
         <input type="number" #quantityInput id="need_quantity" [(ngModel)]="need.quantity" placeholder="Hero name">
       </div>
-      <div>
+      <div class="admin_need_input_field">
         <label for="need_price">Price: </label>
         <input type="number" #priceInput id="need_price" [(ngModel)]="need.price" placeholder="Hero name">
       </div>
-      <button type="button" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
-      <button type="button" (click)="removeNeed(need.id)">remove</button>
+      <button type="button" class="saveButton" (click)="saveNeed(need, nameInput.value, typeInput.value, +quantityInput.value, +priceInput.value)">save</button>
+      <button type="button" class="removeButton" (click)="removeNeed(need.id)">remove</button>
     </li>
   </ul>
 </div>
 
 <div *ngIf="accessControl.isHelper()">
   <h3>CUPBOARD</h3>
-  <label for="search-box"> Search:</label>
-  <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
-  <ul >
+  <div class="search">
+    <label for="search-box"> Search:</label>
+    <input #searchBox id="search-box" (input)="searchString(searchBox.value)">
+  </div>
+  <ul class="needs">
     <li *ngFor="let need of needs">
-      <span>
-        id: {{need.id}}, name: {{need.name}}, type: {{need.type}}, quantity: {{need.quantity}}, price: {{need.price}}
-        <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value);"> ADD to basket</button>
-        <label for="add_quantity">add quantity:</label>
-        <input type="number" #addQuantityInput id="add_quantity" placeholder="1">
-      </span>
+      <div class="need">
+        <h2 class="uppercase need_name">{{need.name}}</h2>
+        <p class="need_info">{{need.type}}</p>
+        <p class="need_info">{{need.quantity}} needed</p>
+        <p class="need_info">${{need.price}}</p>
+        <div class="helper_need_input_field">
+          <button type="button" class="add-button" (click)="addToBasket(need, +addQuantityInput.value)">Add to Basket</button>
+          <input type="number" #addQuantityInput id="add_quantity" value="1">
+        </div>
+        </div>
     </li>
   </ul>
 </div>
-<div *ngIf="!accessControl.isHelper() && !accessControl.isAdmin()">
+<div *ngIf="!accessControl.isHelper() && !accessControl.isAdmin()" class="bubbleBlue">
   <h3>CUPBOARD</h3>
   <p>Login to see the needs cupboard</p>
 </div>

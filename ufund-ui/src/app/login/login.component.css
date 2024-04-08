@@ -1,0 +1,33 @@
+.errorMessage {
+  color: #ff3366;
+}
+
+.loginButton {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #2EC4B6;
+}
+
+.createAccountButton {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #ff3366;
+}
+
+.loginFields {
+
+  input {
+    width: 20vb;
+    background: #f6f7f8;
+    margin: 0 0.3vb 0.5vb;
+  }
+
+}
+
+h4 {
+  margin: 2vb 0 1vb;
+}
