@@ -35,11 +35,11 @@ export class LoginComponent {
     }else if(this.returncode == 2){
       username.value = ""
       password.value = ""
-      this.router.navigate(['/cupboard'])
+      this.router.navigate(['/basket'])
     }
-    
-    
+
+
   }
-    
-  
+
+
 }
