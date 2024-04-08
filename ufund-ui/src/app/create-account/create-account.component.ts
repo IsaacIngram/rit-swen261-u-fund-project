@@ -29,13 +29,17 @@ export class CreateAccountComponent {
       return
     }
     if(password.value.length > 20 || password.value.length < 1){
-
+      this.passwordDontMatch = false
+      this.charErrorVisible = false
+      this.nameTaken = false
+      this.passwordCharError = true
+      return
     }
     if(password.value != checkpassword.value){
       this.passwordDontMatch = true
       this.charErrorVisible = false
       this.nameTaken = false
-      this.passwordCharError = true
+      this.passwordCharError = false
       return
     }
     this.returnVal = this.authService.createAccount(username.value, password.value)
