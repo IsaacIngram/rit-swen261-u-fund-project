@@ -18,6 +18,32 @@
 
 }
 
+.add_need {
+  background: #ff3366;
+  padding: 1vb;
+  margin: 1vb;
+  border-radius: 15px;
+  width: 240px;
+
+  input {
+    width: 5vb;
+    background: #f6f7f8;
+  }
+
+  button {
+    background-color: #2EC4B6;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-right: 1vb;
+  }
+
+  .need_info {
+    margin: 0 0.3vb 0.5vb;
+  }
+
+}
+
 .needs {
   display: flex;
   flex-wrap: wrap;
