@@ -4,9 +4,13 @@ Password: <input #password type="text" placeholder="Non-Functional"><br>
 <div *ngIf="charErrorVisible"  style="color:red">
     Username must be between 1 and 20 characters
 </div>
+<div *ngIf="badCredentials"  style="color:red">
+    Username or password is incorrect
+</div>
 
 
-<button type="button" (click) = "login(username, password)">Login</button>
+<button type="button" (click) = "login(username, password)">Login</button> <br>
+<a routerLink="/create-account">Create new account</a>
 
 
 
