@@ -1,18 +1,29 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LoginService } from './login.service';
+import { User } from './User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccessControlService {
+  private loginService = inject(LoginService)
+  returnedUser: User = {
+    username: "",
+    password: ""
+  }
 
   constructor() {
     this.setUser("");
   }
 
   createAccount(username: string, password: string): number{
-    
-    return 0
+    this.loginService.getUser(username).subscribe(newUser => this.returnedUser = newUser )
+    if(this.returnedUser.username == ""){
+      return 0
+    }else{
+      this.loginService.createUser(this.returnedUser)
+      return 1
+    }
   }
 
 
@@ -27,11 +38,14 @@ export class AccessControlService {
   login(username: HTMLInputElement, password: HTMLInputElement): number{
     if(username.value.length > 20 || username.value.length < 1){
       return 0;
-    }else if(false){
-      return 1;
     }else{
-      this.setUser(username.value)
-      return 2
+      this.loginService.getUser(username.value).subscribe(newUser => this.returnedUser = newUser )
+      if(password.value != this.returnedUser.password){
+        return 1
+      }else{
+        this.setUser(username.value)
+        return 2
+      }
     }
   }
   
