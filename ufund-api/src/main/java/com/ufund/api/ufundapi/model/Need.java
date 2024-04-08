@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,7 +14,7 @@ public class Need {
     @JsonProperty("type") private String type;
     @JsonProperty("price") private float price;
     @JsonProperty("quantity") private int quantity;
-    @JsonProperty("userBaskets") private List<String> userBaskets;  // List of user names who's carts this Need is in
+    @JsonProperty("userBaskets") private Map<String, Integer> userBaskets;  // List of user names who's carts this Need is in
 
     /**
      * Create a need with the given properties
@@ -37,6 +38,7 @@ public class Need {
         this.type = type;
         this.price = price;
         this.quantity = quantity;
+        this.userBaskets = new HashMap<>();
     }
 
     /**

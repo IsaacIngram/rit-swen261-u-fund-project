@@ -4,5 +4,5 @@ export interface Need {
   type: string;
   quantity: number;
   price: number;
-  userBaskets: string[];
+  userBaskets: { [key: string]: number };
 }

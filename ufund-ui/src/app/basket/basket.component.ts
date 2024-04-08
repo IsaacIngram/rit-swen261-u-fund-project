@@ -17,6 +17,7 @@ export class BasketComponent {
     protected needService: NeedService,
     protected accessControlService: AccessControlService
   ) { 
+    BasketComponent.currentInstance = this;
   }
 
   ngOnInit(): void {
@@ -29,7 +30,7 @@ export class BasketComponent {
       BasketComponent.needs = list.filter(element => {
         const currentUserName = localStorage.getItem("user");
         if(currentUserName != null) {
-          return element.userBaskets.includes(currentUserName)
+          return currentUserName in element.userBaskets;
         }
         return false;
       })
@@ -40,11 +41,11 @@ export class BasketComponent {
    * Adds an item to the basket
    * @param need the item being added to the basket
    */
-  static addToBasket(need: Need): void {
+  static addToBasket(need: Need, quantity: number): void {
     const currentUserName = localStorage.getItem("user");
     if(currentUserName != null) {
       if(need) {
-        need.userBaskets.push(currentUserName);
+        need.userBaskets[currentUserName] = quantity;
         BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
       }
     }
@@ -74,7 +75,8 @@ export class BasketComponent {
     BasketComponent.needs = BasketComponent.needs.filter(element => {
       if(element === need) {
         // Remove user name from need's user basket list
-        need.userBaskets.filter(userName => userName !== localStorage.getItem("user"));
+        Object.fromEntries(Object.entries(need.userBaskets).filter(([userName,v]) => userName !== localStorage.getItem("user")));
+
         // Update the need
         BasketComponent.currentInstance.needService.updateNeed(need).subscribe();
         return false;
@@ -123,6 +125,14 @@ export class BasketComponent {
       need.quantity = totalQuantity - checkoutQuantity;
       this.needService.updateNeed(need).subscribe();
     }
+  }
+
+   getNeedQuantity(need: Need): number {
+    const currentUserName = localStorage.getItem("user");
+    if(currentUserName != null) {
+      return need.userBaskets[currentUserName];
+    }
+    return 0;
   }
 
   protected readonly AccessControlService = AccessControlService;
