@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,12 @@ export class AccessControlService {
   constructor() {
     this.setUser("");
   }
+
+  createAccount(username: string, password: string): number{
+    
+    return 0
+  }
+
 
   private getUser(): string | null{
     return localStorage.getItem("user");
