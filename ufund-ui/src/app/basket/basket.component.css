@@ -4,6 +4,11 @@
 
 .need {
   list-style: none;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .delete {
@@ -11,23 +16,7 @@
   color: white;
   border-radius: 5px;
   margin-right: 1vb;
-  background-color: #011627;
-}
-
-.increment {
-  border: none;
-  color: white;
-  border-radius: 5px;
-  margin-right: 1vb;
-  background-color: #011627;
-}
-
-.decrement {
-  border: none;
-  color: white;
-  border-radius: 5px;
-  margin-right: 1vb;
-  background-color: #011627;
+  background-color: #ff3366;
 }
 
 .clearButton {

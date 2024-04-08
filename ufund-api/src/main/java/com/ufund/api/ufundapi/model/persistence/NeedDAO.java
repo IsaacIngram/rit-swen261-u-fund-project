@@ -62,6 +62,7 @@ public interface NeedDAO {
      * @return An array of {@link Need needs} whose needs contains the given text, may be empty
      * @throws IOException if an issue with underlying storage
      */
-    Need[] findNeeds(String containsText) throws IOException;
+    Need[] findNeeds(String containsText) throws IOException; 
+
 
 }
