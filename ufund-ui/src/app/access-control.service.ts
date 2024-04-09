@@ -67,7 +67,6 @@ export class AccessControlService {
             console.log(this.returnedUser?.username);
             console.log(this.returnedUser?.password);
             if (this.returnedUser?.username === "") {
-              console.log("BAD USER");
               observer.next(1); // Bad user
             } else if (password !== this.returnedUser?.password) {
               observer.next(1); // Incorrect password
