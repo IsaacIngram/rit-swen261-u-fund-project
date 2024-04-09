@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AccessControlService } from '../access-control.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -6,5 +7,41 @@ import { Component } from '@angular/core';
   styleUrl: './forgot-password.component.css'
 })
 export class ForgotPasswordComponent {
+  authService = inject(AccessControlService)
 
+  charErrorVisible: boolean = false
+  passwordCharErrorVisible: boolean = false
+  passwordDontMatch: boolean = false
+  usernameNotInUse: boolean = false
+
+  returncode = 0
+
+  constructor(){
+
+  }
+
+  changePassword(username: HTMLInputElement, password: HTMLInputElement, checkPassword: HTMLInputElement) {
+    this.returncode = this.authService.changePassword(username.value, password.value, checkPassword.value)
+    if(this.returncode == 0){
+      this.charErrorVisible = true
+      this.passwordCharErrorVisible = false
+      this.passwordDontMatch = false
+      this.usernameNotInUse = false
+    }else if(this.returncode == 1){
+      this.charErrorVisible = false
+      this.passwordCharErrorVisible = true
+      this.passwordDontMatch = false
+      this.usernameNotInUse = false
+    }else if(this.returncode == 2){
+      this.charErrorVisible = false
+      this.passwordCharErrorVisible = false
+      this.passwordDontMatch = true
+      this.usernameNotInUse = false
+    }else if(this.returncode == 3){
+      this.charErrorVisible = false
+      this.passwordCharErrorVisible = false
+      this.passwordDontMatch = false
+      this.usernameNotInUse = true
+    }
+  }
 }

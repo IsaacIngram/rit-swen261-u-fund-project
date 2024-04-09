@@ -60,6 +60,31 @@ export class AccessControlService {
     }
   }
 
+  changePassword(username: string, newPassword: string, newPasswordCheck: string): number{
+    if(username.length > 20 || username.length < 1){
+      return 0
+    }else if(newPassword.length > 20 || newPassword.length < 1){
+      return 1
+    }else if(newPassword != newPasswordCheck){
+      return 2
+    }else{
+      this.newUser.username = username
+      this.newUser.password = newPassword
+      this.loginService.changePassword(this.newUser).subscribe(newUser => this.returnedUser = newUser )
+      if(this.returnedUser.username == ""){
+        return 1
+      }
+      if(newPassword != this.returnedUser.password){
+        return 1
+      }else{
+        this.setUser(username)
+        return 2
+      }
+    }
+
+    return 4
+  }
+
   logout(): void{
     this.setUser("")
   }
