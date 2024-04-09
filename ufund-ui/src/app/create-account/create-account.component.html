@@ -18,10 +18,10 @@
   <div *ngIf="passwordDontMatch"  style="color:red">
       Passwords do not match
   </div>
+  <button type="button" class="createAccountButton" (click) = "createAccount(username, password, checkpassword)">Create Account</button> <br>
+
 
   <h4>Or go back to login:</h4>
-
-  <button type="button" class="createAccountButton" (click) = "createAccount(username, password, checkpassword)">Create Account</button> <br>
   <button type="button" class=loginButton routerLink="/login">Back to Login</button>
 
 </div>

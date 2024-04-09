@@ -67,10 +67,12 @@ public class CredentialTest {
         // Invoke
         boolean should_match = user_one.equals(user_three);
         boolean should_not_match = user_one.equals(user_two);
+        boolean should_not_match_2 = user_one.equals("Hello");
 
         // Analyze
         assertTrue(should_match);
         assertFalse(should_not_match);
+        assertFalse(should_not_match_2);
     }
 
 

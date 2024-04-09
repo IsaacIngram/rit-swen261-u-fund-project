@@ -3,8 +3,7 @@ package com.ufund.api.ufundapi.model;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test suite for the Need class.
@@ -189,7 +188,6 @@ public class NeedTest {
         float expected_price = 3.21f;
         int expected_quantity = 5;
 
-        // Invoke
         Need need = new Need(
                 expected_id,
                 expected_name,
@@ -214,12 +212,37 @@ public class NeedTest {
                 expected_quantity
         );
 
+        Need need4 = new Need(
+                expected_id,
+                expected_name,
+                expected_type,
+                3.2f,
+                expected_quantity
+        );
+
+        Need need5 = new Need(
+                expected_id,
+                "Juice",
+                expected_type,
+                expected_price,
+                expected_quantity
+        );
+
+        // Invoke
+        boolean result_same = need.equals(need2);
+        boolean result_not_same_id = need.equals(need3);
+        boolean result_not_same_name = need.equals(need5);
+        boolean result_not_same_price = need.equals(need4);
+        boolean result_not_same_type = need.equals("test");
+
         Integer i = 0;
 
         // Analyze
-        assertEquals(false , need == need2);
-        assertEquals(false , need == need3);
-        assertEquals(false , need.equals(i));
+        assertTrue(result_same);
+        assertFalse(result_not_same_id);
+        assertFalse(result_not_same_name);
+        assertFalse(result_not_same_price);
+        assertFalse(result_not_same_type);
     }
 
 }

@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { BasketComponent } from './basket/basket.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     LoginComponent,
     CupboardComponent,
     BasketComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
