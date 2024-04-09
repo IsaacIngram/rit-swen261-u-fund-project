@@ -18,6 +18,14 @@
   background-color: #ff3366;
 }
 
+.forgotPassword {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  margin-right: 1vb;
+  background-color: #ff3366;
+}
+
 .loginFields {
 
   input {
