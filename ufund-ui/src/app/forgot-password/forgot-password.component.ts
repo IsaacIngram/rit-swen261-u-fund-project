@@ -55,6 +55,9 @@ export class ForgotPasswordComponent {
         this.passwordDontMatch = false
         this.usernameNotInUse = false
         this.passwordChanged = true
+        username.value = ""
+        password.value = ""
+        checkPassword.value = ""
       }
     })
   }
