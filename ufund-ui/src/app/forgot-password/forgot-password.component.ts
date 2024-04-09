@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AccessControlService } from '../access-control.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,34 +15,37 @@ export class ForgotPasswordComponent {
   passwordDontMatch: boolean = false
   usernameNotInUse: boolean = false
 
-  returncode = 0
+  returncode: number = 0
 
   constructor(){
 
   }
 
   changePassword(username: HTMLInputElement, password: HTMLInputElement, checkPassword: HTMLInputElement) {
-    this.returncode = this.authService.changePassword(username.value, password.value, checkPassword.value)
-    if(this.returncode == 0){
-      this.charErrorVisible = true
-      this.passwordCharErrorVisible = false
-      this.passwordDontMatch = false
-      this.usernameNotInUse = false
-    }else if(this.returncode == 1){
-      this.charErrorVisible = false
-      this.passwordCharErrorVisible = true
-      this.passwordDontMatch = false
-      this.usernameNotInUse = false
-    }else if(this.returncode == 2){
-      this.charErrorVisible = false
-      this.passwordCharErrorVisible = false
-      this.passwordDontMatch = true
-      this.usernameNotInUse = false
-    }else if(this.returncode == 3){
-      this.charErrorVisible = false
-      this.passwordCharErrorVisible = false
-      this.passwordDontMatch = false
-      this.usernameNotInUse = true
-    }
+    this.authService.changePassword(username.value, password.value, checkPassword.value).subscribe( result =>{
+      this.returncode = result
+    
+      if(this.returncode == 0){
+        this.charErrorVisible = true
+        this.passwordCharErrorVisible = false
+        this.passwordDontMatch = false
+        this.usernameNotInUse = false
+      }else if(this.returncode == 1){
+        this.charErrorVisible = false
+        this.passwordCharErrorVisible = true
+        this.passwordDontMatch = false
+        this.usernameNotInUse = false
+      }else if(this.returncode == 2){
+        this.charErrorVisible = false
+        this.passwordCharErrorVisible = false
+        this.passwordDontMatch = true
+        this.usernameNotInUse = false
+      }else if(this.returncode == 3){
+        this.charErrorVisible = false
+        this.passwordCharErrorVisible = false
+        this.passwordDontMatch = false
+        this.usernameNotInUse = true
+      }
+    })
   }
 }
