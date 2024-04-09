@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model.persistence;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.Credential;
 import com.ufund.api.ufundapi.model.Need;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -24,8 +25,13 @@ public class FileDAOTest {
 
     FileDAO fileDao;
     FileDAO emptyFileDao;
+
     Need[] testNeeds;
     Need[] emptyNeeds;
+
+    Credential[] testCredentials;
+    Credential[] emptyCredentials;
+
     ObjectMapper mockNeedObjectMapper;
     ObjectMapper mockEmptyNeedObjectMapper;
     ObjectMapper mockAuthObjectMapper;
@@ -43,19 +49,29 @@ public class FileDAOTest {
         testNeeds[1] = new Need(73, "Food", "FOOD", 12.34f, 3);
         testNeeds[2] = new Need(74, "Shelter", "HOME", 1234.56f, 1);
 
+        testCredentials = new Credential[3];
+        testCredentials[0] = new Credential("admin", "admin");
+        testCredentials[1] = new Credential("a", "a");
+        testCredentials[2] = new Credential("b", "b");
+
         // Create a mock ObjectMapper that reads from the mock data above
         mockNeedObjectMapper = mock(ObjectMapper.class);
         mockAuthObjectMapper = mock(ObjectMapper.class);
         when(mockNeedObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(testNeeds);
+        when(mockAuthObjectMapper.readValue(new File("anything.txt"), Credential[].class))
+                .thenReturn(testCredentials);
         fileDao = new FileDAO("anything.txt", mockNeedObjectMapper, "anything.txt", mockAuthObjectMapper);
 
         // Create an empty mock DAO and mock datafile
         emptyNeeds = new Need[0];
+        emptyCredentials = new Credential[0];
         mockEmptyNeedObjectMapper = mock(ObjectMapper.class);
         mockEmptyAuthObjectMapper = mock(ObjectMapper.class);
         when(mockEmptyNeedObjectMapper.readValue(new File("anything.txt"), Need[].class))
                 .thenReturn(emptyNeeds);
+        when(mockEmptyAuthObjectMapper.readValue(new File("anything.txt"), Credential[].class))
+                .thenReturn(emptyCredentials);
         emptyFileDao = new FileDAO("anything.txt", mockEmptyNeedObjectMapper, "anything.txt", mockEmptyAuthObjectMapper);
     }
 
