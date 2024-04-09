@@ -78,6 +78,7 @@ export class AccessControlService {
             }else{
               this.returnedUser.password = newPassword
               this.loginService.changePassword(this.returnedUser).subscribe()
+              observer.next(4)
             }
             observer.complete()
           },

@@ -14,6 +14,7 @@ export class ForgotPasswordComponent {
   passwordCharErrorVisible: boolean = false
   passwordDontMatch: boolean = false
   usernameNotInUse: boolean = false
+  passwordChanged: boolean = false
 
   returncode: number = 0
 
@@ -29,21 +30,31 @@ export class ForgotPasswordComponent {
         this.passwordCharErrorVisible = false
         this.passwordDontMatch = false
         this.usernameNotInUse = false
+        this.passwordChanged = false
       }else if(this.returncode == 1){
         this.charErrorVisible = false
         this.passwordCharErrorVisible = true
         this.passwordDontMatch = false
         this.usernameNotInUse = false
+        this.passwordChanged = false
       }else if(this.returncode == 2){
         this.charErrorVisible = false
         this.passwordCharErrorVisible = false
         this.passwordDontMatch = true
         this.usernameNotInUse = false
+        this.passwordChanged = false
       }else if(this.returncode == 3){
         this.charErrorVisible = false
         this.passwordCharErrorVisible = false
         this.passwordDontMatch = false
         this.usernameNotInUse = true
+        this.passwordChanged = false
+      }else if(this.returncode == 4){
+        this.charErrorVisible = false
+        this.passwordCharErrorVisible = false
+        this.passwordDontMatch = false
+        this.usernameNotInUse = false
+        this.passwordChanged = true
       }
     })
   }
