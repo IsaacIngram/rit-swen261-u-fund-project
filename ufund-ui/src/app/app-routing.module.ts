@@ -6,10 +6,12 @@ import {BasketComponent} from "./basket/basket.component";
 import { LoginComponent } from './login/login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import {AboutComponent} from "./about/about.component";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'create-account', component: CreateAccountComponent},
+  { path: 'forgot-password', component: ForgotPasswordComponent},
   { path: '',  redirectTo: '/about', pathMatch: 'full' },
   { path: 'about', component: AboutComponent},
   { path: 'cupboard', component: CupboardComponent },
