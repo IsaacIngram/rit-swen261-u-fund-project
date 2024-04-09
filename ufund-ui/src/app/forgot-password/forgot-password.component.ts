@@ -24,7 +24,6 @@ export class ForgotPasswordComponent {
   changePassword(username: HTMLInputElement, password: HTMLInputElement, checkPassword: HTMLInputElement) {
     this.authService.changePassword(username.value, password.value, checkPassword.value).subscribe( result =>{
       this.returncode = result
-    
       if(this.returncode == 0){
         this.charErrorVisible = true
         this.passwordCharErrorVisible = false
