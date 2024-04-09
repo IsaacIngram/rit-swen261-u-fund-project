@@ -19,25 +19,28 @@ export class LoginComponent {
 
   login(username: HTMLInputElement, password: HTMLInputElement): void{
     console.log("LOGIN ATTEMPT USER: " + username.value + " PASS: " + password.value);
-    this.returncode = this.loginService.login(username.value, password.value)
-    if(this.returncode == 0){
-      this.charErrorVisible = true
-      this.passwordCharErrorVisible = false
-      this.badCredentials = false
-    }else if(this.returncode == 4){
-      this.charErrorVisible = false
-      this.passwordCharErrorVisible = true
-      this.badCredentials = false
-    }else if(this.returncode == 1){
-      password.value = ""
-      this.charErrorVisible = false
-      this.passwordCharErrorVisible = false
-      this.badCredentials = true
-    }else if(this.returncode == 2){
-      username.value = ""
-      password.value = ""
-      this.router.navigate(['/basket'])
-    }
+    this.loginService.login(username.value, password.value).subscribe(result => {
+      this.returncode = result
+      if(this.returncode == 0){
+        this.charErrorVisible = true
+        this.passwordCharErrorVisible = false
+        this.badCredentials = false
+      }else if(this.returncode == 4){
+        this.charErrorVisible = false
+        this.passwordCharErrorVisible = true
+        this.badCredentials = false
+      }else if(this.returncode == 1){
+        password.value = ""
+        this.charErrorVisible = false
+        this.passwordCharErrorVisible = false
+        this.badCredentials = true
+      }else if(this.returncode == 2){
+        username.value = ""
+        password.value = ""
+        this.router.navigate(['/basket'])
+      }
+    })
+
 
 
   }

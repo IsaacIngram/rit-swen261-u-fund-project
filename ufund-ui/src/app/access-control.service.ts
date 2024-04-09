@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { LoginService } from './login.service';
 import { User } from './User';
-import {Observable} from "rxjs";
+import {catchError, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -54,26 +54,40 @@ export class AccessControlService {
     localStorage.setItem("user", name);
   }
 
-  login(username: string, password: string): number{
-    if(username.length > 20 || username.length < 1){
-      return 0
-    }else if(password.length > 20 || password.length < 1){
-      return 4
-    }else{
-      this.loginService.getUser(username).subscribe(newUser => this.returnedUser = newUser)
-      console.log(this.returnedUser.username)
-      console.log(this.returnedUser.password)
-      if(this.returnedUser.username == ""){
-        console.log("BAD USER")
-        return 1
+  login(username: string, password: string): Observable<number> {
+    return new Observable<number>((observer) => {
+      if (username.length > 20 || username.length < 1) {
+        observer.error(0); // Invalid username length
+      } else if (password.length > 20 || password.length < 1) {
+        observer.error(4); // Invalid password length
+      } else {
+        this.loginService.getUser(username).subscribe({
+          next: (newUser) => {
+            this.returnedUser = newUser;
+            console.log(this.returnedUser?.username);
+            console.log(this.returnedUser?.password);
+            if (this.returnedUser?.username === "") {
+              console.log("BAD USER");
+              observer.next(1); // Bad user
+            } else if (password !== this.returnedUser?.password) {
+              observer.next(1); // Incorrect password
+            } else {
+              this.setUser(username);
+              observer.next(2); // Successful login
+            }
+            observer.complete(); // Complete the Observable
+          },
+          error: (error) => {
+            observer.error(error); // Pass the error to the Observable
+          }
+        });
       }
-      if(password != this.returnedUser.password){
-        return 1
-      }else{
-        this.setUser(username)
-        return 2
-      }
-    }
+    }).pipe(
+      catchError((error) => {
+        console.error('An error occurred:', error);
+        return of(error); // Return the error as an Observable
+      })
+    );
   }
 
   logout(): void{
