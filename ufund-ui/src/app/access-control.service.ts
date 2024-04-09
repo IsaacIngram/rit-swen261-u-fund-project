@@ -101,15 +101,21 @@ export class AccessControlService {
         this.loginService.getUser(username).subscribe({
           next: (newUser) => {
             this.returnedUser = newUser
-            if (this.returnedUser?.username === "") {
+            if (this.returnedUser.username === "") {
               observer.next(3); // Bad user
+            }else{
+              this.returnedUser.password = newPassword
+              this.loginService.changePassword(this.returnedUser).subscribe()
+              observer.next(4)
             }
-            this.returnedUser.password = newPassword
-            this.loginService.changePassword(this.returnedUser).subscribe()
+            observer.complete()
+          },
+          error: (error) => {
+            observer.error(error); // Pass the error to the Observable
           }
         })
       }
-      observer.complete()
+      
     }).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
