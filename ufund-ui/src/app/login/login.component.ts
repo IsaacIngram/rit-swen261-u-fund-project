@@ -18,6 +18,7 @@ export class LoginComponent {
   }
 
   login(username: HTMLInputElement, password: HTMLInputElement): void{
+    console.log("LOGIN ATTEMPT USER: " + username.value + " PASS: " + password.value);
     this.returncode = this.loginService.login(username.value, password.value)
     if(this.returncode == 0){
       this.charErrorVisible = true

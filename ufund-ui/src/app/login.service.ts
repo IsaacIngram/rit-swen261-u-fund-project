@@ -23,7 +23,7 @@ export class LoginService {
     const url = `${this.loginEndpoint}/${username}`;
     return this.http.get<User>(url)
     .pipe(
-      tap(_ => this.log('fetched user')),
+      tap(_ => this.log(`fetched user username=${username}`)),
       catchError(this.handleError<User>(`getUser username=${username}`))
     )
   }

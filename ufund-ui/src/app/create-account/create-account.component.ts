@@ -42,15 +42,21 @@ export class CreateAccountComponent {
       this.passwordCharError = false
       return
     }
-    this.returnVal = this.authService.createAccount(username.value, password.value)
-    if(this.returnVal == 1){
-      this.router.navigate(['/login'])
-    }else{
-      this.passwordDontMatch = false
-      this.charErrorVisible = false
-      this.nameTaken = true
-      this.passwordCharError = false
-    }
-
+    this.authService.createAccount(username.value, password.value).subscribe((result) => {
+      this.returnVal = result
+      if(this.returnVal == 1){
+        this.authService.login(username.value, password.value)
+        this.router.navigate(['/cupboard'])
+      }else{
+        this.passwordDontMatch = false
+        this.charErrorVisible = false
+        this.nameTaken = true
+        this.passwordCharError = false
+      }
+      // Handle the result here
+    }, (error) => {
+      console.error('An error occurred:', error);
+      // Handle errors here
+    });
   }
 }
