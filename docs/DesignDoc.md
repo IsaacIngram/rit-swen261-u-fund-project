@@ -178,6 +178,7 @@ Our NeedFileDAO is mostly tested except for createNeed which is not tested at al
 > those._
 ![Replace with your ViewModel Tier class diagram 1, etc.](Codecoverage.png)
 Our NeedFileDAO is not fully tested but when we add a few more tests it should be at 100% coverage.
+Sprint 4: All unit testing for the NeedFileDAO is fully tested and finished adding the extra test. The test coverage is at 100%.
 
 ## Ongoing Rationale
 2/21/24: Sprint 1 completed
