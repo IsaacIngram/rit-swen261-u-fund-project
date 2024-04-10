@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { LoginService } from './login.service';
 import { User } from './User';
-import {catchError, Observable, of} from "rxjs";
+import { Observable, catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +87,44 @@ export class AccessControlService {
         return of(error); // Return the error as an Observable
       })
     );
+  }
+
+  changePassword(username: string, newPassword: string, newPasswordCheck: string): Observable<number> {
+    return new Observable<number>((observer) => {
+      if (username.length > 20 || username.length < 1) {
+        observer.error(0); // Invalid username length
+      } else if (newPassword.length > 20 || newPassword.length < 1) {
+        observer.error(1); // Invalid password length
+      } else if( newPassword !== newPasswordCheck){
+        observer.error(2) // Passwords don't match
+      } else{
+        this.loginService.getUser(username).subscribe({
+          next: (newUser) => {
+            this.returnedUser = newUser
+            if (this.returnedUser.username === "") {
+              observer.next(3); // Bad user
+            }else{
+              this.returnedUser.password = newPassword
+              this.loginService.changePassword(this.returnedUser).subscribe()
+              observer.next(4)
+            }
+            observer.complete()
+          },
+          error: (error) => {
+            observer.error(error); // Pass the error to the Observable
+          }
+        })
+      }
+      
+    }).pipe(
+      catchError((error) => {
+        console.error('An error occurred:', error);
+        return of(error); // Return the error as an Observable
+      })
+
+    )
+
+
   }
 
   logout(): void{

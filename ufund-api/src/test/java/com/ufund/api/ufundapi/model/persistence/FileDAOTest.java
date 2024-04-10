@@ -11,8 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -76,23 +75,51 @@ public class FileDAOTest {
     }
 
     @Test
-    public void testDeleteNeed() {
-        try {
-            assertEquals(true, fileDao.deleteNeed(74));
-            assertEquals(false, fileDao.deleteNeed(74));
-        } catch (Exception e) {
-            assertEquals(0, 1);
-        }
+    public void testDeleteNeed() throws IOException {
+        // Setup
+        int need_to_delete = 72;
+
+        // Invoke
+        boolean result = fileDao.deleteNeed(need_to_delete);
+
+        // Analyze
+        assertTrue(result);
+    }
+
+    @Test
+    public void testDeleteNeedDoesNotExist() throws IOException {
+        // Setup
+        int need_to_delete = 72;
+
+        // Invoke
+        boolean result = emptyFileDao.deleteNeed(need_to_delete);
+
+        // Analyze
+        assertFalse(result);
     }
         
-        
-    public void testCreateNeed() {
-        try {
-            Need need = fileDao.createNeed(new Need(69, "Water", "BEVERAGE", 69.69f, 69));
-            assertEquals(new Need(69, "Water", "BEVERAGE", 69.69f, 69), need);
-        } catch (Exception e) {
-            assertEquals(0, 1);
-        }
+    @Test
+    public void testCreateNeed() throws IOException {
+        // Setup
+        Need need = new Need(0, "Water", "BEVERAGE", 1.10f, 20);
+
+        // Invoke
+        Need result = fileDao.createNeed(need);
+
+        // Analyze
+        assertEquals(result, need);
+    }
+
+    @Test
+    public void testCreateNeedAlreadyExists() throws IOException {
+        // Setup
+        Need need = new Need(72, "Water", "BEVERAGE", 1.10f, 20);
+
+        // Invoke
+        Need result = fileDao.createNeed(need);
+
+        // Analyze
+        assertNull(result);
     }
 
     /**
@@ -212,4 +239,137 @@ public class FileDAOTest {
         // Analyze
         assertNull(result);
     }
+
+    @Test
+    public void testCreateCredential() throws IOException {
+        // Setup
+        Credential credential = new Credential("jeff", "ffffff");
+        // Invoke
+        Credential result = fileDao.createCredential(credential);
+
+        // Analyze
+        assertEquals(credential, result);
+    }
+
+    @Test
+    public void testCreateCredentialAlreadyExists() throws IOException {
+        // Setup
+        Credential credential = new Credential("admin", "ffffff");
+        // Invoke
+        Credential result = fileDao.createCredential(credential);
+
+        // Analyze
+        assertNull(result);
+    }
+
+    @Test
+    public void testUpdateCredential() throws IOException {
+        // Setup
+        Credential credential = new Credential("a", "ffffff");
+
+        // Invoke
+        Credential result = fileDao.updateCredential(credential);
+
+        // Analyze
+        assertEquals(credential, result);
+    }
+
+    @Test
+    public void testUpdateCredentialDoesNotExist() throws IOException {
+        // Setup
+        Credential credential = new Credential("jeff", "ffffff");
+
+        // Invoke
+        Credential result = fileDao.updateCredential(credential);
+
+        // Analyze
+        assertNull(result);
+    }
+
+    @Test
+    public void testCompareCredentialCorrect() throws IOException {
+        // Setup
+        Credential credential = new Credential("admin", "admin");
+
+        // Invoke
+        boolean result = fileDao.compareCredential(credential);
+
+        // Analyze
+        assertTrue(result);
+    }
+
+    @Test
+    public void testCompareCredentialIncorrect() throws IOException {
+        // Setup
+        Credential credential = new Credential("admin", "test");
+
+        // Invoke
+        boolean result = fileDao.compareCredential(credential);
+
+        // Analyze
+        assertFalse(result);
+    }
+    
+    @Test
+    public void testCompareCredentialDoesNotExist() throws IOException {
+        // Setup
+        Credential credential = new Credential("jeff", "test");
+
+        // Invoke
+        boolean result = fileDao.compareCredential(credential);
+
+        // Analyze
+        assertFalse(result);
+    }
+
+    @Test
+    public void testDeleteCredential() throws IOException {
+        // Setup
+        String user = "a";
+
+        // Invoke
+        boolean result = fileDao.deleteCredential(user);
+
+        // Analyze
+        assertTrue(result);
+    }
+
+    @Test
+    public void testDeleteCredentialDoesNotExist() throws IOException {
+        // Setup
+        String user = "affffff";
+
+        // Invoke
+        boolean result = fileDao.deleteCredential(user);
+
+        // Analyze
+        assertFalse(result);
+    }
+
+    @Test
+    public void testGetCredential() throws IOException {
+        // Setup
+        String user = "admin";
+        Credential expected = new Credential("admin", "admin");
+
+        // Invoke
+        Credential result = fileDao.getCredential(user);
+
+        // Analyze
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void testGetCredentialDoesNotExist() throws IOException {
+        // Setup
+        String user = "jeff";
+        Credential expected = new Credential("", "");
+
+        // Invoke
+        Credential result = fileDao.getCredential(user);
+
+        // Analyze
+        assertEquals(expected, result);
+    }
+
 }
