@@ -163,9 +163,11 @@ Our testing tests all functions within the API. All testing is functional for bo
 > acceptance testing and if there are any concerns._
 Our NeedsControllers that includes createNeed, updateNeed, getNeed, deleteNeed, searchNeeds, and getNeeds is fully tested and passed all tests. 
 
-Our Need class is mostly tested but is just missing an equals testing to test two items in different classes. The getID, getName, getType, getPrice, and getQuantity are all fully tested at 100%.
+Our AuthenticationControllers that includes createCredential, updateCredential, and getCredential is fully tested and passed all tests.
 
-Our NeedFileDAO is mostly tested except for createNeed which is not tested at all with a 0%. 
+Our Need and Credential classes are completely tested.
+
+Our FileDAO is completely tested, with the exception of the load() function which has some vulnerabilities that can't be tested.
 
 
 ### Unit Testing and Code Coverage
