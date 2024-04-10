@@ -109,9 +109,7 @@ export class BasketComponent {
       // Make a request to get the need from the server, and proceed to checkout the need
       // once this request is fulfilled. This allows calculating the new quantity and also
       // enables checking if the need still exists
-      this.needService.getNeed(need.id).subscribe(
-        cupboard_need => this.checkoutNeed(need, cupboard_need.quantity, this.getNeedQuantity(need))
-      );
+      this.checkoutNeed(need, need.quantity, this.getNeedQuantity(need));
     }
     this.clearBasket();
   }
