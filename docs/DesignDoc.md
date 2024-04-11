@@ -85,7 +85,7 @@ For sprint 2, we worked on the login, basket, and cupboard part of the domain. T
 
 ## Architecture and Design
 
-This section describes the application architecture.
+Our architecture is built on our on our Spring backend which provides functionality for our Angular frontend. Our Angular frontend is composed of 6 components with 2 very important services. The six components are as follows: about, basket, create-account, cupboard, forgot-password, and login. They each control a section of the website and what the user sees. Our supporting services that talk to the backend are the LoginService and the NeedService. We have 2 different data types made in the front end that are stored in the JSON files on the backend. Those 2 things are Needs and Users. There is nothing really special about our backend. It just takes requests from the frontend and modifies the JSON files based on what is passed in.
 
 ### Summary
 
