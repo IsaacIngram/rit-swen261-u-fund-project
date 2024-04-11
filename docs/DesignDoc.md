@@ -17,39 +17,52 @@ geometry: margin=1in
   * Darius Nakis
 
 ## Executive Summary
-
-We are making a website with a working frontend and backend for an organization that needs donations and items to help run it. 
+We are making a website for Foodlink, a foodbank in Rochester, New York. 
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
-For sprint 2, we focused on completeing the basket, cupboard, and login system. This gives us the ebasics of the functioning website to be able to differentiate who is loging in to the website and what is being added to and from carts. 
+The purpose of our website is to give Foodlink a platform to request help with needs they have. Users will be able to look at a cupboard of needs that Foodlink is looking to have fulfilled. Those users can select a variable quantity of each Need and "checkout" when they would like to donate to Foodlink. 
 
 ### Glossary and Acronyms
-> _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
-
-| Term | Definition |
-|------|------------|
-| SPA | Single Page |
-
+| Term | Definition                                    |
+|------|-----------------------------------------------|
+| SPA  | Single Page                                   |
+| MVP  | Minimum viable product                        |
+| Need | Anything that Foodlink needs to be fulfilled  |
+| API  | Application programming interface             |
+| REST | Representational State Transfer               |
 
 ## Requirements
+- User can login with username/password as an admin or a helper
+- Users can create accounts
+- Users can reset their passwords
+- Admin can add needs to the cupboard
+- Admins can not see user baskets
+- Helper can select needs from the cupboard to add to their basket
+- Helper can checkout needs from their basket
+- Helper's basket persists even after they logout
 
-Login features, statistic features, basket features, cupboard features, need features
-
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
 For sprint 2, our MVP includes a working basket that you can add and remove items from, a working login to allow admin and helpers to login seperately, and a cupboard that stores needs and allows them to move into and out of cart. 
 
 ### MVP Features
->  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
+>  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP.
+
+In the MVP, there were 4 important Epics that were needed to be implemented at the top level.
+
+  1. The basket is needed to keep all needs that have been added for that user. The basket also needs to include a remove need feature incase the user wants to remove a certain amount of a certain need that was added. Finally, when a user is done recieving all the needs they want, they should be able to checkout and have the needs from the basket 
 
 ### Enhancements
-> _**[Sprint 4]** Describe what enhancements you have implemented for the project._
+> _**[Sprint 4]**
+
+For the enhancements, we have implemented two different kinds that were  not related to statistics at all.
+
+    1. The first one was an accouint authentication system. The authentication system makes sure that when a user logs in, that the account was already created for and that it stores all information of that account like basket persistance, username, password, etc. This is done through storing data in a JSON file that has every user's password and username so that when a request is made from the frontend to login, then it checks if the username and password matches. 
+
+    2. The other enhancement is a forgot password so that when a user forgets their password, they can remake their password with a new copy that replaces the old password in the JSON file.
 
 
 ## Application Domain
