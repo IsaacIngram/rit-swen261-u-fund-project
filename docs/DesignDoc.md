@@ -53,7 +53,13 @@ For sprint 2, our MVP includes a working basket that you can add and remove item
 
 In the MVP, there were 4 important Epics that were needed to be implemented at the top level.
 
-  1. The basket is needed to keep all needs that have been added for that user. The basket also needs to include a remove need feature incase the user wants to remove a certain amount of a certain need that was added. Finally, when a user is done recieving all the needs they want, they should be able to checkout and have the needs from the basket 
+  1. The basket is needed to keep all needs that have been added for that user. The basket also needs to include a remove need feature incase the user wants to remove a certain amount of a certain need that was added. Finally, when a user is done recieving all the needs they want, they should be able to checkout and have all needs cleared from the basket.
+
+  2. The User must be able to go into the cupboard and look at all needs present. To do this, it required all need functionality to be implemented from sprint 2. This includes adding a single need, adding a certain quantity of a single type of need, and searching a need. This will help the user to be able to get any need they want so that it can be added to their basket.
+
+  3. The admin must be able to have a seperate cupboard so that the admin can add a new need to the cupboard that the user can see and remove any need from the user cupboard. This is necessary so that the cupboard can stay up to date and organized for whenever any new or already existing users are using the website.
+
+  4. The login page is very important. This helps the person logging in to sign in as a user or as an admin. This helps differentiate the type of account so that the user can see a different cupboard than the admin cupboard. It is very simple implmementation, but was enhanced in sprint 3 by implementing authentication use and keeping track of a password.
 
 ### Enhancements
 > _**[Sprint 4]**
@@ -69,7 +75,7 @@ For the enhancements, we have implemented two different kinds that were  not rel
 
 This section describes the application domain.
 
-![Domain Model](Domainmodel.png)
+![Domain Model](sprint4domainmodelpng.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
@@ -104,6 +110,10 @@ This section describes the web interface flow; this is how the user views and in
 
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
 A user will enter the login page which will make them login as either a admin or a helper. From their, they can go to the cupboard to add things to their basket or to their basket to edit the things they have selected to put into their basket. 
+
+When you navigate to the website you are greeted by the about page, where you can read about Foodlink. From there, you can navigate to the login page to login. Once you're on the login page, you can either login, create an account, or reset your password. If you login, you are first taken to the basket page to you can see the items currently in your basket. You can click on the cupboard page to see all needs in the cupboard, and this is also where you search for needs. You can navigate to your basket, from which you can see all needs in your basket, remove individual needs, remove all needs, or checkout. It's worth noting that your basket is always saved so you can login and see the needs you previously added to your basket. At any time you can also click "logout" which will sign you out of your account.
+
+If you are an admin user, you can see the same pages, except you login as "admin" on the login page. As an admin, you can go to the basket page but you can't see any baskets. On the cupboard page, you can edit and remove needs, as well as add new ones.
 
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
