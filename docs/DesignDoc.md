@@ -123,7 +123,7 @@ Within our viewmodel, we have our REST API and the Service. Our REST API uses sp
 ![Replace with your ViewModel Tier class diagram 1, etc.](updated-domain-model.png)
 
 ### Model Tier
-Within our model, we have the Model and the Persistence. Our model contains the main Needs file that defines a need and all of the functions Needs does. Our Persistence uses the NeedDAO and the NeedFileDAO. The NeedDAO is the interface for the NeedFileDAO to use to help implement all of its functions. 
+Within our model, we have the Model and the Persistence. Our model contains the main Needs file that defines a need and all of the functions Needs does. Our Persistence for Needs uses the NeedDAO and the FileDAO. The NeedDAO is the interface for the FileDAO to use to help implement all of its functions. Our model also contains the Credential file that defines a credential and all of the functions Credential does. Our persistence for Credentials uses the AuthenticationDAO and the File DAO. THe AuthenticationDAO is the interface for hte FileDAO to use to help implement all of its functions
 
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
