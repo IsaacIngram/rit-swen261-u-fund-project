@@ -46,10 +46,20 @@ Login features, statistic features, basket features, cupboard features, need fea
 For sprint 2, our MVP includes a working basket that you can add and remove items from, a working login to allow admin and helpers to login seperately, and a cupboard that stores needs and allows them to move into and out of cart. 
 
 ### MVP Features
->  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
+>  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP.
+
+In the MVP, there were 4 important Epics that were needed to be implemented at the top level.
+
+  1. The basket is needed to keep all needs that have been added for that user. The basket also needs to include a remove need feature incase the user wants to remove a certain amount of a certain need that was added. Finally, when a user is done recieving all the needs they want, they should be able to checkout and have the needs from the basket 
 
 ### Enhancements
-> _**[Sprint 4]** Describe what enhancements you have implemented for the project._
+> _**[Sprint 4]**
+
+For the enhancements, we have implemented two different kinds that were  not related to statistics at all.
+
+    1. The first one was an accouint authentication system. The authentication system makes sure that when a user logs in, that the account was already created for and that it stores all information of that account like basket persistance, username, password, etc. This is done through storing data in a JSON file that has every user's password and username so that when a request is made from the frontend to login, then it checks if the username and password matches. 
+
+    2. The other enhancement is a forgot password so that when a user forgets their password, they can remake their password with a new copy that replaces the old password in the JSON file.
 
 
 ## Application Domain
