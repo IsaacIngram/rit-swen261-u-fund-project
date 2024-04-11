@@ -43,12 +43,6 @@ The purpose of our website is to give Foodlink a platform to request help with n
 - Helper can checkout needs from their basket
 - Helper's basket persists even after they logout
 
-Login features, statistic features, basket features, cupboard features, need features
-
-
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
