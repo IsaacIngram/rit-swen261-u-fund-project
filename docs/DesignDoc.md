@@ -53,7 +53,13 @@ For sprint 2, our MVP includes a working basket that you can add and remove item
 
 In the MVP, there were 4 important Epics that were needed to be implemented at the top level.
 
-  1. The basket is needed to keep all needs that have been added for that user. The basket also needs to include a remove need feature incase the user wants to remove a certain amount of a certain need that was added. Finally, when a user is done recieving all the needs they want, they should be able to checkout and have the needs from the basket 
+  1. The basket is needed to keep all needs that have been added for that user. The basket also needs to include a remove need feature incase the user wants to remove a certain amount of a certain need that was added. Finally, when a user is done recieving all the needs they want, they should be able to checkout and have all needs cleared from the basket.
+
+  2. The User must be able to go into the cupboard and look at all needs present. To do this, it required all need functionality to be implemented from sprint 2. This includes adding a single need, adding a certain quantity of a single type of need, and searching a need. This will help the user to be able to get any need they want so that it can be added to their basket.
+
+  3. The admin must be able to have a seperate cupboard so that the admin can add a new need to the cupboard that the user can see and remove any need from the user cupboard. This is necessary so that the cupboard can stay up to date and organized for whenever any new or already existing users are using the website.
+
+  4. The login page is very important. This helps the person logging in to sign in as a user or as an admin. This helps differentiate the type of account so that the user can see a different cupboard than the admin cupboard. It is very simple implmementation, but was enhanced in sprint 3 by implementing authentication use and keeping track of a password.
 
 ### Enhancements
 > _**[Sprint 4]**
