@@ -17,25 +17,34 @@ geometry: margin=1in
   * Darius Nakis
 
 ## Executive Summary
-
-We are making a website with a working frontend and backend for an organization that needs donations and items to help run it. 
+We are making a website for Foodlink, a foodbank in Rochester, New York. 
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
-For sprint 2, we focused on completeing the basket, cupboard, and login system. This gives us the ebasics of the functioning website to be able to differentiate who is loging in to the website and what is being added to and from carts. 
+The purpose of our website is to give Foodlink a platform to request help with needs they have. Users will be able to look at a cupboard of needs that Foodlink is looking to have fulfilled. Those users can select a variable quantity of each Need and "checkout" when they would like to donate to Foodlink. 
 
 ### Glossary and Acronyms
-> _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
-
-| Term | Definition |
-|------|------------|
-| SPA | Single Page |
-
+| Term | Definition                                    |
+|------|-----------------------------------------------|
+| SPA  | Single Page                                   |
+| MVP  | Minimum viable product                        |
+| Need | Anything that Foodlink needs to be fulfilled  |
+| API  | Application programming interface             |
+| REST | Representational State Transfer               |
 
 ## Requirements
+- User can login with username/password as an admin or a helper
+- Users can create accounts
+- Users can reset their passwords
+- Admin can add needs to the cupboard
+- Admins can not see user baskets
+- Helper can select needs from the cupboard to add to their basket
+- Helper can checkout needs from their basket
+- Helper's basket persists even after they logout
 
 Login features, statistic features, basket features, cupboard features, need features
+
 
 > _In this section you do not need to be exhaustive and list every
 > story.  Focus on top-level features from the Vision document and
