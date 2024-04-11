@@ -105,6 +105,10 @@ This section describes the web interface flow; this is how the user views and in
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
 A user will enter the login page which will make them login as either a admin or a helper. From their, they can go to the cupboard to add things to their basket or to their basket to edit the things they have selected to put into their basket. 
 
+When you navigate to the website you are greeted by the about page, where you can read about Foodlink. From there, you can navigate to the login page to login. Once you're on the login page, you can either login, create an account, or reset your password. If you login, you are first taken to the basket page to you can see the items currently in your basket. You can click on the cupboard page to see all needs in the cupboard, and this is also where you search for needs. You can navigate to your basket, from which you can see all needs in your basket, remove individual needs, remove all needs, or checkout. It's worth noting that your basket is always saved so you can login and see the needs you previously added to your basket. At any time you can also click "logout" which will sign you out of your account.
+
+If you are an admin user, you can see the same pages, except you login as "admin" on the login page. As an admin, you can go to the basket page but you can't see any baskets. On the cupboard page, you can edit and remove needs, as well as add new ones.
+
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
 > Describe the types of components in the tier and describe their
