@@ -122,11 +122,17 @@ A user will enter the login page which will make them login as either a admin or
 > As these can span multiple tiers, be sure to include an relevant HTTP requests from the client-side to the server-side 
 > to help illustrate the end-to-end flow._
 
-> _**[Sprint 4]** To adequately show your system, you will need to present the **class diagrams** where relevant in your design. Some additional tips:_
- >* _Class diagrams only apply to the **ViewModel** and **Model** Tier_
->* _A single class diagram of the entire system will not be effective. You may start with one, but will be need to break it down into smaller sections to account for requirements of each of the Tier static models below._
- >* _Correct labeling of relationships with proper notation for the relationship type, multiplicities, and navigation information will be important._
- >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
+
+When you first go to the website you are routed by the routing service to the about component. The about component displays information about Foodlink and how you can help. When you are ready to contribute, you can click on the "login" button in the navigation bar which will route you to the login component. The login components gives you a few options. If you can enter your account credentials and click "log in", in which case you'll be routed to the basket component (assuming the credentials are correct). You can also click the "create account" button to be routed to the create account component where you can create a new account, or you can click the "reset password" button to be routed to the forgot password component, where you can reset the password to your account. 
+
+Once you have logged in, you are taken the "basket" component. If you logged in as an admin you will see the message "admin can not see user baskets". If you logged in as a helper, you will see your basket's contents. As a helper, you will be able to remove items from the basket or checkout from the basket component. Both admins and helpers can click on the "cupboard" button in the navigation bar to be routed to the cupboard component. The cupboard component is displayed differently based on whether you are an admin or a helper. If you are a helper, you will see a list of all needs in the cupboard, as well as a search bar. You can search for needs or select a need and quantity to add to your basket. If you are an admin, you will see a list of all needs in the cupboard and will be able to modify any of their fields (except their uniquely assigned ID). You will also see a section where you can add a new need to the cupboard.
+
+Our view tier also includes a few services to be used in the components. There is a need service and a credential service, both of which are responible for making HTTP requests to the backend (viewmodel tier). There is also the access control service, which is responsible for handling user login/logout interactions and informing the components what should or should not be displayed.
+
+Example flow of user searching for a need and adding it to their basket.
+![](search_add_diagram.png)
+Example flow of user logging in.
+![](login_diagram.png)
 
 ### ViewModel Tier
 Within our viewmodel, we have our REST API and the Service. Our REST API uses spring framework and uses the NeedController as its platform. Service uses UFundAPIApplication as its framework and the WebConfig as its platform. Both of these can use any operating system or hardware to run.
