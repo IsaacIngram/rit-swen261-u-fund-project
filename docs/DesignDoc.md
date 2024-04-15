@@ -201,8 +201,16 @@ Our FileDAO is completely tested, with the exception of the load() function whic
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 ![Replace with your ViewModel Tier class diagram 1, etc.](Codecoverage.png)
-Our NeedFileDAO is not fully tested but when we add a few more tests it should be at 100% coverage.
-Sprint 4: All unit testing for the NeedFileDAO is fully tested and finished adding the extra test. The test coverage is at 100%.
+
+For testing our backend, we created JUnit tests. Our backend can essentialy be divided into two parts, the part that accesses memory (FileDAO) and the part that handles REST requests (Need/Authentication Controller). These two parts are tested individually. 
+
+To test the FileDAO, Mockito is used to mock data being read and written to the file system. This way the functionality of the methods handling the read/write can be tested, including when they experience IO exceptions.
+
+For the controller, we test all functions bound to HTPP requests for hteir possible return values. This includes values such as 200 OK, 404 Not Found, and 404 Unautorized. We also test for each function will react when the FileDAO throws an IO Exception.
+
+We also test the Need and Credential classes responsible for holding an entity of a Need or a Credential. We check that the expected value is returned for each member when each function for getting a member is called.
+
+Our tests of the controllers and model show 100% coverage because all functions are tested. The FileDAO shows only 98% coverage because two small try-catch statements throw a variety of exceptions that we don't test for because they are extremely unlikely. UfundApiApplication class shows a tiny 37% of test coverage, as the only contents of this file are the main() function that merely starts the spring application. This is never tested because we know that the application starts if the tests can run.
 
 ## Ongoing Rationale
 2/21/24: Sprint 1 completed
