@@ -20,8 +20,6 @@ geometry: margin=1in
 We are making a website for Foodlink, a foodbank in Rochester, New York. 
 
 ### Purpose
->  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
-> important user group and user goals._
 The purpose of our website is to give Foodlink a platform to request help with needs they have. Users will be able to look at a cupboard of needs that Foodlink is looking to have fulfilled. Those users can select a variable quantity of each Need and "checkout" when they would like to donate to Foodlink. 
 
 ### Glossary and Acronyms
@@ -45,11 +43,11 @@ The purpose of our website is to give Foodlink a platform to request help with n
 
 
 ### Definition of MVP
-> _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
 For sprint 2, our MVP includes a working basket that you can add and remove items from, a working login to allow admin and helpers to login seperately, and a cupboard that stores needs and allows them to move into and out of cart. 
 
+For sprint 4, our MVP includes a working basket that needs can be added and removed from, and that also supports basket persistence between logins. Admins and helpers should be able to sign in separately, and helpers can create accounts and reset their passwords. There is a cupboard where they admin can add and edit needs, and where the helper can move needs into and out of their car.t
+
 ### MVP Features
->  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP.
 
 In the MVP, there were 4 important Epics that were needed to be implemented at the top level.
 
@@ -193,13 +191,6 @@ Our FileDAO is completely tested, with the exception of the load() function whic
 
 
 ### Unit Testing and Code Coverage
-> _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets._
-
->_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
-> those._
 ![Replace with your ViewModel Tier class diagram 1, etc.](Codecoverage.png)
 
 For testing our backend, we created JUnit tests. Our backend can essentialy be divided into two parts, the part that accesses memory (FileDAO) and the part that handles REST requests (Need/Authentication Controller). These two parts are tested individually. 
