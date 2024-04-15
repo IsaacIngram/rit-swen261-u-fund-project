@@ -129,9 +129,9 @@ Once you have logged in, you are taken the "basket" component. If you logged in 
 
 Our view tier also includes a few services to be used in the components. There is a need service and a credential service, both of which are responible for making HTTP requests to the backend (viewmodel tier). There is also the access control service, which is responsible for handling user login/logout interactions and informing the components what should or should not be displayed.
 
-Example flow of user searching for a need and adding it to their basket.
+Example flow of user searching for a need and adding it to their basket:
 ![](search_add_diagram.png)
-Example flow of user logging in.
+Example flow of user logging in:
 ![](login_diagram.png)
 
 ### ViewModel Tier
@@ -169,14 +169,16 @@ We used low coupling as a design principle between the NeedDAO and the NeedFileD
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
 ## Static Code Analysis/Future Design Improvements
-While looking at the Static Code Analysis tool, we found that the only issues in our code was that the CSS files for some of the components have not been filled out. This effects future maintanibility but is not a structural issue. Additionally I found that the front end does not have attiquite testing coverage which we should look at in the future.
-Looking to the future, we should fill in the CSS files and add more front end testing.
-> _**[Sprint 4]** With the results from the Static Code Analysis exercise, 
-> **Identify 3-4** areas within your code that have been flagged by the Static Code 
-> Analysis Tool (SonarQube) and provide your analysis and recommendations.  
-> Include any relevant screenshot(s) with each area._
 
-> _**[Sprint 4]** Discuss **future** refactoring and other design improvements your team would explore if the team had additional time._
+Looking at our SCA results, there are a few areas where we could improve if we had more time.
+1. Increase code coverage for front end. We have not implemented any unit tests in Angular, but we could easily increase our UI coverage to over 80% if we implemented just a few basic tests.
+![](ui_no_coverage.png)
+2. Refactor FileDAO to properly share resources and use static functions. There are multiple high-impact maintainability issues related to the use of non-static functions when accessing a shared resource.
+![](high_impact_maintainability.png)
+3. Refactor assertions to not compare dissimilar types. Certain assertions in the API unit tests are guilty of this, and it is highly impacting our reliability score.
+![](high_implact_reliability.png.png)
+
+If we had more time in the future, we would focus on making reliable and maintainable code that uses proper assert statements and correctly handles shared resources. We would also make sure that keywords such as "static" are used when they should be.
 
 ## Testing
 Our testing tests all functions within the API. All testing is functional for both the File DAO and the Controller.
