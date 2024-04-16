@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/api/auth")
 public class AuthenticationController {
 
     private static final Logger LOG = Logger.getLogger(NeedController.class.getName());

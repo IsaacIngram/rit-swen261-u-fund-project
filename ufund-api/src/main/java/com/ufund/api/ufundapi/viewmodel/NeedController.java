@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("needs")
+@RequestMapping("/api/needs")
 public class NeedController {
     private static final Logger LOG = Logger.getLogger(NeedController.class.getName());
     private NeedDAO needDao;
