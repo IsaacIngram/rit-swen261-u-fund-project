@@ -8,7 +8,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
 })
 export class LoginService {
   // URL to web API
-  private loginEndpoint = '/auth'
+  private loginEndpoint = '/api/auth'
 
   // Use JSON content type
   httpOptions = {

@@ -9,7 +9,7 @@ import {Need} from "./Need";
 export class NeedService {
 
   // URL to web API
-  private needsEndpoint = '/needs'
+  private needsEndpoint = '/api/needs'
 
   // Use JSON content type
   httpOptions = {
